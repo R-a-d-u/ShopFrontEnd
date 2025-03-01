@@ -1,12 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../app/components/home/home.component'; // Import your HomeComponent
-import { JewelryComponent } from '../app/components/jewelry/jewelry.component'; // Import your HomeComponent
+import { HomeComponent } from '../app/components/home/home.component'; 
+import { JewelryComponent } from '../app/components/jewelry/jewelry.component'; 
+import { AdminComponent } from '../app/components/admin/admin.component';
+import { CartComponent } from '../app/components/cart/cart.component';
+import { CreateAccountComponent } from '../app/components/create-account/create-account.component';
+import { GoldBarsComponent } from '../app/components/gold-bars/gold-bars.component';
+import { GoldCoinsComponent } from '../app/components/gold-coins/gold-coins.component';
+import { LoginComponent } from '../app/components/login/login.component';
+import { ProductDetailsComponent } from '../app/components/product-details/product-details.component'; 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }, // Root path
-  { path: 'jewelry', component: JewelryComponent }, // Root path
-  { path: '**', redirectTo: '', pathMatch: 'full' } // Redirect unknown routes to home
+  { path: '', component: HomeComponent }, 
+  { path: 'jewelry', component: JewelryComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'create-account', component: CreateAccountComponent },
+  { path: 'gold-bars', component: GoldBarsComponent },
+  { path: 'gold-coins', component: GoldCoinsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'product-details', component: ProductDetailsComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }, 
 ];
 
 @NgModule({

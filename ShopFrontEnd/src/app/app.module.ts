@@ -9,6 +9,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { JewelryComponent } from './components/jewelry/jewelry.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CartComponent } from './components/cart/cart.component';
+import { GoldBarsComponent } from './components/gold-bars/gold-bars.component';
+import { GoldCoinsComponent } from './components/gold-coins/gold-coins.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { LoginComponent } from './components/login/login.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +23,20 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     HomeComponent,
     JewelryComponent,
-    FooterComponent
+    FooterComponent,
+    CartComponent,
+    GoldBarsComponent,
+    GoldCoinsComponent,
+    ProductDetailsComponent,
+    LoginComponent,
+    CreateAccountComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
