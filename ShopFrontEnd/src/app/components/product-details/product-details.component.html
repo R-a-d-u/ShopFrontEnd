@@ -1,1 +1,60 @@
-<p>product-details works!</p>
+<app-navbar></app-navbar>
+<div class="product-detail-container">
+  <button class="back-button" (click)="goBack()">← Back to Gold Coins</button>
+
+  <div *ngIf="loading" class="loading-spinner">
+   <a>rads</a>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error && product" class="product-detail">
+    <div class="product-image-container">
+      <img *ngIf="product.image" [src]="product.image" [alt]="product.name" class="product-image">
+      <div *ngIf="!product.image" class="no-image">No image available</div>
+    </div>
+
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+
+      <div class="product-price">
+        <h2>{{ product.sellingPrice | currency }}</h2>
+      </div>
+
+      <div class="product-details">
+        <div class="detail-item" *ngIf="product.goldWeightInGrams">
+          <span class="label">Gold Weight:</span>
+          <span class="value">{{ product.goldWeightInGrams }}g</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="label">Category:</span>
+          <span class="value">{{ product.category?.name || 'Gold Coin' }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="label">Availability:</span>
+          <span class="value" [ngClass]="{'in-stock': product.stockQuantity > 0, 'out-of-stock': product.stockQuantity === 0}">
+            {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
+          </span>
+        </div>
+
+        <div class="detail-item" *ngIf="product.stockQuantity > 0">
+          <span class="label">Stock:</span>
+          <span class="value">{{ product.stockQuantity }} available</span>
+        </div>
+      </div>
+
+      <div class="product-description">
+        <h3>Description</h3>
+        <p>{{ product.description }}</p>
+      </div>
+
+      <div class="product-actions" *ngIf="product.stockQuantity > 0">
+        <button class="add-to-cart-button">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>

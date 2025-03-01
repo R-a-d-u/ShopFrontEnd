@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'; // Import RouterModule
 import { AppRoutingModule } from './app-routing.module'; // Import AppRoutingModule
+import { HttpClientModule } from '@angular/common/http'; // Add this import
 //import { HomeComponent } from './home.component'; // Import HomeComponent
 
 import { AppComponent } from './app.component';
@@ -30,12 +31,13 @@ import { AdminComponent } from './components/admin/admin.component';
     ProductDetailsComponent,
     LoginComponent,
     CreateAccountComponent,
-    AdminComponent
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
