@@ -86,13 +86,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 40px; /* You can adjust this value */
+  margin-bottom: 40px; /* This will add space at the bottom */
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 95vw; /* 90% of the viewport width */
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 2%; /* 10% padding on left and right */
 }
+
 
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?w=1600');
@@ -113,6 +116,16 @@ body {
   gap: 30px;
   padding: 20px;
   max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Special grid for home page to show 3 items in a row */
+.home-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -433,13 +446,16 @@ p {
   background: #333;
   color: white;
   padding: 60px 0 20px;
+  margin-top: 5%;
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
+  gap: 13%;
+  margin-bottom: 0%;
+  margin-left: 7%;
+  margin-right: 0%;
 }
 
 .footer-section h3 {
@@ -472,14 +488,16 @@ p {
 .gold-prices {
   background: #fff;
   min-height: auto;
-  padding: 40px 20px;
+  padding: 30px 20px;
+  margin-top: 60px; /* Adjust as needed */
+  margin-bottom: 60px; /* Add margin-bottom for space after this section */
 }
 
 .gold-price-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 1000px;
+  gap: 50px;
+  max-width: 100vh;
   margin: 0 auto;
 }
 
@@ -490,6 +508,7 @@ p {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
+  max-width: 100vh;
 }
 
 .gold-chart-image {
@@ -544,6 +563,10 @@ p {
     grid-template-columns: 1fr;
   }
 
+  .home-product-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cart-item {
     grid-template-columns: 1fr;
     text-align: center;
@@ -556,4 +579,17 @@ p {
   .quantity-controls {
     justify-content: center;
   }
+  .home-section {
+    padding: 40px 20px; /* Adjust padding for general spacing inside the sections */
+    margin-top: 10%; /* Add margin-top for spacing from elements above */
+    margin-bottom: 10%; /* Add margin-bottom for spacing to elements below */
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+    .home-section h2 {
+      margin-bottom: 2px;
+    }
 }
