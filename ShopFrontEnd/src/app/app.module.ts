@@ -36,7 +36,6 @@ import { AdminComponent } from './components/admin/admin.component';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
