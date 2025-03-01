@@ -5,6 +5,13 @@ import { ProductService, Product } from '../../services/product.service';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+export enum ProductType {
+  Jewelry = 1,
+  GoldJewelry = 2,
+  GoldCoins = 3,
+  GoldBars = 4
+}
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -51,5 +58,8 @@ export class ProductDetailsComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/gold-coins']);
+  }
+  getProductTypeName(productType: number): string {
+    return ProductType[productType] || 'Unknown';
   }
 }

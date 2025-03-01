@@ -1,60 +1,79 @@
 <app-navbar></app-navbar>
-<div class="product-detail-container">
-  <button class="back-button" (click)="goBack()">← Back to Gold Coins</button>
+<section class="section product-detail" *ngIf="product">
+  <div class="container">
+    <div class="product-detail-grid" data-aos="fade-up">
+      <div class="product-image-details-container">
+        <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">
+        <div *ngIf="!product?.image" class="no-image">No image available</div>
+      </div>
+
+      <div class="product-info-container">
+        <h2>{{ product?.name }}: {{ product?.goldWeightInGrams }} g</h2>
+
+        <div class="price">
+          <h3>{{ product?.sellingPrice | currency }}</h3>
+        </div>
+
+
+        <div class="details-section">
+          <h3>Key Features</h3>
+          <ul>
+            <li class="description">LBMA certified {{ getProductTypeName(product.categoryId) }}</li>
+            <li *ngIf="product?.categoryId==4" class="description">Individually serialized</li>
+            <li *ngIf="product?.categoryId==3" class="description">Excellent collector's item</li>
+            <li *ngIf="product?.categoryId==1 || product?.categoryId==2 " class="description">VS1 clarity, F color grade</li>
+            <li class="description">Includes certificate of autenticity</li>
+            <li class="description">Secure packaging</li>
+          </ul>
+        </div>
+
+        <div class="specifications-section">
+          <h3>Specifications</h3>
+          <div class="specifications-grid">
+            <div class="spec-item">
+              <span class="spec-label">Gold Weight:</span>
+              <span class="spec-label">{{ product?.goldWeightInGrams }}g</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Purity:</span>
+              <span *ngIf="product?.categoryId!=3" class="spec-label">999.9 (24K)</span>
+              <span *ngIf="product?.categoryId==3" class="spec-label">916.7 (22K)</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Manufacturer:</span>
+              <span *ngIf="product?.categoryId==3 || product?.categoryId==4 " class="spec-label">Swiss Bank Corporation</span>
+              <span *ngIf="product?.categoryId==2 || product?.categoryId==1 " class="spec-label">LVMH. Paris, France</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label"> Certification:</span>
+              <span class="spec-label"> LBMA Good Delivery</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="product-details">
+          <h3>Stock:</h3>
+          <span class="value" [ngClass]="{'in-stock': product?.stockQuantity && product.stockQuantity > 0, 'out-of-stock': product?.stockQuantity === 0}">
+            {{ product?.stockQuantity && product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }} {{ product.stockQuantity }} available
+          </span>
+
+          <div class="product-actions" *ngIf="product?.stockQuantity && product.stockQuantity > 0">
+            <button class="btn contact-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+  </div>
 
   <div *ngIf="loading" class="loading-spinner">
-   <a>rads</a>
+    <a>Loading...</a>
   </div>
 
   <div *ngIf="error" class="error-message">
     {{ error }}
   </div>
 
-  <div *ngIf="!loading && !error && product" class="product-detail">
-    <div class="product-image-container">
-      <img *ngIf="product.image" [src]="product.image" [alt]="product.name" class="product-image">
-      <div *ngIf="!product.image" class="no-image">No image available</div>
+  <button class="back-button" (click)="goBack()">← Back to Gold Coins</button>
     </div>
-
-    <div class="product-info">
-      <h1>{{ product.name }}</h1>
-
-      <div class="product-price">
-        <h2>{{ product.sellingPrice | currency }}</h2>
-      </div>
-
-      <div class="product-details">
-        <div class="detail-item" *ngIf="product.goldWeightInGrams">
-          <span class="label">Gold Weight:</span>
-          <span class="value">{{ product.goldWeightInGrams }}g</span>
-        </div>
-
-        <div class="detail-item">
-          <span class="label">Category:</span>
-          <span class="value">{{ product.category?.name || 'Gold Coin' }}</span>
-        </div>
-
-        <div class="detail-item">
-          <span class="label">Availability:</span>
-          <span class="value" [ngClass]="{'in-stock': product.stockQuantity > 0, 'out-of-stock': product.stockQuantity === 0}">
-            {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
-          </span>
-        </div>
-
-        <div class="detail-item" *ngIf="product.stockQuantity > 0">
-          <span class="label">Stock:</span>
-          <span class="value">{{ product.stockQuantity }} available</span>
-        </div>
-      </div>
-
-      <div class="product-description">
-        <h3>Description</h3>
-        <p>{{ product.description }}</p>
-      </div>
-
-      <div class="product-actions" *ngIf="product.stockQuantity > 0">
-        <button class="add-to-cart-button">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
+<app-footer></app-footer>

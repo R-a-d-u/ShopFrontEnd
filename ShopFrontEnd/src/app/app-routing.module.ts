@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'gold-bars', component: GoldBarsComponent },
   { path: 'gold-coins', component: GoldCoinsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'product-details', component: ProductDetailsComponent },
+  { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }, 
 ];
 

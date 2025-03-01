@@ -2,10 +2,9 @@
 <app-navbar></app-navbar>
 <section class="section ">
   <div class="container">
-    <h2 data-aos="fade-up">Gold Coins</h2>
+    <h2 data-aos="fade-down">Gold Coins</h2>
 
     <div *ngIf="loading" class="loading-spinner">
-      <a>Loading...</a>
     </div>
 
     <div *ngIf="error" class="error-message">
@@ -13,11 +12,11 @@
     </div>
 
     <div *ngIf="!loading && !error" class="product-grid">
-      <div class="product-card" data-aos="fade-up" *ngFor="let product of products">
+      <div class="product-card" data-aos="fade-down" *ngFor="let product of products">
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">
         <div *ngIf="!product.image" class="no-image">No image available</div>
         <div class="product-info">
-          <h3>{{product.name}} {{product.goldWeightInGrams}} g</h3>
+          <h3>{{product.name}}: {{product.goldWeightInGrams}} g</h3>
           <p>{{product.productState === 1 ? 'Available' : 'Unavailable'}}</p>
           <p class="price">Price: {{product.sellingPrice | currency}}</p>
           <p class="stock" [ngClass]="{'low-stock': product.stockQuantity < 5}">
