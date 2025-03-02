@@ -1,0 +1,42 @@
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #f8f9fa;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    margin-bottom: 20px;
+    /* Adds space between the button and the image */
+}
+
+.back-button:hover {
+    background-color: #e2e6ea;
+}
+
+/* Add padding to the product image container to ensure space */
+.product-image-details-container {
+    margin-top: 7%;
+    /* Creates space between the back button and the image */
+}
+
+.left-container h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 5%;
+    font-family: 'Playfair Display', serif;
+}
+
+.left-image {
+    width: 400px;
+    height: 400px;
+    margin-top: 3%;
+    position: relative;
+    position: sticky;
+
+    object-fit: cover;
+}

@@ -7,9 +7,8 @@ import { of } from 'rxjs';
 
 export enum ProductType {
   Jewelry = 1,
-  GoldJewelry = 2,
-  GoldCoins = 3,
-  GoldBars = 4
+  GoldCoins = 2,
+  GoldBars = 3
 }
 
 @Component({
@@ -57,9 +56,24 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   goBack(): void {
+    if(this.product?.categoryId==1)
+    this.router.navigate(['/jewelry']);
+    if(this.product?.categoryId==2)
     this.router.navigate(['/gold-coins']);
+    if(this.product?.categoryId==3)
+    this.router.navigate(['/gold-bars']);
   }
   getProductTypeName(productType: number): string {
     return ProductType[productType] || 'Unknown';
+  }
+  getCategoryNameById(): string
+  {
+    if(this.product?.categoryId==1)
+      return "jewlery";
+      if(this.product?.categoryId==2)
+        return "gold coins";
+      if(this.product?.categoryId==3)
+        return "gold bars";
+      return "";
   }
 }

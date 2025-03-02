@@ -1,0 +1,36 @@
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination */
+    align-items: center;
+    gap: 15px; /* Add some spacing between buttons */
+    margin-top: 8%;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  
+    .pagination button {
+      padding: 8px 16px; /* Button padding */
+      font-size: 10px;
+      background-color: #c5a47e; /* Same background color as product price */
+      border: 1px solid #f7c600; /* Match border color with background */
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+  
+      .pagination button:hover {
+        background-color: #b18d5f; /* Darker shade on hover */
+      }
+  
+      .pagination button:disabled {
+        background-color: #d3d3d3; /* Light grey when disabled */
+        cursor: not-allowed;
+        border: 1px solid #d3d3d3;
+      }
+  
+    .pagination span {
+      font-size: 16px;
+      color: #333; /* Darker color for page numbers */
+    }
+  

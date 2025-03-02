@@ -7,8 +7,8 @@
     <div *ngIf="loading" class="loading-spinner">
     </div>
 
-    <div *ngIf="error" class="error-message">
-      {{ error }}
+    <div *ngIf="error" class="error-message" style="margin-left: 7%;">
+        {{ error }}
     </div>
 
     <div *ngIf="!loading && !error" class="product-grid">
@@ -16,12 +16,10 @@
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">
         <div *ngIf="!product.image" class="no-image">No image available</div>
         <div class="product-info">
-          <h3>{{product.name}}: {{product.goldWeightInGrams}} g</h3>
-          <p>{{product.productState === 1 ? 'Available' : 'Unavailable'}}</p>
+          <h3>{{product.name}}</h3>
+          <p> Gold: {{product.goldWeightInGrams}} g</p>
+          <p>{{product.productState === 1 && product.stockQuantity>0 ? 'Available' : 'Unavailable'}}</p>
           <p class="price">Price: {{product.sellingPrice | currency}}</p>
-          <p class="stock" [ngClass]="{'low-stock': product.stockQuantity < 5}">
-            {{ product.stockQuantity > 0 ? 'In Stock: ' + product.stockQuantity : 'Out of Stock' }}
-          </p>
           <a [routerLink]="['/product-details', product.id]" class="btn">View Details</a>
         </div>
       </div>

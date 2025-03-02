@@ -29,7 +29,7 @@ export class GoldCoinsComponent implements OnInit {
     this.loading = true;
     this.currentPage = page;
 
-    this.productService.getAllProductsByCategoryId(1, page).subscribe({
+    this.productService.getAllProductsByCategoryId(2, page).subscribe({
       next: (response) => {
         if (response.isSuccess && response.result) {
           this.products = response.result.items;

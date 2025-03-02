@@ -3,25 +3,24 @@
   <div class="container" *ngIf="product">
     <div class="product-detail-grid" data-aos="fade-up">
       <div class="product-image-details-container">
-        <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">
+        <div class="left-container">
+          <h2 *ngIf="product.categoryId!=1">{{ product.goldWeightInGrams }} g {{ product.name }}</h2>
+          <h2 *ngIf="product.categoryId==1">{{ product.name }}</h2>
+          <h3 class="price">{{ product.sellingPrice | currency }}</h3>
+        </div>
+        
+        <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="left-image">
         <div *ngIf="!product?.image" class="no-image">No image available</div>
       </div>
 
-      <div class="product-info-container">
-        <h2>{{ product?.name }}: {{ product?.goldWeightInGrams }} g</h2>
-
-        <div class="price">
-          <h3>{{ product?.sellingPrice | currency }}</h3>
-        </div>
-
-
+      <div class="product-info-container" *ngIf="product">
         <div class="details-section">
           <h3>Key Features</h3>
           <ul>
             <li class="description">LBMA certified {{ getProductTypeName(product.categoryId) }}</li>
-            <li *ngIf="product?.categoryId==4" class="description">Individually serialized</li>
-            <li *ngIf="product?.categoryId==3" class="description">Excellent collector's item</li>
-            <li *ngIf="product?.categoryId==1 || product?.categoryId==2 " class="description">VS1 clarity, F color grade</li>
+            <li *ngIf="product?.categoryId==3" class="description">Individually serialized</li>
+            <li *ngIf="product?.categoryId==2" class="description">Excellent collector's item</li>
+            <li *ngIf="product?.categoryId==1" class="description">VS1 clarity, F color grade</li>
             <li class="description">Includes certificate of autenticity</li>
             <li class="description">Secure packaging</li>
           </ul>
@@ -36,13 +35,13 @@
             </div>
             <div class="spec-item">
               <span class="spec-label">Purity:</span>
-              <span *ngIf="product?.categoryId!=3" class="spec-label">999.9 (24K)</span>
-              <span *ngIf="product?.categoryId==3" class="spec-label">916.7 (22K)</span>
+              <span *ngIf="product?.categoryId==3" class="spec-label">999.9 (24K)</span>
+              <span *ngIf="product?.categoryId!==3" class="spec-label">916.7 (22K)</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">Manufacturer:</span>
-              <span *ngIf="product?.categoryId==3 || product?.categoryId==4 " class="spec-label">Swiss Bank Corporation</span>
-              <span *ngIf="product?.categoryId==2 || product?.categoryId==1 " class="spec-label">LVMH. Paris, France</span>
+              <span *ngIf="product?.categoryId==2 || product?.categoryId==3 " class="spec-label">Swiss Bank Corporation</span>
+              <span *ngIf="product?.categoryId==1" class="spec-label">LVMH. Paris, France</span>
             </div>
             <div class="spec-item">
               <span class="spec-label"> Certification:</span>
@@ -53,10 +52,9 @@
 
 
         <div class="product-details">
-          <h3>Stock:</h3>
-          <span class="value" [ngClass]="{'in-stock': product?.stockQuantity && product.stockQuantity > 0, 'out-of-stock': product?.stockQuantity === 0}">
-            {{ product?.stockQuantity && product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }} {{ product.stockQuantity }} available
-          </span>
+          <h4 class="value" [ngClass]="{'in-stock': product?.stockQuantity && product.stockQuantity > 0, 'out-of-stock': product?.stockQuantity === 0}">
+            {{ product?.stockQuantity && product.stockQuantity > 0 ? 'Stock quantity:' : 'Out of Stock' }} {{ product.stockQuantity }} available
+          </h4>
 
           <div class="product-actions" *ngIf="product?.stockQuantity && product.stockQuantity > 0">
             <button class="btn contact-btn">Add to Cart</button>
@@ -73,7 +71,7 @@
     {{ error }}
   </div>
 
-  <button class="back-button" (click)="goBack()">← Back to Gold Coins</button>
+  <button class="back-button" (click)="goBack()">← Back to {{getCategoryNameById()}} page</button>
     </div>
 </section>
 <app-footer></app-footer>
