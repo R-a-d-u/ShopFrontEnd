@@ -4,13 +4,27 @@
     <div class="product-detail-grid" data-aos="fade-up">
       <div class="product-image-details-container">
         <div class="left-container">
-          <h2 *ngIf="product.categoryId!=1">{{ product.goldWeightInGrams }} g {{ product.name }}</h2>
-          <h2 *ngIf="product.categoryId==1">{{ product.name }}</h2>
-          <h3 class="price">{{ product.sellingPrice | currency }}</h3>
+          <h2>{{ product.name }}</h2>
+          <p *ngIf="product?.categoryId==1" class="description">Finely Crafted Jewelry</p>
+          <p *ngIf="product?.categoryId==2" class="description">Historic Gold Coin</p>
+          <p *ngIf="product?.categoryId==3" class="description">Swiss Gold Bar</p>
         </div>
-        
+
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="left-image">
         <div *ngIf="!product?.image" class="no-image">No image available</div>
+        <div class="quantity-selector" style="margin-top:13%">
+          <label for="quantity">Quantity:</label>
+          <div class="quantity-input-group">
+            <button class="btn-quantity" [disabled]=" false">-</button>
+            <input type="number" id="quantity" min="1" [max]="product?.stockQuantity || 1" class="quantity-input">
+            <button class="btn-quantity" [disabled]="false">+</button>
+          </div>
+        </div>
+        <div class="">
+          <div class="" *ngIf="product?.stockQuantity && product.stockQuantity > 0">
+            <button class="add-cart-btn">Add to Cart</button>
+          </div>
+        </div>
       </div>
 
       <div class="product-info-container" *ngIf="product">
@@ -40,7 +54,8 @@
             </div>
             <div class="spec-item">
               <span class="spec-label">Manufacturer:</span>
-              <span *ngIf="product?.categoryId==2 || product?.categoryId==3 " class="spec-label">Swiss Bank Corporation</span>
+              <span *ngIf="product?.categoryId==2 || product?.categoryId==3 " class="spec-label">Swiss Bank
+                Corporation</span>
               <span *ngIf="product?.categoryId==1" class="spec-label">LVMH. Paris, France</span>
             </div>
             <div class="spec-item">
@@ -50,28 +65,33 @@
           </div>
         </div>
 
-
         <div class="product-details">
-          <h4 class="value" [ngClass]="{'in-stock': product?.stockQuantity && product.stockQuantity > 0, 'out-of-stock': product?.stockQuantity === 0}">
-            {{ product?.stockQuantity && product.stockQuantity > 0 ? 'Stock quantity:' : 'Out of Stock' }} {{ product.stockQuantity }} available
-          </h4>
-
-          <div class="product-actions" *ngIf="product?.stockQuantity && product.stockQuantity > 0">
-            <button class="btn contact-btn">Add to Cart</button>
+          <h3>Acquisition</h3>
+          <div class="specifications-grid">
+            <div class="spec-item">
+              <span class="spec-label">Price:</span>
+              <span class=" totalPrice">{{ product.sellingPrice | currency }}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Stock:</span>
+              <span *ngIf="product?.stockQuantity && product.stockQuantity > 0" class="totalPrice">{{product.stockQuantity }} Products</span>
+              <span *ngIf="product.stockQuantity <= 0" class="totalPrice">Out of Stock</span>
+            </div>
           </div>
         </div>
+
       </div>
-  </div>
-
-  <div *ngIf="loading" class="loading-spinner">
-    <a>Loading...</a>
-  </div>
-
-  <div *ngIf="error" class="error-message">
-    {{ error }}
-  </div>
-
-  <button class="back-button" (click)="goBack()">← Back to {{getCategoryNameById()}} page</button>
     </div>
+
+    <div *ngIf="loading" class="loading-spinner">
+      <a>Loading...</a>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <button class="back-button" (click)="goBack()">← Back to {{getCategoryNameById()}} page</button>
+  </div>
 </section>
 <app-footer></app-footer>

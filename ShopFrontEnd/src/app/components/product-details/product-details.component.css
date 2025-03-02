@@ -26,17 +26,63 @@
 
 .left-container h2 {
     text-align: left;
-    margin-bottom: 20px;
-    margin-top: 5%;
+    margin-bottom: 4px;
+    margin-top: 0%;
     font-family: 'Playfair Display', serif;
 }
 
 .left-image {
-    width: 400px;
-    height: 400px;
-    margin-top: 3%;
+    width: 500px;
+    height: 350px;
+    margin-top: 4%;
     position: relative;
     position: sticky;
-
+    border-radius: 10px;
     object-fit: cover;
 }
+
+.quantity-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .quantity-selector label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .quantity-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .quantity-input {
+    width: 60px;
+    padding: 7px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .totalPrice{
+    font-weight: bold;
+    color: #c5a47e;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  .add-cart-btn{
+        display: inline-block;
+        padding: 12px 24px;
+        background: #c5a47e;
+        color: white !important;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 3%;
+      }
+
