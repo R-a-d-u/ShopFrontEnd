@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<section class="section product-detail" *ngIf="product">
-  <div class="container">
+<section class="section product-detail">
+  <div class="container" *ngIf="product">
     <div class="product-detail-grid" data-aos="fade-up">
       <div class="product-image-details-container">
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">

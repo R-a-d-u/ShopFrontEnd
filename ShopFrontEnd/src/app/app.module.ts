@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'; // Import RouterModule
 import { AppRoutingModule } from './app-routing.module'; // Import AppRoutingModule
 import { HttpClientModule } from '@angular/common/http'; // Add this import
+import { FormsModule } from '@angular/forms';
 //import { HomeComponent } from './home.component'; // Import HomeComponent
 
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { AdminComponent } from './components/admin/admin.component';
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
