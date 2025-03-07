@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<!-- src/app/components/profile/profile.component.html -->
+<div class="profile-container">
+    <div class="profile-card">
+      <h2>Your Profile</h2>
+      
+      <div *ngIf="currentUser" class="user-details">
+        <div class="profile-field">
+          <label>Name:</label>
+          <p>{{ currentUser.name }}</p>
+        </div>
+        
+        <div class="profile-field">
+          <label>Email:</label>
+          <p>{{ currentUser.email }}</p>
+        </div>
+        
+        <div class="profile-field">
+          <label>Account Type:</label>
+          <p>
+            <span *ngIf="authService.isAdmin()">Administrator</span>
+            <span *ngIf="authService.isEmployee()">Employee</span>
+            <span *ngIf="authService.isCustomer()">Customer</span>
+          </p>
+        </div>
+        
+        <div class="profile-field">
+          <label>Last Modified:</label>
+          <p>{{ currentUser.lastModifyDate | date:'medium' }}</p>
+        </div>
+        
+        <div class="button-group">
+          <button class="btn btn-primary">Edit Profile</button>
+          <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+        </div>
+      </div>
+      
+      <div *ngIf="!currentUser" class="not-logged-in">
+        <p>You are not logged in.</p>
+        <a routerLink="/login" class="btn btn-primary">Login</a>
+      </div>
+    </div>
+  </div>

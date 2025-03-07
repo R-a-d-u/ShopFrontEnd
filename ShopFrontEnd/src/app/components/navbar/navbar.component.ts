@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserDto } from 'src/app/models/user.model';
 
 interface SearchResponse {
   isSuccess: boolean;
@@ -37,13 +39,18 @@ interface Product {
 export class NavbarComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   
+  isMenuOpen = false;
+  currentUser: UserDto | null = null;
   isSearchOpen = false;
   searchTerm = '';
   searchResults: Product[] = [];
+
+  
   
   constructor(
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public authService: AuthService
   ) {}
   
   ngOnInit(): void {
@@ -56,8 +63,18 @@ export class NavbarComponent implements OnInit {
         this.clearSearchResults();
       }
     });
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
+    this.authService.autoLogin();
   }
   
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+  logout(): void {
+    this.authService.logout();
+  }
   toggleSearch(event?: Event): void {
     if (event) {
       event.stopPropagation();

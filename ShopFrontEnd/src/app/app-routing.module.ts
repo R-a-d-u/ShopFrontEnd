@@ -9,6 +9,8 @@ import { GoldBarsComponent } from '../app/components/gold-bars/gold-bars.compone
 import { GoldCoinsComponent } from '../app/components/gold-coins/gold-coins.component';
 import { LoginComponent } from '../app/components/login/login.component';
 import { ProductDetailsComponent } from '../app/components/product-details/product-details.component'; 
+import { AuthGuard } from './guards/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -20,7 +22,24 @@ const routes: Routes = [
   { path: 'gold-coins', component: GoldCoinsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'product-details/:id', component: ProductDetailsComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }, 
+  { path: 'profile', component: ProfileComponent },
+  { 
+    path: 'cart', 
+    component: CartComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'admin', 
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  { 
+    path: 'profile', 
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

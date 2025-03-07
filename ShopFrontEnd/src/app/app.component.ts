@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AosService } from 'src/aos.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,14 @@ import { AosService } from 'src/aos.service';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private aosService: AosService
+    private aosService: AosService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     // Initialize AOS
     this.aosService.initialize();
+    this.authService.autoLogin();
 
     // Listen for route changes
     this.router.events.pipe(

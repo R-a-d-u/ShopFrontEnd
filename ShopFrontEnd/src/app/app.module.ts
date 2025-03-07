@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router'; // Import RouterModule
-import { AppRoutingModule } from './app-routing.module'; // Import AppRoutingModule
-import { HttpClientModule } from '@angular/common/http'; // Add this import
-import { FormsModule } from '@angular/forms';
-//import { HomeComponent } from './home.component'; // Import HomeComponent
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,6 +18,12 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { LoginComponent } from './components/login/login.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { AdminComponent } from './components/admin/admin.component';
+
+// Services and Guards
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,7 @@ import { AdminComponent } from './components/admin/admin.component';
     LoginComponent,
     CreateAccountComponent,
     AdminComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,8 +47,13 @@ import { AdminComponent } from './components/admin/admin.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule, // Add ReactiveFormsModule for form validation
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

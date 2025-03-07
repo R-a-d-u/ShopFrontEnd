@@ -1,22 +1,54 @@
 <app-navbar></app-navbar>
 <section class="section login-section">
-    <div class="container">
-      <div class="login-container" data-aos="fade-up">
-        <h2>Login</h2>
-        <form class="login-form">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" class="form-input">
+  <div class="container">
+    <div class="login-container" data-aos="fade-up">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Enter your email" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['email'].errors}"
+          >
+          <div *ngIf="submitted && f['email'].errors" class="error-message">
+            <span *ngIf="f['email'].errors['required']">Email is required</span>
+            <span *ngIf="f['email'].errors['email']">Please enter a valid email</span>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" class="form-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Enter your password" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['password'].errors}"
+          >
+          <div *ngIf="submitted && f['password'].errors" class="error-message">
+            <span *ngIf="f['password'].errors['required']">Password is required</span>
+            <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
           </div>
-          <button type="button" class="btn login-btn" routerLink="/admin">Login</button>
-          <p class="text-center mt-4">
-            Don't have an account? <a routerLink="/create-account" class="text-link">Create one here</a>
-          </p>
-        </form>
-      </div>
+        </div>
+        
+        <div *ngIf="error" class="alert-error">
+          {{ error }}
+        </div>
+        
+        <button type="submit" class="btn login-btn" [disabled]="loading">
+          <span *ngIf="loading" class="spinner"></span>
+          Login
+        </button>
+        
+        <p class="text-center mt-4">
+          Don't have an account? <a routerLink="/create-account" class="text-link">Create one here</a>
+        </p>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
