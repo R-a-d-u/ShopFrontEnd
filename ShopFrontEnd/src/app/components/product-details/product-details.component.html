@@ -15,15 +15,22 @@
         <div class="quantity-selector" style="margin-top:13%">
           <label for="quantity">Quantity:</label>
           <div class="quantity-input-group">
-            <button class="btn-quantity" [disabled]=" false">-</button>
-            <input type="number" id="quantity" min="1" [max]="product?.stockQuantity || 1" class="quantity-input">
-            <button class="btn-quantity" [disabled]="false">+</button>
+            <button class="btn-quantity" (click)="decreaseQuantity()" [disabled]="product.stockQuantity<=0">-</button>
+            <input type="number" id="quantity" class="quantity-input" [min]="1" [max]="product?.stockQuantity || 1" [(ngModel)]="quantity" [disabled]="product.stockQuantity<=0">
+            <button class="btn-quantity" (click)="increaseQuantity()" [disabled]="product.stockQuantity<=0">+</button>  
           </div>
         </div>
         <div class="">
-          <div class="" *ngIf="product?.stockQuantity && product.stockQuantity > 0">
-            <button class="add-cart-btn">Add to Cart</button>
-          </div>
+          <div [ngClass]="{
+            'out-of-stock': (product?.stockQuantity ?? 0) <= 0,
+            'in-stock': (product?.stockQuantity ?? 0) > 0
+          }">
+        <button class="add-cart-btn" [disabled]="(product?.stockQuantity ?? 0) <= 0">
+          {{ (product?.stockQuantity ?? 0) > 0 ? 'Add to Cart' : 'Out of Stock' }}
+        </button>
+      </div>
+      
+          
         </div>
       </div>
 

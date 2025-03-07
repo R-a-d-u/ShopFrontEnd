@@ -65,6 +65,11 @@
     border: 1px solid #ddd;
     border-radius: 5px;
   }
+  .quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
   .totalPrice{
     font-weight: bold;
     color: #c5a47e;
@@ -84,5 +89,9 @@
         cursor: pointer;
         width: 100%;
         margin-top: 3%;
+      }
+
+      .add-cart-btn:hover {
+        background: #b18d5f;
       }
 
