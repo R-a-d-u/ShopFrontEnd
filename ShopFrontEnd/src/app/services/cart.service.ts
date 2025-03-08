@@ -1,0 +1,167 @@
+// src/app/services/cart.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../enviroments/environment';
+import { AuthService } from './auth.service';
+
+interface ApiResponse<T> {
+  isSuccess: boolean;
+  result: T;
+  errorMessage: string | null;
+}
+
+export interface Product {
+  id: number;
+  productType: number;
+  name: string;
+  image: string;
+  additionalValue: number;
+  goldWeightInGrams: number;
+  sellingPrice: number;
+  categoryId: number;
+  description: string;
+  stockQuantity: number;
+  productState: number;
+  lastModifiedDate: string;
+}
+
+export interface CartItem {
+  id: number;
+  cartId: number;
+  productId: number;
+  product: Product;
+  quantity: number;
+  price: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CartService {
+  private apiUrl = `${environment.apiUrl}`;
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  // Get cart ID for the current user
+  getCartByUserId(): Observable<number> {
+    const userId = this.authService.currentUserValue?.id;
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+    
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetCartId/${userId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to get cart');
+        })
+      );
+  }
+
+  // Get all items in a cart
+  getCartItems(cartId: number): Observable<CartItem[]> {
+    return this.http.get<ApiResponse<CartItem[]>>(`${this.apiUrl}/Cart/GetAllItems/${cartId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to get cart items');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          // Check if this is the specific empty cart error
+          if (error.status === 404 && error.error && error.error.errorMessage === "Cart is empty.") {
+            // Return an empty array instead of throwing an error for empty carts
+            return of([]);
+          }
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get cart items'));
+        })
+      );
+  }
+
+  // Add item to cart
+  addToCart(productId: number, quantity: number = 1): Observable<any> {
+    const userId = this.authService.currentUserValue?.id;
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+    
+    return this.http.post<ApiResponse<any>>(`${this.apiUrl}/Cart/AddItem`, {
+      userId,
+      productId,
+      quantity
+    }).pipe(
+      map(response => {
+        if (response && response.isSuccess) {
+          return response.result;
+        }
+        throw new Error(response.errorMessage || 'Failed to add item to cart');
+      })
+    );
+  }
+
+  // Update cart item quantity
+  updateCartItemQuantity(cartItemId: number, quantity: number): Observable<any> {
+    return this.http.put<ApiResponse<any>>(`${this.apiUrl}/Cart/UpdateItemQuantity`, {
+      cartItemId,
+      quantity
+    }).pipe(
+      map(response => {
+        if (response && response.isSuccess) {
+          return response.result;
+        }
+        throw new Error(response.errorMessage || 'Failed to update cart item');
+      })
+    );
+  }
+
+  // Remove item from cart
+  removeFromCart(cartItemId: number): Observable<any> {
+    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/Cart/RemoveItem/${cartItemId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to remove item from cart');
+        })
+      );
+  }
+  getShippingPrice(cartId: number): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetShippingPrice/${cartId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to get shipping price');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get shipping price'));
+        })
+      );
+  }
+  
+  // Get total price including shipping for a cart
+  getCartTotal(cartId: number): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetTotal/${cartId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to get cart total');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get cart total'));
+        })
+      );
+  }
+}

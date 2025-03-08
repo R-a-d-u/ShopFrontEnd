@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
   searchTerm = '';
   searchResults: Product[] = [];
   isDropdownOpen=false;
+  cartItemCount: number | null = null;
   
   
   constructor(
@@ -56,6 +57,7 @@ export class NavbarComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
+    this.updateCartCount();
     // Modified event listener for document clicks
     document.addEventListener('mousedown', (event) => {
       // Only close if the click is outside the search container element
@@ -67,10 +69,31 @@ export class NavbarComponent implements OnInit {
     });
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
+      this.updateCartCount();
     });
     this.authService.autoLogin();
   }
-  
+  updateCartCount(): void {
+    if (this.currentUser) {
+      const userId = this.currentUser.id; // Assuming user ID is accessible
+      this.http.get<any>(`https://localhost:7041/Cart/GetCartItemCount/${userId}`).subscribe(
+        response => {
+          if (response.isSuccess && response.result !== undefined) {
+            this.cartItemCount = response.result;
+          } else {
+            this.cartItemCount = null;
+          }
+        },
+        error => {
+          console.error('Error fetching cart count:', error);
+          this.cartItemCount = null;
+        }
+      );
+    } else {
+      this.cartItemCount = null;
+    }
+  }
+
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }

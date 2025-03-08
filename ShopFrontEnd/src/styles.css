@@ -65,13 +65,14 @@ body {
   right: -8px;
   background: #c5a47e;
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
 }
 
 .btn-login {
@@ -155,6 +156,13 @@ body {
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 10px;
+}
+.cart-item-price
+{
+  color: #c5a47e;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 40px;
 }
 
 .btn {

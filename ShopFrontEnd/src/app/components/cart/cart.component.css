@@ -1,0 +1,23 @@
+.cart-item-info {
+    margin-left: 10px;
+    flex-grow: 1;
+  }
+  
+  .cart-item-info h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .cart-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .btn-remove {
+    background-color: #811010;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: -15px;
+  }
