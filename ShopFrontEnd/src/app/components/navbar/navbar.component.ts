@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDto } from 'src/app/models/user.model';
+import { MatMenuTrigger } from '@angular/material/menu';
+
 
 interface SearchResponse {
   isSuccess: boolean;
@@ -44,7 +46,7 @@ export class NavbarComponent implements OnInit {
   isSearchOpen = false;
   searchTerm = '';
   searchResults: Product[] = [];
-
+  isDropdownOpen=false;
   
   
   constructor(
@@ -72,6 +74,9 @@ export class NavbarComponent implements OnInit {
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
   logout(): void {
     this.authService.logout();
   }
@@ -98,12 +103,16 @@ export class NavbarComponent implements OnInit {
   keepDropdownOpen(event: Event): void {
     event.stopPropagation();
   }
+  closeMenu(menuTrigger: MatMenuTrigger) {
+    menuTrigger.closeMenu();
+  }
   
   searchProducts(): void {
     if (!this.searchTerm.trim()) {
       this.searchResults = [];
       return;
     }
+    
     
     const url = `https://localhost:7041/Product/GetByName?name=${encodeURIComponent(this.searchTerm)}&page=1`;
     

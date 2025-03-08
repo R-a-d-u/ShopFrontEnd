@@ -42,21 +42,19 @@
         </svg>
         <span class="cart-count">2</span>
       </a>
-      <a routerLink="/login" class="btn btn-login">Login</a>
-      <li class="nav-item" *ngIf="!currentUser">
-        <a class="nav-link" routerLink="/login">Login</a>
-      </li>
-      <li class="nav-item dropdown" *ngIf="currentUser">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-          {{ currentUser.name }}
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="/profile">View Profile</a>
-          <a class="dropdown-item" *ngIf="authService.isAdmin()" routerLink="/admin">Admin Dashboard</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a>
-        </div>
-      </li>
+      <div class="nav-item">
+        <a routerLink="/login" *ngIf="!currentUser" class="btn btn-login">Login</a>
+        <a mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser" class="btn btn-profile">
+          Profile
+          </a>
+      </div>
+     
+      <mat-menu #menu="matMenu" xPosition="after" >
+        <button mat-menu-item routerLink="/profile">👤 View Profile</button>
+        <button mat-menu-item routerLink="/orders">📦 My orders</button>
+        <button mat-menu-item routerLink="/admin" *ngIf="authService.isAdmin()">👤 Admin</button>
+        <button mat-menu-item (click)="logout()" style="cursor: pointer">Logout</button>
+      </mat-menu>
     </div>
   </div>
 </nav>

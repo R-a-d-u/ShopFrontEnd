@@ -24,6 +24,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button'; // Needed for menu trigger
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule, // Add ReactiveFormsModule for form validation
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // Required for Angular Material animations
+    MatMenuModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,
