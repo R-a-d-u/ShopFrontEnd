@@ -16,7 +16,7 @@
         <p class="gold-price-text">Today's price in USD/oz: {{ goldPriceInOunces | number: '1.2-2' }}</p>
       </div>
       <div class="gold-price-card" data-aos="fade-up">
-        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=500" alt="Gold Price Chart 2" class="gold-chart-image">
+       <app-gold-graph></app-gold-graph>
         <p class="gold-price-text">Today's price in USD/g: {{ goldPriceInGrams | number: '1.2-2' }}</p>
       </div>
     </div>

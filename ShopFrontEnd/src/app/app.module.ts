@@ -18,6 +18,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { LoginComponent } from './components/login/login.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { GoldGraphComponent } from './components/gold-graph/gold-graph.component'; // Needed for menu trigger
 
 // Services and Guards
 import { AuthService } from './services/auth.service';
@@ -26,7 +27,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button'; // Needed for menu trigger
+import { MatButtonModule } from '@angular/material/button';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { MatButtonModule } from '@angular/material/button'; // Needed for menu t
     CreateAccountComponent,
     AdminComponent,
     ProfileComponent,
+    GoldGraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ import { MatButtonModule } from '@angular/material/button'; // Needed for menu t
     ReactiveFormsModule,
     BrowserAnimationsModule, // Required for Angular Material animations
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [
     AuthService,
