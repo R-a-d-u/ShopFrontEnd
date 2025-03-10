@@ -28,7 +28,7 @@
         <div class="product-info">
           <h3>Gold Price in USD/oz: <span class="home-gold-price">${{ convertGramsToOunces(goldPriceHistory.priceGram) |
               number: '1.2-2' }}</span></h3>
-           <h4>
+           <h4><span class="price">●</span>
             Daily Percentage Change:
             <span [ngClass]="{
                 'text-dark-red': goldPriceHistory.percentageChange < 0,
@@ -37,8 +37,8 @@
               {{ goldPriceHistory.percentageChange | number: '1.2-2' }}%
             </span>
           </h4>
-          <h4>Timestamp: {{ goldPriceHistory.timestamp}}</h4>
-          <h4>Last time updated: {{ goldPriceHistory.date | date:'yyyy-MM-dd' }}</h4>
+          <h4><span class="price">●</span> Timestamp: {{ goldPriceHistory.timestamp}}</h4>
+          <h4><span class="price">●</span> Last time updated: {{ goldPriceHistory.date | date:'yyyy-MM-dd' }}</h4>
         </div>
       </div>
     </div>
