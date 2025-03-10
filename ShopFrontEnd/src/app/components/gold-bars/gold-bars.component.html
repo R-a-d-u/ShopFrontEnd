@@ -9,7 +9,7 @@
     </div>
 
     <div *ngIf="!loading && !error" class="product-grid">
-      <div class="product-card" data-aos="fade-down" *ngFor="let product of products">
+      <div class="product-card" data-aos="fade-down" *ngFor="let product of products" data-aos-delay="100">
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="product-image">
         <div *ngIf="!product.image" class="no-image">No image available</div>
         <div class="product-info">
