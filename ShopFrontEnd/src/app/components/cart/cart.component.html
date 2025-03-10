@@ -4,10 +4,6 @@
       <div class="cart-container" data-aos="fade-down">
         <h2>Shopping Cart</h2>
         
-        <div *ngIf="error && !cartNotFound && !cartEmpty" class="alert alert-danger">
-          {{ error }}
-        </div>
-  
         <!-- No cart found error -->
         <div *ngIf="cartNotFound" class="alert alert-info">
           <p>No shopping cart has been created for your account yet.</p>
