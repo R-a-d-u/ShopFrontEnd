@@ -1,7 +1,7 @@
 <!-- src/app/pages/gold-coins/gold-coins.component.html -->
 <app-navbar></app-navbar>
 <section class="section ">
-  <div class="container">
+  <div class="container" *ngIf="!loading">
     <h2 data-aos="fade-down">Jewelry</h2>
 
     <div *ngIf="error" class="error-message">

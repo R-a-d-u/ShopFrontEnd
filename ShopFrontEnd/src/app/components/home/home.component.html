@@ -8,7 +8,7 @@
 </section>
 
 <section class="home-section gold-prices">
-  <div class="container">
+  <div class="container" *ngIf="!loading">
     <h2 data-aos="fade-up">Today's Gold Prices</h2>
     <div class="gold-price-grid" *ngIf="goldPriceHistory">
       <div class="product-card" data-aos="fade-right">
@@ -46,7 +46,7 @@
 </section>
 
 <section id="products" class="products home-section">
-  <div class="container">
+  <div class="container" *ngIf="!loading">
     <h2 data-aos="fade-up">Our Premium Collection</h2>
     <div class="home-product-grid">
       <div class="product-card" data-aos="fade-up" data-aos-delay="100">

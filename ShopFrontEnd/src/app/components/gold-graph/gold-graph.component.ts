@@ -19,9 +19,10 @@ export class GoldGraphComponent implements OnInit {
 
   // Dynamic chart options based on the 'id'
   chartOptions = {
-    theme: "dark1",
+    theme: "dark2",
     zoomEnabled: true,
     exportEnabled: true,
+    animationEnabled: true,
     title: {
       text: "Forex.com",
       fontFamily: "Roboto",
@@ -30,6 +31,7 @@ export class GoldGraphComponent implements OnInit {
       fontColor: "white",
       padding: 1,
     },
+    height: 240,
     legend: {
       fontFamily: "Roboto",
       fontColor: "#b18d5f",
@@ -46,18 +48,19 @@ export class GoldGraphComponent implements OnInit {
       prefix: "$"
     },
     toolbar: {
-      itemBackgroundColorOnHover: "#b18d5f",
-      itemBackgroundColor: "#b18d5f",
-      buttonBorderColor: "#b18d5f",
+      itemBackgroundColorOnHover: "gold",
+      itemBackgroundColor: "gold",
+      buttonBorderColor: "gold",
       buttonBorderThickness: 4,
-      fontColor: "white",
+      fontColor: "black",
       fontColorOnHover: "#b18d5f",
-      color: "b18d5f"
+      color: "gold"
     },
     data: [{
-      type: "line",
+      indexlabelLineThickness:2,
+      type: "spline",
       name: "",
-      lineColor: "#b18d5f",  // Default color, will change based on 'id'
+      lineColor: "gold",  // Default color, will change based on 'id'
       color: "white",
       yValueFormatString: "$#,###.00",
       xValueType: "dateTime",
@@ -75,12 +78,10 @@ export class GoldGraphComponent implements OnInit {
     if (this.id === 1) {
       this.chartOptions.title.text = "Gold Price per Gram";
       this.chartOptions.data[0].name = "Gold Price per Gram";
-      this.chartOptions.data[0].lineColor = "#b18d5f"; // Change line color for gram chart
       this.chartOptions.axisY.title="Price per Gram (in USD)";
     } else if (this.id === 2) {
       this.chartOptions.title.text = "Gold Price per Ounce";
       this.chartOptions.data[0].name = "Gold Price per Ounce";
-      this.chartOptions.data[0].lineColor = "#b18d5f"; // Change line color for ounce chart
       this.chartOptions.axisY.title="Price per Ounce (in USD)";
     }
 
