@@ -504,7 +504,7 @@ p {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
-  max-width: 100vh;
+  max-width: 900px;
   margin: 0 auto;
 }
 

@@ -1,0 +1,17 @@
+.text-dark-red {
+    color: darkred;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .text-dark-green {
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .home-gold-price {
+    color: #c5a47e;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }

@@ -10,14 +10,36 @@
 <section class="home-section gold-prices">
   <div class="container">
     <h2 data-aos="fade-up">Today's Gold Prices</h2>
-    <div class="gold-price-grid">
-      <div class="gold-price-card" data-aos="fade-up">
-        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=500" alt="Gold Price Chart 1" class="gold-chart-image">
-        <p class="gold-price-text">Today's price in USD/oz: {{ goldPriceInOunces | number: '1.2-2' }}</p>
+    <div class="gold-price-grid" *ngIf="goldPriceHistory">
+      <div class="product-card" data-aos="fade-right">
+        <app-gold-graph [id]="1"></app-gold-graph> <!-- Gold Price per Gram -->
+        <div class="product-info">
+          <h3>Gold Price in USD/g: <span class="home-gold-price">${{ goldPriceHistory.priceGram | number: '1.2-2'
+              }}</span></h3>
+          <h4 style="margin-bottom: 10px;">Data Provided Using {{ goldPriceHistory.exchange }} Exchange</h4>
+          <a class="btn" href="https://www.forex.com/en/gold-silver-trading/xau-usd/" target="_blank">Visit Exchange</a>
+        </div>
+        <div *ngIf="loading">
+          <p>Loading...</p>
+        </div>
       </div>
-      <div class="gold-price-card" data-aos="fade-up">
-       <app-gold-graph></app-gold-graph>
-        <p class="gold-price-text">Today's price in USD/g: {{ goldPriceInGrams | number: '1.2-2' }}</p>
+      <div class="product-card" data-aos="fade-left">
+        <app-gold-graph [id]="2"></app-gold-graph> <!-- Gold Price per Ounce -->
+        <div class="product-info">
+          <h3>Gold Price in USD/oz: <span class="home-gold-price">${{ convertGramsToOunces(goldPriceHistory.priceGram) |
+              number: '1.2-2' }}</span></h3>
+           <h4>
+            Daily Percentage Change:
+            <span [ngClass]="{
+                'text-dark-red': goldPriceHistory.percentageChange < 0,
+                'text-dark-green': goldPriceHistory.percentageChange > 0
+            }">
+              {{ goldPriceHistory.percentageChange | number: '1.2-2' }}%
+            </span>
+          </h4>
+          <h4>Timestamp: {{ goldPriceHistory.timestamp}}</h4>
+          <h4>Last time updated: {{ goldPriceHistory.date | date:'yyyy-MM-dd' }}</h4>
+        </div>
       </div>
     </div>
   </div>
@@ -28,7 +50,8 @@
     <h2 data-aos="fade-up">Our Premium Collection</h2>
     <div class="home-product-grid">
       <div class="product-card" data-aos="fade-up" data-aos-delay="100">
-        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" alt="Diamond Ring" class="product-image">
+        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" alt="Diamond Ring"
+          class="product-image">
         <div class="product-info">
           <h3>Diamond Jewlery Collection</h3>
           <p>Diamond Luxury Collection</p>
@@ -37,7 +60,8 @@
       </div>
 
       <div class="product-card" data-aos="fade-up" data-aos-delay="200">
-        <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=500" alt="Gold Bar" class="product-image">
+        <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=500" alt="Gold Bar"
+          class="product-image">
         <div class="product-info">
           <h3>24K Gold Bars</h3>
           <p>The Perfect Investments</p>
@@ -46,7 +70,8 @@
       </div>
 
       <div class="product-card" data-aos="fade-up" data-aos-delay="300">
-        <img src="https://images.unsplash.com/photo-1624365169364-0640dd10e180?w=500" alt="Gold Coin" class="product-image">
+        <img src="https://images.unsplash.com/photo-1624365169364-0640dd10e180?w=500" alt="Gold Coin"
+          class="product-image">
         <div class="product-info">
           <h3>Gold Sovereign Coin</h3>
           <p>Limited Edition Collection</p>
