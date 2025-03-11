@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService, CartItem } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ import { catchError, forkJoin, of } from 'rxjs';
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
   loading = false;
+  isNavigatingToPage = true;
   error = '';
   subtotalPrice = 0;
   shippingPrice = 0;
@@ -29,7 +30,15 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) 
+  {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Set to true only when navigating to the cart page
+        this.isNavigatingToPage = event.url.includes('/cart');
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -83,7 +92,7 @@ export class CartComponent implements OnInit {
 
   updateQuantity(item: CartItem, quantity: number): void {
     if (quantity < 1 || !this.cartId) return;
-    
+    this.isNavigatingToPage = false;
     this.loading = true;
     this.cartService.updateCartItemQuantity(item.id, quantity).subscribe({
       next: () => {
@@ -97,7 +106,8 @@ export class CartComponent implements OnInit {
           this.cartService.getCartItems(this.cartId).subscribe({
             next: (items) => {
               this.cartItems = items;
-            },
+            }
+            ,
             error: (error) => {
               this.error = error.message || 'Failed to reload cart items';
             }
@@ -116,7 +126,7 @@ export class CartComponent implements OnInit {
 
   removeItem(itemId: number): void {
     if (!this.cartId) return;
-    
+    this.isNavigatingToPage = false;
     this.loading = true;
     this.cartService.removeFromCart(itemId).subscribe({
       next: () => {

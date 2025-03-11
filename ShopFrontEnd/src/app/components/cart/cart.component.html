@@ -1,7 +1,10 @@
 <app-navbar></app-navbar>
 <section class="section cart-section">
+  <div class="loading-overlay" *ngIf="loading">
+    <img src="assets/loading.gif" alt="Loading..." />
+</div>
     <div class="container" *ngIf="!loading">
-      <div class="cart-container" data-aos="fade-down">
+      <div class="cart-container" [attr.data-aos]="isNavigatingToPage ? 'fade-down' : null">
         <h2>Shopping Cart</h2>
         
         <!-- No cart found error -->

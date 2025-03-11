@@ -109,7 +109,7 @@ export class CartService {
 
   // Update cart item quantity
   updateCartItemQuantity(cartItemId: number, quantity: number): Observable<any> {
-    return this.http.put<ApiResponse<any>>(`${this.apiUrl}/Cart/UpdateItemQuantity`, {
+    return this.http.put<ApiResponse<any>>(`${this.apiUrl}/CartItem/UpdateQuantity`, {
       cartItemId,
       quantity
     }).pipe(
