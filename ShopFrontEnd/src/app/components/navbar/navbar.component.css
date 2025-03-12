@@ -15,7 +15,7 @@
   }
   
   .search-icon:hover {
-    color: gold;
+    color: #c5a47e;
   }
   
   .search-dropdown {
@@ -108,10 +108,16 @@
   height: 9%;
   border: none;
   cursor: pointer;
-  margin-top: -0.5px;
+  margin-top: -1.5px;
 }
 
   .btn-profile:hover {
     background: #b18d5f;
   }
-
+  .cart-icon {
+    width: 38px;  /* Adjust size as needed */
+    height: 38px; /* Maintains aspect ratio */
+    margin-top: -7px;
+    margin-right: -6px;
+  }
+  

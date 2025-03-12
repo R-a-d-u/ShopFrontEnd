@@ -87,15 +87,15 @@ export class CartService {
   }
 
   // Add item to cart
-  addToCart(productId: number, quantity: number = 1): Observable<any> {
+  addToCart(productId: number,cartId: number, quantity: number = 1): Observable<any> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
       throw new Error('User not authenticated');
     }
     
     return this.http.post<ApiResponse<any>>(`${this.apiUrl}/Cart/AddItem`, {
-      userId,
       productId,
+      cartId,
       quantity
     }).pipe(
       map(response => {

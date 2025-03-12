@@ -24,11 +24,11 @@ body {
   z-index: 1000;
 }
 
-  .navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .logo {
   font-size: 1.5rem;
@@ -43,20 +43,22 @@ body {
   align-items: center;
 }
 
-  .nav-links a {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
+.nav-links a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-    .nav-links a:hover {
-      color: #c5a47e;
-    }
+.nav-links a:hover {
+  color: #c5a47e;
+}
 
 .cart-link {
   position: relative;
   display: flex;
   align-items: center;
+  margin-top: 4px;
+
 }
 
 .cart-count {
@@ -86,14 +88,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px; /* You can adjust this value */
-  margin-bottom: 40px; /* This will add space at the bottom */
+  margin-top: 40px;
+  /* You can adjust this value */
+  margin-bottom: 40px;
+  /* This will add space at the bottom */
 }
 
 .container {
-  max-width: 95vw; /* 90% of the viewport width */
+  max-width: 95vw;
+  /* 90% of the viewport width */
   margin: 0 auto;
-  padding: 0 2%; /* 10% padding on left and right */
+  padding: 0 2%;
+  /* 10% padding on left and right */
 }
 
 
@@ -137,9 +143,9 @@ body {
   transition: transform 0.3s ease;
 }
 
-  .product-card:hover {
-    transform: translateY(-5px);
-  }
+.product-card:hover {
+  transform: translateY(-5px);
+}
 
 .product-image {
   width: 100%;
@@ -157,8 +163,8 @@ body {
   font-size: 1.2rem;
   margin-top: 10px;
 }
-.cart-item-price
-{
+
+.cart-item-price {
   color: #c5a47e;
   font-weight: bold;
   font-size: 1.2rem;
@@ -177,9 +183,9 @@ body {
   cursor: pointer;
 }
 
-  .btn:hover {
-    background: #b18d5f;
-  }
+.btn:hover {
+  background: #b18d5f;
+}
 
 /* Product Detail Styles */
 .product-detail {
@@ -210,10 +216,10 @@ body {
   padding: 20px;
 }
 
-  .product-info-container h2 {
-    text-align: left;
-    margin-bottom: 20px;
-  }
+.product-info-container h2 {
+  text-align: left;
+  margin-bottom: 20px;
+}
 
 .description {
   font-size: 1.1rem;
@@ -225,23 +231,23 @@ body {
   margin: 30px 0;
 }
 
-  .details-section ul {
-    list-style: none;
-    margin-top: 15px;
-  }
+.details-section ul {
+  list-style: none;
+  margin-top: 15px;
+}
 
-  .details-section li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-  }
+.details-section li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
 
-    .details-section li:before {
-      content: "•";
-      color: #c5a47e;
-      position: absolute;
-      left: 0;
-    }
+.details-section li:before {
+  content: "•";
+  color: #c5a47e;
+  position: absolute;
+  left: 0;
+}
 
 .specifications-section {
   margin: 30px 0;
@@ -333,13 +339,13 @@ body {
   text-align: center;
 }
 
-  .admin-card h3 {
-    color: #c5a47e;
-  }
+.admin-card h3 {
+  color: #c5a47e;
+}
 
-  .admin-card button {
-    margin-top: 15px;
-  }
+.admin-card button {
+  margin-top: 15px;
+}
 
 /* Cart Page Styles */
 .cart-container {
@@ -481,9 +487,9 @@ p {
   transition: color 0.3s ease;
 }
 
-  .social-link:hover {
-    color: #c5a47e;
-  }
+.social-link:hover {
+  color: #c5a47e;
+}
 
 .footer-bottom {
   text-align: center;
@@ -496,8 +502,10 @@ p {
   background: #fff;
   min-height: auto;
   padding: 30px 20px;
-  margin-top: 60px; /* Adjust as needed */
-  margin-bottom: 60px; /* Add margin-bottom for space after this section */
+  margin-top: 60px;
+  /* Adjust as needed */
+  margin-bottom: 60px;
+  /* Add margin-bottom for space after this section */
 }
 
 .gold-price-grid {
@@ -586,21 +594,57 @@ p {
   .quantity-controls {
     justify-content: center;
   }
+
   .home-section {
-    padding: 40px 20px; /* Adjust padding for general spacing inside the sections */
-    margin-top: 10%; /* Add margin-top for spacing from elements above */
-    margin-bottom: 10%; /* Add margin-bottom for spacing to elements below */
+    padding: 40px 20px;
+    /* Adjust padding for general spacing inside the sections */
+    margin-top: 10%;
+    /* Add margin-top for spacing from elements above */
+    margin-bottom: 10%;
+    /* Add margin-bottom for spacing to elements below */
     min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-    .home-section h2 {
-      margin-bottom: 2px;
-    }
+  .home-section h2 {
+    margin-bottom: 2px;
+  }
 }
 
+.p-toast-message-icon {
+  display: none !important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.p-toast {
+  margin-top: 70px !important;
+  text-align: center;
+}
+
+.p-toast-close-button {
+  display: none !important;
+}
+
+.p-toast-message-warn {
+  border: 2px solid #c5a47e !important;
+  background-color: rgba(255, 255, 255, 0.87) !important;
+  backdrop-filter: blur(10px) !important; 
+  color: black !important;
+  font-family: Roboto;
+}
+
+.p-toast-message-warn .p-toast-message-text {
+  color: black !important;
+  font-family: Roboto;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

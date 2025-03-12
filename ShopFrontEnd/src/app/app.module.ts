@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 // Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -57,10 +58,12 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     BrowserAnimationsModule, // Required for Angular Material animations
     MatMenuModule,
     MatButtonModule,
-    CanvasJSAngularChartsModule
+    CanvasJSAngularChartsModule,
+    ToastModule
   ],
   providers: [
     AuthService,
+    MessageService,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
