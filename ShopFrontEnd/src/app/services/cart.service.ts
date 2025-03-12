@@ -1,8 +1,8 @@
 // src/app/services/cart.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from '../../enviroments/environment';
 import { AuthService } from './auth.service';
 
@@ -41,6 +41,8 @@ export interface CartItem {
 })
 export class CartService {
   private apiUrl = `${environment.apiUrl}`;
+  private cartItemCountSource = new BehaviorSubject<number>(0); // BehaviorSubject for cart count
+  cartItemCount$ = this.cartItemCountSource.asObservable(); // Observable to subscribe to cart count
 
   constructor(
     private http: HttpClient,
@@ -100,6 +102,7 @@ export class CartService {
     }).pipe(
       map(response => {
         if (response && response.isSuccess) {
+          this.updateCartCount(cartId);
           return response.result;
         }
         throw new Error(response.errorMessage || 'Failed to add item to cart');
@@ -109,31 +112,54 @@ export class CartService {
 
   // Update cart item quantity
   updateCartItemQuantity(cartItemId: number, quantity: number): Observable<any> {
-    return this.http.put<ApiResponse<any>>(`${this.apiUrl}/CartItem/UpdateQuantity`, {
-      cartItemId,
-      quantity
-    }).pipe(
-      map(response => {
-        if (response && response.isSuccess) {
-          return response.result;
-        }
-        throw new Error(response.errorMessage || 'Failed to update cart item');
+    const userId = this.authService.currentUserValue?.id;
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+    console.log(cartItemId,quantity)
+    // Fetch the cartId associated with the user
+    return this.getCartByUserId().pipe(
+      switchMap(cartId => {
+        return this.http.put<ApiResponse<any>>(`${this.apiUrl}/CartItem/UpdateQuantity`, {
+          cartItemId,
+          quantity
+        }).pipe(
+          map(response => {
+            if (response && response.isSuccess) {
+              this.updateCartCount(cartId); // Update the cart count after quantity update
+              return response.result;
+            }
+            throw new Error(response.errorMessage || 'Failed to update cart item');
+          })
+        );
       })
     );
   }
+  
 
   // Remove item from cart
   removeFromCart(cartItemId: number): Observable<any> {
-    return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/Cart/RemoveItem/${cartItemId}`)
-      .pipe(
-        map(response => {
-          if (response && response.isSuccess) {
-            return response.result;
-          }
-          throw new Error(response.errorMessage || 'Failed to remove item from cart');
-        })
-      );
+    const userId = this.authService.currentUserValue?.id;
+    if (!userId) {
+      throw new Error('User not authenticated');
+    }
+  
+    // Fetch the cartId associated with the user
+    return this.getCartByUserId().pipe(
+      switchMap(cartId => {
+        return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/Cart/RemoveItem/${cartItemId}`).pipe(
+          map(response => {
+            if (response && response.isSuccess) {
+              this.updateCartCount(cartId); // Update the cart count after removal
+              return response.result;
+            }
+            throw new Error(response.errorMessage || 'Failed to remove item from cart');
+          })
+        );
+      })
+    );
   }
+  
   getShippingPrice(cartId: number): Observable<number> {
     return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetShippingPrice/${cartId}`)
       .pipe(
@@ -164,4 +190,17 @@ export class CartService {
         })
       );
   }
+  private updateCartCount(cartId: number): void {
+    this.getCartItems(cartId).subscribe(
+      (items) => {
+        const itemCount = items.reduce((total, item) => total + item.quantity, 0); // Sum up item quantities
+        this.cartItemCountSource.next(itemCount); // Emit updated count
+      },
+      (error) => {
+        console.error('Failed to fetch cart items for count update', error);
+        this.cartItemCountSource.next(0); // Fallback to 0 if error occurs
+      }
+    );
+  }
+
 }

@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserDto } from 'src/app/models/user.model';
 import { MatMenuTrigger } from '@angular/material/menu';
-
+import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 interface SearchResponse {
   isSuccess: boolean;
@@ -38,9 +39,10 @@ interface Product {
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,OnDestroy {
   @ViewChild('searchInput') searchInput!: ElementRef;
-  
+  private cartCountSubscription: Subscription | null = null; 
+
   isMenuOpen = false;
   currentUser: UserDto | null = null;
   isSearchOpen = false;
@@ -53,8 +55,14 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    public authService: AuthService
+    public authService: AuthService,
+    private cartService: CartService
   ) {}
+  ngOnDestroy(): void {
+    if (this.cartCountSubscription) {
+      this.cartCountSubscription.unsubscribe();
+    }
+  }
   
   ngOnInit(): void {
     this.updateCartCount();
@@ -67,6 +75,11 @@ export class NavbarComponent implements OnInit {
         this.clearSearchResults();
       }
     });
+    this.cartCountSubscription = this.cartService.cartItemCount$.subscribe(
+      (count) => {
+        this.cartItemCount = count;
+      }
+    );
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       this.updateCartCount();
