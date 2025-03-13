@@ -116,16 +116,19 @@ export class CartService {
     if (!userId) {
       throw new Error('User not authenticated');
     }
-    console.log(cartItemId,quantity)
+    console.log(cartItemId,quantity,1)
     // Fetch the cartId associated with the user
     return this.getCartByUserId().pipe(
       switchMap(cartId => {
+        console.log('Payload:', { cartItemId, quantity });
         return this.http.put<ApiResponse<any>>(`${this.apiUrl}/CartItem/UpdateQuantity`, {
           cartItemId,
           quantity
         }).pipe(
           map(response => {
             if (response && response.isSuccess) {
+              console.log(response)
+              console.log(cartItemId,quantity,1)
               this.updateCartCount(cartId); // Update the cart count after quantity update
               return response.result;
             }

@@ -93,10 +93,10 @@ export class CartComponent implements OnInit {
   private updateInProgress = false;
 
   updateQuantity(item: CartItem, quantity: number): void {
-    if (quantity < 1 || !this.cartId) return;
+    if (quantity < 0 || !this.cartId) return;
     this.isNavigatingToPage = false;
     this.loading = true;
-    console.log(item.id, quantity);
+    //console.log(item.id, quantity);
     this.cartService.updateCartItemQuantity(item.id, quantity).subscribe({
       next: () => {
         // Update the UI with new quantity

@@ -30,9 +30,9 @@
                 <h3>{{ item.product.name }}</h3>
                 <p style="margin-top: 3px;">Gold weight: {{ item.product.goldWeightInGrams }}g</p>
                 <div class="quantity-controls">
-                  <button class="btn-quantity" [disabled]="item.quantity <= 1" (click)="updateQuantity(item, item.quantity - 1)">-</button>
+                  <button class="btn-quantity"  (click)="updateQuantity(item, item.quantity - 1)">-</button>
                   <span>{{ item.quantity }}</span>
-                  <button class="btn-quantity" [disabled]="item.quantity >= item.product.stockQuantity" (click)="updateQuantity(item, item.quantity + 1)">+</button>
+                  <button class="btn-quantity" [disabled]="item.quantity >= item.product.stockQuantity" (click)="updateQuantity(item,( item.quantity+1))">+</button>
                 </div>
               </div>
               <div class="cart-item-actions">
