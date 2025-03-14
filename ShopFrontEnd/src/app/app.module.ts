@@ -30,6 +30,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { OrderComponent } from './components/order/order.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ProductAdministrationComponent } from './components/product-administration/product-administration.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { CategoryAdministrationComponent } from './components/category-administration/category-administration.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +57,16 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     AdminComponent,
     ProfileComponent,
     GoldGraphComponent,
+    MyOrdersComponent,
+    OrderComponent,
+    CheckoutComponent,
+    ProductAdministrationComponent,
+    AddProductComponent,
+    EditProductComponent,
+    CategoryAdministrationComponent,
+    AddCategoryComponent,
+    UserAdministrationComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
