@@ -11,6 +11,8 @@ import { LoginComponent } from '../app/components/login/login.component';
 import { ProductDetailsComponent } from '../app/components/product-details/product-details.component'; 
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MyOrdersComponent } from './components/my-orders/my-orders.component';
+import { OrderComponent } from './components/order/order.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'gold-coins', component: GoldCoinsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'product-details/:id', component: ProductDetailsComponent },
+  { path: 'my-orders', component: MyOrdersComponent },
+  { path: 'order/:id', component: OrderComponent },
   { path: 'profile', component: ProfileComponent },
   { 
     path: 'cart', 

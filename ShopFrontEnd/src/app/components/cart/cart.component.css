@@ -21,3 +21,22 @@
     cursor: pointer;
     margin-top: -15px;
   }
+  .carts-container
+  {
+    max-width: 580px; /* Default is usually around 960px */
+    width: 90%; /* Increase the width */
+    margin: 0 auto; /* Keep it centered */
+    margin-top: 207px;
+  }
+  .section {
+    padding: 80px 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    /* You can adjust this value */
+    margin-bottom: 40px;
+    /* This will add space at the bottom */
+  }
+  

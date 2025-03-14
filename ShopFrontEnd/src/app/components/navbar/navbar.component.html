@@ -47,7 +47,7 @@
      
       <mat-menu #menu="matMenu" xPosition="after" >
         <button mat-menu-item routerLink="/profile">View Profile</button>
-        <button mat-menu-item routerLink="/orders">My orders</button>
+        <button mat-menu-item routerLink="/my-orders">My orders</button>
         <button mat-menu-item routerLink="/admin" *ngIf="authService.isAdmin()">👤 Admin</button>
         <button mat-menu-item (click)="logout()" style="cursor: pointer">Logout</button>
       </mat-menu>

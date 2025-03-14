@@ -1,1 +1,74 @@
-<p>my-orders works!</p>
+<app-navbar></app-navbar>
+<section class="section cart-section">
+    <div class="loading-overlay" *ngIf="loading">
+        <img src="assets/loading.gif" alt="Loading..." />
+    </div>
+    <div class="order-container" *ngIf="!loading">
+        <div data-aos="fade-down">
+            <h2>My Orders</h2>
+
+            <!-- No orders message -->
+            <div *ngIf="noOrders && !loading && !error" class="alert alert-info">
+                <p>You don't have any orders yet.</p>
+                <button class="btn btn-primary" (click)="goToProducts()">Start Shopping</button>
+            </div>
+
+            <!-- Orders list -->
+            <div *ngIf="orders.length > 0">
+                <div class="order-header-row">
+                    <div class="order-column order-id-column">&nbsp;Order</div>
+                    <div class="order-column order-status-column">&nbsp;&nbsp;&nbsp;Status</div>
+                    <div class="order-column order-items-column">Items</div>
+                    <div class="order-column order-total-column">Total</div>
+                    <div class="order-column order-date-column">Date</div>
+                    <div class="order-column order-action-column">Action</div>
+                </div>
+
+                <div class="order-card" *ngFor="let order of orders">
+                    <div class="order-row">
+                        <div class="order-column order-id-column">
+                            <span class="order-id" title="{{order.id}}">{{order.id.substring(0, 10)}}</span>
+                        </div>
+                        <div class="order-column order-status-column">
+                            <span class="order-status" [ngClass]="getOrderStatusText(order.orderStatus).toLowerCase()">
+                              {{getOrderStatusText(order.orderStatus)}}
+                            </span>
+                        </div>                    
+                        <div class="order-column order-items-column">
+                            <span>{{getOrderItemsCount(order)}}</span>
+                        </div>
+                        <div class="order-column order-total-column">
+                            <span class="order-total">{{order.totalSum | currency}}</span>
+                        </div>
+                        <div class="order-column order-date-column">
+                            <span class="order-date">{{formatDate(order.orderCreatedDate)}}</span>
+                        </div>
+                        <div class="order-column order-action-column">
+                            <a [routerLink]="['/order', order.id]" class="btn">View</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" *ngIf="totalPages > 1">
+                <button class="pagination-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                    Previous
+                </button>
+
+                <div class="pagination-numbers">
+                    <button *ngFor="let page of [].constructor(totalPages); let i = index" class="page-number"
+                        [class.active]="currentPage === i + 1" (click)="goToPage(i + 1)">
+                        {{ i + 1 }}
+                    </button>
+                </div>
+
+                <button class="pagination-btn" [disabled]="currentPage === totalPages"
+                    (click)="goToPage(currentPage + 1)">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
