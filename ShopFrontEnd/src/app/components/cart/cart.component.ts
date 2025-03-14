@@ -43,6 +43,9 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.loadCartItems();
   }
+  goToProductDetails(productId: number): void {
+    this.router.navigate(['/product-details', productId]);
+  }
 
   loadCartItems(): void {
     if (!this.authService.isAuthenticated()) {
