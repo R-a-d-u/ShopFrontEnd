@@ -1,1 +1,70 @@
-<p>order works!</p>
+<app-navbar></app-navbar>
+<!-- order-detail.component.html -->
+<section class="section order-detail-section">
+    <div class="container">
+        <div class="loading-overlay" *ngIf="loading">
+            <img src="assets/loading.gif" alt="Loading..." />
+        </div>
+      
+      <div *ngIf="error" class="error-message">
+        <p>{{ error }}</p>
+        <button class="btn" routerLink="/my-orders">Back to Orders</button>
+      </div>
+      
+      <div *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-down">
+        <div class="order-detail-header">
+          <h2>Order: #{{ order.id }}</h2>
+          <h1 class="order-status status-color">
+            Order Status: {{ getOrderStatusName(order.orderStatus) }}
+          </h1>
+        </div>
+  
+        <div class="order-info-grid">
+          <div class="order-info-card">
+            <h3>Order Information</h3>
+            <p><strong>Order Date:</strong> {{ formatDate(order.orderCreatedDate) }}</p>
+            <p><strong>Payment Method:</strong> {{ getPaymentMethodName(order.paymentMethod) }}</p>
+          </div>
+  
+          <div class="order-info-card">
+            <h3>Shipping Address</h3>
+            <p>{{ order.address }}</p>
+          </div>
+        </div>
+  
+        <div class="order-items">
+          <h3>Order Items</h3>
+          <div class="order-item" *ngFor="let item of order.orderItems">
+            <a [routerLink]="['/product-details', item.product.id]">
+            <img [src]="'/assets/' + item.product.image + '.jpg'" [alt]="item.product.name" class="order-item-image">
+            </a>
+            <div class="order-item-details">
+              <h4>{{ item.product.name }}</h4>
+              <p>{{ item.product.description }}</p>
+              <p *ngIf="item.product.goldWeightInGrams">Gold Weight: {{ item.product.goldWeightInGrams }}g</p>
+              <p class="item-price">${{ item.price.toFixed(2) }}</p>
+            </div>
+            <div class="order-item-quantity">
+              Qty: {{ item.quantity }}
+            </div>
+          </div>
+        </div>
+  
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>${{ (order.totalSum - order.shippingFee).toFixed(2) }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>${{ order.shippingFee.toFixed(2) }}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>${{ order.totalSum.toFixed(2) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-footer></app-footer>

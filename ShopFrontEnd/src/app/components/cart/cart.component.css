@@ -39,4 +39,10 @@
     margin-bottom: 40px;
     /* This will add space at the bottom */
   }
-  
+  .cart-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }

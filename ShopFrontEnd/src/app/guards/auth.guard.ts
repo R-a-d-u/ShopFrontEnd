@@ -7,22 +7,28 @@ import {
   RouterStateSnapshot, 
   UrlTree 
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { OrderService } from '../services/order.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private orderService: OrderService
+  ) {}
   
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
+    // Check if user is authenticated
     if (!this.authService.isAuthenticated()) {
       return this.router.createUrlTree(['/login']);
     }
@@ -42,6 +48,31 @@ export class AuthGuard implements CanActivate {
       if (roles.includes('customer') && !this.authService.isCustomer()) {
         return this.router.createUrlTree(['/unauthorized']);
       }
+    }
+    
+    // Check for order access if this is an order detail route
+    if (state.url.includes('/orders/') && route.params['id']) {
+      const orderId = route.params['id'];
+      const currentUser = this.authService.currentUserValue;
+      
+      // Admin users can access any order
+      if (this.authService.isAdmin()) {
+        return true;
+      }
+      
+      // For regular users, check if the order belongs to them
+      return this.orderService.getOrderById(orderId).pipe(
+        map(order => {
+          if(currentUser)
+          if (order && order.userId === currentUser.id) {
+            return true;
+          }
+          return this.router.createUrlTree(['/unauthorized']);
+        }),
+        catchError(() => {
+          return of(this.router.createUrlTree(['/unauthorized']));
+        })
+      );
     }
     
     return true;

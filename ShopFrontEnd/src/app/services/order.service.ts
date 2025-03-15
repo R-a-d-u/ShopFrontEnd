@@ -30,4 +30,19 @@ export class OrderService {
         })
       );
   }
+
+  getOrderById(orderId: string): Observable<OrderDto> {
+    return this.http.get<ResponseValidator<OrderDto>>(`${this.apiUrl}/Order/Get/${orderId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Order not found');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get order details'));
+        })
+      );
+  }
 }

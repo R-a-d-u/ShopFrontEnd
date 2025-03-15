@@ -43,6 +43,11 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },
+  { 
+    path: 'orders/:id', 
+    component: OrderComponent, 
+    canActivate: [AuthGuard] 
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
