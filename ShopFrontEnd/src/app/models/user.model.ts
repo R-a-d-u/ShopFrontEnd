@@ -8,6 +8,7 @@ export enum UserAccessType {
     id: number;
     name: string;
     email: string;
+    phoneNumber: string;
     userAccessType: UserAccessType;
     lastModifyDate: string;  // Using string for date from API
     isDeleted: boolean;
@@ -22,6 +23,7 @@ export enum UserAccessType {
     name: string;
     email: string;
     password: string;
+    phoneNumber: string;
     userAccessType: UserAccessType;
     lastModifyDate: Date;
     isDeleted: boolean;
