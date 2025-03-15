@@ -205,5 +205,20 @@ export class CartService {
       }
     );
   }
+  clearCart(cartId: number): Observable<boolean> {
+    return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/Cart/Clear/${cartId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            this.cartItemCountSource.next(0); // Reset cart count
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to clear cart');
+        }),
+        catchError(error => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to clear cart'));
+        })
+      );
+  }
 
 }

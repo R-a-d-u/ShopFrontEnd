@@ -185,4 +185,23 @@ export class CartComponent implements OnInit {
   goToProducts(): void {
     this.router.navigate(['/products']);
   }
+  clearCart(): void {
+    if (!this.cartId) return;
+  
+    this.loading = true;
+    this.cartService.clearCart(this.cartId).subscribe({
+      next: () => {
+        this.cartItems = [];
+        this.cartEmpty = true;
+        this.subtotalPrice = 0;
+        this.shippingPrice = 0;
+        this.totalPrice = 0;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = error.message || 'Failed to clear cart';
+        this.loading = false;
+      }
+    });
+  }
 }
