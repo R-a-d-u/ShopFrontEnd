@@ -19,18 +19,18 @@
           <label for="quantity">Quantity:</label>
           <div class="quantity-input-group">
             <button class="btn-quantity" (click)="decreaseQuantity()" [disabled]="product.stockQuantity<=0">-</button>
-            <input type="number" id="quantity" class="quantity-input" [min]="1" [max]="product?.stockQuantity || 1"
+            <input type="number" id="quantity" class="quantity-input" [min]="1" [max]="product.stockQuantity || 1"
               [(ngModel)]="quantity" [disabled]="product.stockQuantity<=0">
             <button class="btn-quantity" (click)="increaseQuantity()" [disabled]="product.stockQuantity<=0">+</button>
           </div>
         </div>
-        <div class="">
-          <div [ngClass]="{
-            'out-of-stock': (product?.stockQuantity ?? 0) <= 0,
-            'in-stock': (product?.stockQuantity ?? 0) > 0
+        <div >
+          <div *ngIf="product.stockQuantity!=null && product.stockQuantity!=undefined" [ngClass]="{
+            'out-of-stock': (product.stockQuantity) <= 0,
+            'in-stock': (product.stockQuantity) > 0
           }">
-            <button (click)="addToCart()" class="add-cart-btn" [disabled]="(product?.stockQuantity ?? 0) <= 0">
-              {{ (product?.stockQuantity ?? 0) > 0 ? 'Add to Cart' : 'Out of Stock' }}
+            <button (click)="addToCart()" class="add-cart-btn" [disabled]="(product.stockQuantity) <= 0">
+              {{ (product.stockQuantity) > 0 ? 'Add to Cart' : 'Out of Stock' }}
             </button>
           </div>
 
@@ -51,12 +51,12 @@
           </ul>
         </div>
 
-        <div class="specifications-section">
+        <div class="specifications-section" *ngIf="product">
           <h3>Specifications</h3>
           <div class="specifications-grid">
             <div class="spec-item">
               <span class="spec-label">Gold Weight:</span>
-              <span class="spec-label">{{ product?.goldWeightInGrams }}g</span>
+              <span class="spec-label">{{ product.goldWeightInGrams }}g</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">Purity:</span>
