@@ -128,7 +128,7 @@ export class ProductDetailsComponent implements OnInit {
           this.addingToCart = false;
           this.error = err.message || 'Failed to add product to cart';
           this.messageService.add({
-            severity: 'warn',
+            severity: 'danger',
             detail: 'Cart quantity exceeds available stock.',
             life: 1500
           });

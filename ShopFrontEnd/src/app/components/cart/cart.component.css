@@ -57,4 +57,5 @@
     border: none; /* Remove any border */
     outline: none; /* Remove focus outline */
     border-radius: 5px; /* Rounded corners */
+    font-family: Roboto;
 }
