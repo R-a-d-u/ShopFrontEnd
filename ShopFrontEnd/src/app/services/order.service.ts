@@ -45,4 +45,24 @@ export class OrderService {
         })
       );
   }
+  createOrderFromCart(cartId: number, userAddress: string, paymentMethod: number): Observable<OrderDto> {
+    const orderData = {
+      cartId: cartId,
+      userAddress: userAddress,
+      paymentMethod: paymentMethod
+    };
+
+    return this.http.post<ResponseValidator<OrderDto>>(`${this.apiUrl}/Order/CreateFromCart`, orderData)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to create order');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'An error occurred while processing your order. Please try again.'));
+        })
+      );
+  }
 }

@@ -13,6 +13,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { OrderComponent } from './components/order/order.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'my-orders', component: MyOrdersComponent },
   { path: 'order/:id', component: OrderComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'checkout', component: CheckoutComponent },
   { 
     path: 'cart', 
     component: CartComponent,

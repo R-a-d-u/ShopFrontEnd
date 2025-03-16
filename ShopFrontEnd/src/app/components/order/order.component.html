@@ -42,10 +42,10 @@
               <h4>{{ item.product.name }}</h4>
               <p>{{ item.product.description }}</p>
               <p *ngIf="item.product.goldWeightInGrams">Gold Weight: {{ item.product.goldWeightInGrams }}g</p>
-              <p class="item-price">${{ item.price.toFixed(2) }}</p>
+              <p class="order-item-quantity">Qty:{{ item.quantity }}</p>
             </div>
-            <div class="order-item-quantity">
-              Qty: {{ item.quantity }}
+            <div class="item-price">
+              ${{ (item.price*item.quantity).toFixed(2) }}
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="order-summary">
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>${{ (order.totalSum - order.shippingFee).toFixed(2) }}</span>
+            <span>${{ (order.totalSum-order.shippingFee).toFixed(2) }}</span>
           </div>
           <div class="summary-row">
             <span>Shipping</span>

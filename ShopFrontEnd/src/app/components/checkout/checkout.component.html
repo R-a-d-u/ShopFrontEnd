@@ -1,1 +1,163 @@
-<p>checkout works!</p>
+<app-navbar></app-navbar>
+<section class="section">
+  <div class="container">
+    <div class="checkout-container" data-aos="fade-up">
+      <h2>Checkout</h2>
+
+      <!-- Loading indicator -->
+      <div *ngIf="loading" class="loading-container">
+        <img src="assets/loading.gif" alt="Loading..." />
+      </div>
+
+      <!-- Error message -->
+      <div *ngIf="error" class="alert">
+        {{ error }}
+      </div>
+
+      <!-- Success message -->
+      <div *ngIf="success" class="alert alert-success">
+        {{ success }}
+      </div>
+
+      <!-- Checkout Grid (Left: Form, Right: Order Summary) -->
+      <div *ngIf="!loading && !error && cartItems.length > 0" class="checkout-grid">
+        
+        <!-- Left Column: Shipping & Payment Form -->
+        <div class="shipping-details">
+          <h3>Shipping Information</h3>
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="checkout-form">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" formControlName="fullName" class="form-input" placeholder="Enter your full name">
+              <div *ngIf="checkoutForm.get('fullName')?.touched && checkoutForm.get('fullName')?.invalid" class="error-message">
+                Full name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" class="form-input" placeholder="Enter your email">
+              <div *ngIf="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.invalid" class="error-message">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" formControlName="phone" class="form-input" placeholder="Enter your phone number">
+              <div *ngIf="checkoutForm.get('phone')?.touched && checkoutForm.get('phone')?.invalid" class="error-message">
+                Phone number is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" id="address" formControlName="address" class="form-input" placeholder="Enter your street address">
+              <div *ngIf="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.invalid" class="error-message">
+                Address is required
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" formControlName="city" class="form-input" placeholder="City">
+                <div *ngIf="checkoutForm.get('city')?.touched && checkoutForm.get('city')?.invalid" class="error-message">
+                  City is required
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="county">County</label>
+                <input type="text" id="county" formControlName="county" class="form-input" placeholder="County">
+                <div *ngIf="checkoutForm.get('county')?.touched && checkoutForm.get('county')?.invalid" class="error-message">
+                  County is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="zipCode">ZIP Code</label>
+                <input type="text" id="zipCode" formControlName="zipCode" class="form-input" placeholder="ZIP Code">
+                <div *ngIf="checkoutForm.get('zipCode')?.touched && checkoutForm.get('zipCode')?.invalid" class="error-message">
+                  ZIP Code is required
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" formControlName="country" class="form-input">
+                  <option value="RO">Romania</option>
+                  <option value="UK">United Kingdom</option>
+                </select>
+                <div *ngIf="checkoutForm.get('country')?.touched && checkoutForm.get('country')?.invalid" class="error-message">
+                  Country is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="payment-method">
+              <h3>Payment Method</h3>
+              <div class="payment-options">
+                <div class="payment-option">
+                  <input type="radio" id="cash" formControlName="paymentMethod" value="CashOnDelivery">
+                  <label for="cash">Cash on Delivery</label>
+                </div>
+                <div class="payment-option">
+                  <input type="radio" id="credit" formControlName="paymentMethod" value="CreditCard">
+                  <label for="credit">Credit Card</label>
+                </div>
+              </div>
+
+              <div class="credit-card-form" *ngIf="checkoutForm.get('paymentMethod')?.value === 'CreditCard'">
+                <div class="form-group">
+                  <label for="cardNumber">Card Number</label>
+                  <input type="text" id="cardNumber" formControlName="cardNumber" class="form-input" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" formControlName="expiryDate" class="form-input" placeholder="MM/YY">
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" formControlName="cvv" class="form-input" placeholder="123">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="checkout-items">
+            <div class="checkout-item" *ngFor="let item of cartItems">
+              <img [src]="'assets/' + item.product.image + '.jpg'" [alt]="item.product.name" class="checkout-item-image">
+              <div class="checkout-item-details">
+                <h4>{{ item.product.name }}</h4>
+                <p>Gold weight: {{ item.product.goldWeightInGrams }}g</p>
+                <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+              </div>
+              <div class="checkout-item-price">
+                <p class="item-price">${{ (item.product.sellingPrice*item.quantity).toFixed(2) }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-summary">
+            <div class="summary-row"><span>Subtotal</span><span>${{ subtotalPrice.toFixed(2) }}</span></div>
+            <div class="summary-row"><span>Shipping</span><span>${{ shippingPrice.toFixed(2) }}</span></div>
+            <div class="summary-row total"><span>Total</span><span>${{ totalPrice.toFixed(2) }}</span></div>
+          </div>
+
+          <!-- Terms & Submit Button (Now at the bottom) -->
+          <p class="terms">By placing your order, you agree to our Terms of Service and Privacy Policy</p>
+          <button type="submit" class="btn checkout-btn" [disabled]="loading" (click)="onSubmit()">Place Order</button>
+        </div>
+
+      </div> <!-- End checkout-grid -->
+    </div>
+  </div>
+</section>
