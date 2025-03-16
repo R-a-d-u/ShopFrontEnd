@@ -2,7 +2,6 @@
     background: white;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: 60px;
 }
 
@@ -22,8 +21,8 @@
 }
 
 .status-color {
-    background: #c5a47ec9;
-    color: white;
+    background: #63390510;
+    color: black;
     margin-right: 700px;
 }
 
@@ -36,7 +35,7 @@
 
 /* Card style */
 .order-info-card {
-    background: #f9f9f9;
+    background: #63390510;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visual separation */
@@ -70,7 +69,7 @@
     grid-template-columns: 100px 1fr auto;
     gap: 20px;
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #63390510;
     align-items: center;
 }
 
@@ -102,7 +101,7 @@
 }
 
 .order-summary {
-    background: #f9f9f9;
+    background: #63390510;
     padding: 20px;
     border-radius: 8px;
 }
@@ -119,4 +118,37 @@
     border-top: 1px solid #ddd;
     padding-top: 10px;
     margin-top: 10px;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.back-button, .download-button {
+    padding: 10px 20px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: Roboto;
+    margin-bottom: -70px;
+}
+
+.back-button {
+    color: black;
+    background-color: white;
+}
+
+.download-button {
+    background-color: #c5a47e;
+    color: white;
+    margin-right: 15px;
+}
+
+.download-button:hover {
+    background-color: #c5a47e;
 }

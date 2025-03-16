@@ -8,17 +8,19 @@
       
       <div *ngIf="error" class="error-message">
         <p>{{ error }}</p>
-        <button class="btn" routerLink="/my-orders">Back to Orders</button>
       </div>
-      
-      <div *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-down">
+      <div>        
+        <div class="button-container" *ngIf="!loading && !error && order" data-aos="fade-down">
+          <button class="back-button" (click)="goBack()">⬅ Back to my orders page</button>
+          <button class="download-button" (click)="downloadPDF()">⇩ Download PDF</button>
+      </div>      
+      <div id="order-pdf-container" *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-down">
         <div class="order-detail-header">
           <h2>Order: #{{ order.id }}</h2>
           <h1 class="order-status status-color">
             Order Status: {{ getOrderStatusName(order.orderStatus) }}
           </h1>
         </div>
-  
         <div class="order-info-grid">
           <div class="order-info-card">
             <h3>Customer Information</h3>
@@ -75,6 +77,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </section>
   <app-footer></app-footer>

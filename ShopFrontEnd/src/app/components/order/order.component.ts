@@ -5,6 +5,8 @@ import { OrderDto } from '../../models/order.model';
 import { formatDate } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { User, UserService } from 'src/app/services/user.service';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-order',
@@ -116,6 +118,23 @@ export class OrderComponent implements OnInit {
       minute: "2-digit", 
       hour12: false 
     });
+  }
+  downloadPDF(): void {
+    const element = document.getElementById('order-pdf-container'); // Replace with the ID of your HTML element
+    if (element) {
+      html2canvas(element).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait, millimeters, A4 size
+        const imgWidth = 210; // A4 width in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate height to maintain aspect ratio
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save('order-details.pdf');
+      });
+    }
+  }
+  goBack(): void {
+    this.router.navigate(['/my-orders']);
   }
 }
 
