@@ -21,15 +21,25 @@
   
         <div class="order-info-grid">
           <div class="order-info-card">
-            <h3>Order Information</h3>
-            <p><strong>Order Date:</strong> {{ formatDate(order.orderCreatedDate) }}</p>
-            <p><strong>Payment Method:</strong> {{ getPaymentMethodName(order.paymentMethod) }}</p>
+            <h3>Customer Information</h3>
+            <p><strong>Name:</strong> {{ user?.name || 'Loading...' }}</p>
+            <p><strong>Email:</strong> {{ user?.email || 'Loading...' }}</p>
+            <p><strong>Phone:</strong> {{ user?.phoneNumber || 'Loading...' }}</p>
           </div>
-  
+
+
+        
           <div class="order-info-card">
             <h3>Shipping Address</h3>
             <p>{{ order.address }}</p>
           </div>
+          
+          <div class="order-info-card">
+            <h3>Order Information</h3>
+            <p><strong>Order Date:</strong> {{ formatDate(order.orderCreatedDate) }}</p>
+            <p><strong>Payment Method:</strong> {{ getPaymentMethodName(order.paymentMethod) }}</p>
+          </div>
+
         </div>
   
         <div class="order-items">

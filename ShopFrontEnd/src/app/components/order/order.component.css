@@ -29,24 +29,36 @@
 
 .order-info-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 3 equal-width columns */
+    gap: 20px;
     margin-bottom: 40px;
 }
 
+/* Card style */
 .order-info-card {
     background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visual separation */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word; /* Ensure long words or text will wrap inside the card */
+    overflow: hidden; /* Prevents overflow outside the card */
 }
 
+/* Heading inside the card */
 .order-info-card h3 {
     margin-bottom: 15px;
     color: #333;
 }
 
+/* Paragraph inside the card */
 .order-info-card p {
     margin-bottom: 10px;
+    white-space: normal; /* Allows text to wrap normally */
+    overflow-wrap: break-word; /* Prevents long words from overflowing */
 }
 
 .order-items {

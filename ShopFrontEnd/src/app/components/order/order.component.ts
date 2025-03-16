@@ -4,6 +4,7 @@ import { OrderService } from '../../services/order.service';
 import { OrderDto } from '../../models/order.model';
 import { formatDate } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { User, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -14,12 +15,14 @@ export class OrderComponent implements OnInit {
   order: OrderDto | null = null;
   loading = true;
   error: string | null = null;
+  user: User | null = null;  // Add user property
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private orderService: OrderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,7 @@ export class OrderComponent implements OnInit {
         const currentUser = this.authService.currentUserValue;
         if (currentUser && (this.authService.isAdmin() || data.userId === currentUser.id)) {
           this.order = data;
+          this.fetchUserInfo(data.userId);
           this.loading = false;
         } else {
           // Not authorized to view this order
@@ -47,6 +51,24 @@ export class OrderComponent implements OnInit {
       },
       error: (err) => {
         this.error = err.message || 'Failed to load order details';
+        this.loading = false;
+      }
+    });
+  }
+  fetchUserInfo(userId: number): void {
+    this.loading = true;  // Set loading to true while fetching user info
+    this.userService.getUserById(userId).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.user = response.result;  // Assign the user info to the user property
+        } else {
+          this.error = 'Failed to fetch user info';
+        }
+        this.loading = false;  // Set loading to false once the request is done
+      },
+      error: (err) => {
+        console.error('Failed to fetch user info:', err);
+        this.error = 'Failed to fetch user info';
         this.loading = false;
       }
     });
