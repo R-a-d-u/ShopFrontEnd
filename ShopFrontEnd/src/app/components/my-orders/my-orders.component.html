@@ -8,9 +8,9 @@
             <h2>My Orders</h2>
 
             <!-- No orders message -->
-            <div *ngIf="noOrders && !loading && !error" class="alert alert-info">
+            <div *ngIf="noOrders && !loading && !error" class="no-orders-message">
                 <p>You don't have any orders yet.</p>
-                <button class="btn btn-primary" (click)="goToProducts()">Start Shopping</button>
+                <button class="btn btn-outline-primary" (click)="goToProducts()">Start Shopping</button>
             </div>
 
             <!-- Orders list -->
