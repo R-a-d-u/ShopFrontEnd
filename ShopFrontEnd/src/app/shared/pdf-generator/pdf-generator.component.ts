@@ -1,17 +1,58 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit,OnDestroy } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { PdfDownloadService } from '../../services/pdf-download.service';
 
 @Component({
   selector: 'app-pdf-generator',
-  template: `<button class="download-button" (click)="downloadPDF()">⇩ Download PDF</button>`,
+  template: `<button class="download-button" [disabled]="isDisabled" (click)="downloadPDF()">
+    {{ buttonText }}
+  </button>`,
   styleUrls: ['./pdf-generator.component.css'],
 })
-export class PdfGeneratorComponent {
-  @Input() elementId!: string; // Element to capture
-  @Input() fileName: string = 'order-details.pdf'; // Default file name
+export class PdfGeneratorComponent implements OnInit, OnDestroy {
+  @Input() elementId!: string;
+  @Input() fileName: string = 'order-details.pdf';
+  
+  isDisabled: boolean = false;
+  buttonText: string = '⇩ Download PDF';
+  private updateTimer: any;
+  
+  constructor(private pdfDownloadService: PdfDownloadService) {}
+  
+  ngOnInit(): void {
+    this.updateButtonState();
+    // Check status every second to update button state
+    this.updateTimer = setInterval(() => this.updateButtonState(), 1000);
+  }
+  
+  ngOnDestroy(): void {
+    if (this.updateTimer) {
+      clearInterval(this.updateTimer);
+    }
+  }
+  
+  updateButtonState(): void {
+    if (!this.pdfDownloadService.canDownload()) {
+      this.isDisabled = true;
+      const remainingTime = this.pdfDownloadService.getRemainingTime();
+      this.buttonText = `Download timeout: ${remainingTime}s`;
+    } else {
+      this.isDisabled = false;
+      this.buttonText = '⇩ Download PDF';
+    }
+  }
 
   downloadPDF(): void {
+    if (!this.pdfDownloadService.canDownload()) {
+      const remainingTime = this.pdfDownloadService.getRemainingTime();
+      alert(`Please wait ${remainingTime} seconds before downloading another PDF.`);
+      return;
+    }
+    
+    this.pdfDownloadService.setLastDownloadTime();
+    this.updateButtonState();
+    
     const element = document.getElementById('order-pdf-container'); 
     if (element) {
         // Create a temporary container for PDF generation
@@ -39,13 +80,12 @@ export class PdfGeneratorComponent {
           const quantity = item.querySelector('.order-item-quantity')?.textContent?.trim() || 'Qty: 0';
           const price = item.querySelector('.item-price')?.textContent?.trim() || '$0.00';
 
-
-            // Replace content with inline format (without removing images first)
-            item.innerHTML = `
-                <span class="order-item-name">${productName}</span>
-                <span class="order-item-quantity">${quantity}</span>
-                <span class="item-price">${price}</span>
-            `;
+          // Replace content with inline format
+          item.innerHTML = `
+              <span class="order-item-name">${productName}</span>
+              <span class="order-item-quantity">${quantity}</span>
+              <span class="item-price">${price}</span>
+          `;
         });
 
         tempContainer.appendChild(clonedElement);
@@ -64,6 +104,5 @@ export class PdfGeneratorComponent {
             document.body.removeChild(tempContainer);
         });
     }
-}
-
+  }
 }
