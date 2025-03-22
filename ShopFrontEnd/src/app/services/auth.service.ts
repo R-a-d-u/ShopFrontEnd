@@ -31,6 +31,27 @@ export class AuthService {
   public get currentUserValue(): UserDto | null {
     return this.currentUserSubject.value;
   }
+  register(name: string, email: string, password: string, phoneNumber: string, userAccessType: number): Observable<UserDto> {
+    const userPayload = {
+      name,
+      email,
+      password,
+      phoneNumber,
+      userAccessType, // Assuming '1' represents a customer
+      lastModifyDate: new Date().toISOString(),
+      isDeleted: false
+    };
+  
+    return this.http.post<ApiResponse<UserDto>>(`${this.apiUrl}/Add`, userPayload).pipe(
+      map(response => {
+        if (response.isSuccess && response.result) {
+          return response.result;
+        }
+        throw new Error(response.errorMessage || 'Registration failed');
+      }),
+      catchError(this.handleError)
+    );
+  }
 
   // Customer login
   login(email: string, password: string): Observable<UserDto> {

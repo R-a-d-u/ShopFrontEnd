@@ -1,34 +1,100 @@
 <app-navbar></app-navbar>
 <section class="section login-section">
-    <div class="container">
-      <div class="login-container" data-aos="fade-up">
-        <h2>Create Account</h2>
-        <form class="login-form">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" placeholder="Enter your full name" class="form-input">
+  <div class="container">
+    <div class="login-container" data-aos="fade-up">
+      <h2>Create Account</h2>
+      <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            placeholder="Enter your full name" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['name'].errors}"
+          >
+          <div *ngIf="submitted && f['name'].errors" class="error-message">
+            <span *ngIf="f['name'].errors['required']">Full Name is required</span>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Enter your email" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['email'].errors}"
+          >
+          <div *ngIf="submitted && f['email'].errors" class="error-message">
+            <span *ngIf="f['email'].errors['required']">Email is required</span>
+            <span *ngIf="f['email'].errors['email']">Please enter a valid email</span>
           </div>
-          <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="phoneNumber" id="phoneNumber" placeholder="Enter your phone number" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input 
+            type="text" 
+            id="phoneNumber" 
+            formControlName="phoneNumber" 
+            placeholder="Enter your phone number" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['phoneNumber'].errors}"
+          >
+          <div *ngIf="submitted && f['phoneNumber'].errors" class="error-message">
+            <span *ngIf="f['phoneNumber'].errors['required']">Phone Number is required</span>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Enter your password" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['password'].errors}"
+          >
+          <div *ngIf="submitted && f['password'].errors" class="error-message">
+            <span *ngIf="f['password'].errors['required']">Password is required</span>
+            <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
           </div>
-          <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" placeholder="Confirm your password" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirm-password" 
+            formControlName="confirmPassword" 
+            placeholder="Confirm your password" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['confirmPassword'].errors}"
+          >
+          <div *ngIf="submitted && f['confirmPassword'].errors" class="error-message">
+            <span *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</span>
+            <span *ngIf="f['confirmPassword'].errors['mismatch']">Passwords do not match</span>
           </div>
-          <button type="button" class="btn login-btn" routerLink="/login">Create Account</button>
-          <p class="text-center mt-4">
-            Already have an account? <a routerLink="/login" class="text-link">Login here</a>
-          </p>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit" class="btn login-btn" [disabled]="loading">
+          <span *ngIf="loading" class="spinner"></span>
+          Create Account
+        </button>
+
+        <div *ngIf="error" class="alert-error">
+          {{ error }}
+        </div>
+
+        <p class="text-center mt-4">
+          Already have an account? <a routerLink="/login" class="text-link">Login here</a>
+        </p>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
