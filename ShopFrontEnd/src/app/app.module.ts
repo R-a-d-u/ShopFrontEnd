@@ -40,6 +40,7 @@ import { CategoryAdministrationComponent } from './components/category-administr
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     AddCategoryComponent,
     UserAdministrationComponent,
     AddUserComponent,
+    PdfGeneratorComponent,
   ],
   imports: [
     BrowserModule,

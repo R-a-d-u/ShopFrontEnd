@@ -119,57 +119,6 @@ export class OrderComponent implements OnInit {
       hour12: false 
     });
   }
-  downloadPDF(): void {
-    const element = document.getElementById('order-pdf-container'); // Replace with the ID of your HTML element
-    if (element) {
-      // Create a temporary container
-      const tempContainer = document.createElement('div');
-      tempContainer.style.position = 'absolute';
-      tempContainer.style.left = '-9999px'; // Move it off-screen
-      tempContainer.style.fontFamily='Roboto';
-      document.body.appendChild(tempContainer);
-  
-      // Add the title
-      const title = document.createElement('h2');
-      title.textContent = 'Luxury & Gold';
-      title.style.textAlign = 'center'; // Center the title
-      title.style.marginTop = '16px'; // Add some spacing
-      title.style.fontFamily='Roboto';
-      tempContainer.appendChild(title);
-  
-      // Clone the original content and append it to the temporary container
-      const clonedElement = element.cloneNode(true);
-      tempContainer.appendChild(clonedElement);
-  
-      // Render the temporary container
-      html2canvas(tempContainer, { scale: 2 }).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait, millimeters, A4 size
-        const imgWidth = 210; // A4 width in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate height to maintain aspect ratio
-  
-        const pageHeight = 297; // A4 height in mm
-        let position = 0; // Initial position for the first page
-  
-        // Add the first page
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        position -= pageHeight; // Move the position for the next page
-  
-        // Add additional pages if the content is taller than one page
-        while (position > -imgHeight) {
-          pdf.addPage(); // Add a new page
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-          position -= pageHeight; // Move the position for the next page
-        }
-  
-        // Save the PDF
-        pdf.save('order-details.pdf');
-  
-        // Clean up: Remove the temporary container
-        document.body.removeChild(tempContainer);
-      });
-    }
-  }
   goBack(): void {
     this.router.navigate(['/my-orders']);
   }

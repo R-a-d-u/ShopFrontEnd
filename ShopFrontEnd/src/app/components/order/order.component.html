@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <!-- order-detail.component.html -->
 <section class="section order-detail-section">
     <div class="container">
@@ -12,7 +13,8 @@
       <div>        
         <div class="button-container" *ngIf="!loading && !error && order" data-aos="fade-down">
           <button class="back-button" (click)="goBack()">⬅ Back to my orders page</button>
-          <button class="download-button" (click)="downloadPDF()">⇩ Download PDF</button>
+          <app-pdf-generator  [elementId]="'order-pdf-container'" [fileName]="'Luxury&Gold-order.pdf'"></app-pdf-generator>
+
       </div>      
       <div id="order-pdf-container" *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-down">
         <div class="order-detail-header">
@@ -51,8 +53,7 @@
             <img [src]="'/assets/' + item.product.image + '.jpg'" [alt]="item.product.name" class="order-item-image">
             </a>
             <div class="order-item-details">
-              <h4>{{ item.product.name }}</h4>
-              <p>{{ item.product.description }}</p>
+              <h4 class="product-name">{{ item.product.name }}</h4>
               <p *ngIf="item.product.goldWeightInGrams">Gold Weight: {{ item.product.goldWeightInGrams }}g</p>
               <p class="order-item-quantity">Qty:{{ item.quantity }}</p>
             </div>

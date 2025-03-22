@@ -1,0 +1,21 @@
+.back-button, .download-button {
+    padding: 10px 20px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: Roboto;
+    margin-bottom: -70px;
+}
+
+.download-button {
+    background-color: #c5a47e;
+    color: white;
+    margin-right: 15px;
+    margin-top: 70px;
+}
+
+.download-button:hover {
+    background-color: #c5a47e;
+}
