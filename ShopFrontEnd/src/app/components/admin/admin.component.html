@@ -1,6 +1,68 @@
 <app-navbar></app-navbar>
-<p>admin works!</p>
-<div class="admin-header">
-    <h1>Admin Dashboard</h1>
-    <button class="btn btn-danger logout-btn" (click)="logout()">Logout</button>
+<section class="section admin-section">
+  <div class="container">
+    <div class="admin-dashboard" data-aos="fade-up">
+      <h2>Admin Dashboard</h2>
+      
+      <div class="admin-menu">
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3h18v18H3zM8 12h8M12 8v8"/>
+          </svg>
+          Category Settings
+        </button>
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          App Configuration
+        </button>
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+          Orders Management
+        </button>
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          Product Management
+        </button>
+        <button class="menu-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          User Management
+        </button>
+      </div>
+
+      <div class="admin-grid">
+        <div class="admin-card">
+          <h3>Products</h3>
+          <p>Total Products: 24</p>
+          <button class="btn">Manage Products</button>
+        </div>
+        <div class="admin-card">
+          <h3>Orders</h3>
+          <p>Pending Orders: 5</p>
+          <button class="btn">View Orders</button>
+        </div>
+        <div class="admin-card">
+          <h3>Inventory</h3>
+          <p>Low Stock Items: 3</p>
+          <button class="btn">Check Inventory</button>
+        </div>
+        <div class="admin-card">
+          <h3>Users</h3>
+          <p>Active Users: 150</p>
+          <button class="btn">Manage Users</button>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
