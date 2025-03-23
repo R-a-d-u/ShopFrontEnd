@@ -75,6 +75,11 @@ export class PdfGeneratorComponent implements OnInit, OnDestroy {
 
         // Remove images and modify order items format
         const orderItems = clonedElement.querySelectorAll('.order-item');
+
+        const orderStatus = clonedElement.querySelector('.order-status');
+        if (orderStatus) {
+            orderStatus.remove();
+        }
         orderItems.forEach(item => {
           const productName = item.querySelector('.product-name')?.textContent?.trim() || 'Unknown Product';
           const quantity = item.querySelector('.order-item-quantity')?.textContent?.trim() || 'Qty: 0';
@@ -87,6 +92,8 @@ export class PdfGeneratorComponent implements OnInit, OnDestroy {
               <span class="item-price">${price}</span>
           `;
         });
+
+        
 
         tempContainer.appendChild(clonedElement);
 
