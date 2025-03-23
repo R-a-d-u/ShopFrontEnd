@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService, UserUpdateData } from '../../services/user.service';
 import { finalize } from 'rxjs/operators';
+import { MessageService } from 'primeng/api'; 
 
 @Component({
   selector: 'app-edit-user-info',
@@ -22,7 +23,8 @@ export class EditUserInfoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,11 @@ export class EditUserInfoComponent implements OnInit {
       .subscribe({
         next: (response) => {
           if (response.isSuccess) {
+            this.messageService.add({
+              severity: 'warn',
+              detail: 'User info updated successfully.',
+              life: 1500 // 2 seconds
+            });
             // Update the local storage user data
             const currentUser = this.authService.currentUserValue;
             if (currentUser) {
@@ -102,13 +109,20 @@ export class EditUserInfoComponent implements OnInit {
             }
             
             // Navigate to profile or dashboard
-            this.router.navigate(['/profile']);
+            setTimeout(() => {
+              this.router.navigate(['/profile']);
+            }, 2000);
           } else {
             this.error = response.errorMessage || 'Failed to update user information';
           }
         },
         error: (err) => {
           this.error = err.message || 'An error occurred while updating user information';
+          this.messageService.add({
+            severity: 'danger',
+            detail: 'An error occurred while updating user information',
+            life: 1500
+          });
         }
       });
   }

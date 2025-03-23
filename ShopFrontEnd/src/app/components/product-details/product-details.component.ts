@@ -119,7 +119,7 @@ export class ProductDetailsComponent implements OnInit {
           // You can add some notification logic here
           this.messageService.add({
             severity: 'warn',  // Type of message (success, error, warn, info)
-            detail: 'Product added to cart!',
+            detail: 'Product added to cart.',
             life: 1200 // Auto-close after 3 seconds
           });
           // Optional: Navigate to cart or show a success message

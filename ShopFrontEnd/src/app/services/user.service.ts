@@ -18,6 +18,10 @@ export interface UserUpdateData {
   phoneNumber: string;
   lastModifyDate: string;
 }
+export interface PasswordUpdateData {
+  password: string;
+  lastModifyDate: string;
+}
 
 export interface ResponseValidator<T> {
   isSuccess: boolean;
@@ -38,5 +42,8 @@ export class UserService {
   }
   updateUser(id: number, updateData: UserUpdateData): Observable<ResponseValidator<User>> {
     return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/Edit/${id}`, updateData);
+  }
+  updateUserPassword(id: number, passwordData: PasswordUpdateData): Observable<ResponseValidator<User>> {
+    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/EditPassword/${id}`, passwordData);
   }
 }
