@@ -214,10 +214,12 @@ export class CheckoutComponent implements OnInit {
       next: (result) => {
         this.success = 'Order placed successfully!';
         this.loading = false;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Navigate to order confirmation page
         setTimeout(() => {
           this.router.navigate(['/orders']);
-        }, 1300);
+        }, 2500);
       },
       error: (error) => {
         this.error = error.message || 'Failed to create order. Please try again.';

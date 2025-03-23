@@ -41,6 +41,8 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.component';
+import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
+import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.comp
     UserAdministrationComponent,
     AddUserComponent,
     PdfGeneratorComponent,
+    EditUserPasswordComponent,
+    EditUserInfoComponent,
   ],
   imports: [
     BrowserModule,
