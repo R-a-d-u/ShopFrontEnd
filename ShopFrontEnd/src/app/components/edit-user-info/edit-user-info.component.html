@@ -1,1 +1,58 @@
-<p>edit-user-info works!</p>
+<app-navbar></app-navbar>
+<section class="section edit-profile-section">
+  <div class="container">
+    <div class="login-container" data-aos="fade-up">
+      <h2 *ngIf="!loading">Edit Profile</h2>
+      <div *ngIf="loading && !submitted" class="text-center">
+        <span class="spinner"></span>
+        <p>Loading your information...</p>
+      </div>
+      
+      <form *ngIf="!loading || submitted" [formGroup]="editForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            placeholder="Enter your name" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['name'].errors}"
+          >
+          <div *ngIf="submitted && f['name'].errors" class="error-message">
+            <span *ngIf="f['name'].errors['required']">Name is required</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number</label>
+          <input 
+            type="tel" 
+            id="phoneNumber" 
+            formControlName="phoneNumber" 
+            placeholder="Enter your phone number" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['phoneNumber'].errors}"
+          >
+          <div *ngIf="submitted && f['phoneNumber'].errors" class="error-message">
+            <span *ngIf="f['phoneNumber'].errors['required']">Phone number is required</span>
+            <span *ngIf="f['phoneNumber'].errors['pattern']">Please enter a valid 10-digit phone number</span>
+          </div>
+        </div>
+        
+        <div *ngIf="error" class="alert-error">
+          {{ error }}
+        </div>
+        
+        <button type="submit" class="btn login-btn" [disabled]="loading">
+          <span *ngIf="loading" class="spinner"></span>
+          Save Changes
+        </button>
+        
+        <button type="button" class="btn secondary-btn" routerLink="/profile">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -13,6 +13,11 @@ export interface User {
   lastModifyDate: string;
   isDeleted: boolean;
 }
+export interface UserUpdateData {
+  name: string;
+  phoneNumber: string;
+  lastModifyDate: string;
+}
 
 export interface ResponseValidator<T> {
   isSuccess: boolean;
@@ -30,5 +35,8 @@ export class UserService {
 
   getUserById(id: number): Observable<ResponseValidator<User>> {
     return this.http.get<ResponseValidator<User>>(`${this.apiUrl}/Get/${id}`);
+  }
+  updateUser(id: number, updateData: UserUpdateData): Observable<ResponseValidator<User>> {
+    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/Edit/${id}`, updateData);
   }
 }

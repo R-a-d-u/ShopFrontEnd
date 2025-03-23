@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="profile-container" >
-      <div class="profile-card" data-aos="fade-down">
+      <div class="profile-card" data-aos="fade-up">
         <h2>Your Profile</h2>
         
         <div *ngIf="currentUser" class="user-details">
@@ -26,7 +26,7 @@
           </div>
           
           <div class="button-group">
-            <button class="btn btn-login">Edit Profile Information</button>
+            <button routerLink="/edit-user-info"  class="btn btn-login">Edit Profile Information</button>
             <button class="btn btn-login">Change Password</button>
             <button class="btn btn-login" (click)="logout()">Logout</button>
           </div>
