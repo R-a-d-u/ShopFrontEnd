@@ -99,21 +99,30 @@ export class CartComponent implements OnInit {
     if (quantity < 0 || !this.cartId) return;
     this.isNavigatingToPage = false;
     this.loading = true;
-    //console.log(item.id, quantity);
+  
+    if (quantity === 0) {
+      this.removeItem(item.id); // Remove item if quantity is 0
+      return;
+    }
+  
     this.cartService.updateCartItemQuantity(item.id, quantity).subscribe({
       next: () => {
-        // Update the UI with new quantity
-        item.quantity = quantity;
-        
-        // Get updated pricing from API after quantity change
+        item.quantity = quantity; // Update UI quantity
+  
         if (this.cartId) {
           this.loadCartPricing(this.cartId);
-          // Reload cart items to get updated prices
           this.cartService.getCartItems(this.cartId).subscribe({
             next: (items) => {
               this.cartItems = items;
-            }
-            ,
+  
+              if (this.cartItems.length === 0) {
+                this.cartEmpty = true;
+                this.subtotalPrice = 0;
+                this.shippingPrice = 0;
+                this.totalPrice = 0;
+                this.loading = false;
+              }
+            },
             error: (error) => {
               this.error = error.message || 'Failed to reload cart items';
             }
@@ -129,6 +138,7 @@ export class CartComponent implements OnInit {
       }
     });
   }
+  
 
   removeItem(itemId: number): void {
     if (!this.cartId) return;
