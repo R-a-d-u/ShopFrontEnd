@@ -27,6 +27,9 @@ export class StatisticsComponent implements OnInit {
 
     this.startDate = this.formatDateTime(fourMonthsAgo);
     this.endDate = this.formatDateTime(now);
+    const romaniaDate = new Date(now);
+    romaniaDate.setHours(romaniaDate.getHours() + 2);
+    this.endDate=romaniaDate.toISOString().slice(0, 16);
   }
 
   formatDateTime(date: Date): string {
