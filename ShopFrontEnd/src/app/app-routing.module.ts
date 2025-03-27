@@ -16,6 +16,7 @@ import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
 import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
+import { StatisticsComponent } from './components/admin/statistics/statistics.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent },
   {path: 'edit-user-info', component : EditUserInfoComponent},
   {path: 'edit-user-password', component : EditUserPasswordComponent},
+  { path: 'admin/statistics', component: StatisticsComponent },
   { 
     path: 'cart', 
     component: CartComponent,

@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<section class="section admin-section">
+    <div class="container">
+      <div class="statistics-dashboard" data-aos="fade-up">
+        <h2>Sales & Statistics</h2>
+        
+        <div class="statistics-filters">
+          <div class="date-inputs">
+            <div class="input-group">
+              <label>Start Date</label>
+              <input type="datetime-local" [(ngModel)]="startDate">
+            </div>
+            <div class="input-group">
+              <label>End Date</label>
+              <input type="datetime-local" [(ngModel)]="endDate">
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <label>Analysis Type</label>
+            <select [(ngModel)]="selectedAnalysisType">
+              <option value="product">Top Selling Products</option>
+              <option value="revenue">Total Revenue Analysis</option>
+              <option value="category">Category Performance</option>
+              <option value="hourly">Hourly Sales</option>
+            </select>
+          </div>
+          
+          <button class="btn" (click)="fetchStatistics()">Generate Report</button>
+        </div>
+  
+        <div class="statistics-graph" *ngIf="chartOptions">
+          <canvasjs-chart 
+            [options]="chartOptions" 
+            [styles]="{width: '800px', height:'400px'}"
+            (chartInstance)="getChartInstance($event)">
+          </canvasjs-chart>
+        </div>
+
+        <div *ngIf="selectedProductDetails.productName" class="product-details">
+            <h3>Product Details</h3>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <strong>Product Name:</strong>
+                <span>{{ selectedProductDetails.productName }}</span>
+              </div>
+              <div class="detail-item">
+                <strong>Selling Percentage:</strong>
+                <span>{{ selectedProductDetails.sellingPercentage }}%</span>
+              </div>
+              <div class="detail-item">
+                <strong>Total Quantity Sold:</strong>
+                <span>{{ selectedProductDetails.totalQuantitySold }}</span>
+              </div>
+              <div class="detail-item">
+                <strong>Average Price:</strong>
+                <span>${{ selectedProductDetails.averagePrice | number:'1.2-2' }}</span>
+              </div>
+            </div>
+          </div>
+  
+        <div class="statistics-summary" *ngIf="summaryData">
+          <div class="summary-grid" style="width: 800px">
+            <div *ngFor="let item of summaryData" class="summary-card">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.value }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

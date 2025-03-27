@@ -43,6 +43,7 @@ import { AddUserComponent } from './components/add-user/add-user.component';
 import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.component';
 import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
 import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
+import { StatisticsComponent } from './components/admin/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { EditUserInfoComponent } from './components/edit-user-info/edit-user-inf
     PdfGeneratorComponent,
     EditUserPasswordComponent,
     EditUserInfoComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
