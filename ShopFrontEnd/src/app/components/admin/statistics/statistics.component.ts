@@ -100,6 +100,10 @@ export class StatisticsComponent implements OnInit {
 
   createHourlyChart(data: any[]) {
     this.chartOptions = {
+      theme: "light2",
+      zoomEnabled: true,
+      exportEnabled: true,
+      animationEnabled: true,
       title: { text: "Hourly Sales Distribution" },
       axisX: { title: "Hour" },
       axisY: { title: "Sales (%)" },
@@ -115,6 +119,10 @@ export class StatisticsComponent implements OnInit {
 
   createProductChart(data: any[]) {
     this.chartOptions = {
+      theme: "light2",
+      zoomEnabled: true,
+      exportEnabled: true,
+      animationEnabled: true,
       title: { text: "Product Sales Performance" },
       axisX: { title: "Product" },
       axisY: { title: "Sales (%)" },
@@ -158,6 +166,7 @@ export class StatisticsComponent implements OnInit {
 
   createRevenueSummary(data: any) {
     this.summaryData = [
+
       { title: 'Total Revenue', value: `$${data.totalRevenue.toFixed(2)}` },
       { title: 'Average Order Value', value: `$${data.averageOrderValue.toFixed(2)}` },
       { title: 'Total Orders', value: data.totalOrderCount },
@@ -167,6 +176,10 @@ export class StatisticsComponent implements OnInit {
 
   createCategoryChart(data: any[]) {
     this.chartOptions = {
+      theme: "light2",
+      zoomEnabled: true,
+      exportEnabled: true,
+      animationEnabled: true,
       title: { text: "Category Sales Performance" },
       axisX: { title: "Category" },
       axisY: { title: "Sales (%)" },
