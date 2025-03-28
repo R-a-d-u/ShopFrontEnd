@@ -6,9 +6,10 @@
   
   .statistics-filters {
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: center;
     align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
   }
   
   .date-inputs {
@@ -33,14 +34,11 @@
     border-radius: 4px;
   }
   
-  .statistics-graph {
-    margin-top: 20px;
-  }
-  
   .summary-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+    margin-top: 60px;
   }
   
   .summary-card {
@@ -49,12 +47,6 @@
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  .product-details {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
   }
   
   .detail-grid {
@@ -80,4 +72,35 @@
   .detail-item span {
     font-weight: bold;
     color: #666;
+  }
+
+
+  .admin-section .container.fixed-size {
+    width: 900px; /* Adjust as needed */
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .statistics-content-wrapper {
+    min-height: 500px; /* Fixed minimum height */
+    max-height: 600px; /* Maximum height */
+    overflow: auto; /* Add scrollbar if content exceeds max-height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .statistics-graph,
+  .product-details,
+  .statistics-summary {
+    width: 100%;
+    max-width: 800px;
+    margin-top:20px;
+  }
+  
+  .statistics-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Match graph height or adjust as needed */
   }

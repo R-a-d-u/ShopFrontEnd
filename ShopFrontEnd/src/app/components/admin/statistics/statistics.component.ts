@@ -30,6 +30,7 @@ export class StatisticsComponent implements OnInit {
     const romaniaDate = new Date(now);
     romaniaDate.setHours(romaniaDate.getHours() + 2);
     this.endDate=romaniaDate.toISOString().slice(0, 16);
+    this.fetchStatistics();
   }
 
   formatDateTime(date: Date): string {
@@ -166,9 +167,9 @@ export class StatisticsComponent implements OnInit {
     this.summaryData = [
 
       { title: 'Total Revenue', value: `$${data.totalRevenue.toFixed(2)}` },
-      { title: 'Average Order Value', value: `$${data.averageOrderValue.toFixed(2)}` },
+      { title: 'Daily Avg Revenue', value: `$${data.dailyAverageRevenue.toFixed(2)}` },
       { title: 'Total Orders', value: data.totalOrderCount },
-      { title: 'Daily Avg Revenue', value: `$${data.dailyAverageRevenue.toFixed(2)}` }
+      { title: 'Average Order Value', value: `$${data.averageOrderValue.toFixed(2)}` }
     ];
   }
 
@@ -195,5 +196,11 @@ export class StatisticsComponent implements OnInit {
 
   getChartInstance(chart: any) {
     // Optional chart instance handling
+  }
+  onAnalysisTypeChange(): void {
+    // Only fetch if we have start and end dates
+    if (this.startDate && this.endDate) {
+      this.fetchStatistics();
+    }
   }
 }
