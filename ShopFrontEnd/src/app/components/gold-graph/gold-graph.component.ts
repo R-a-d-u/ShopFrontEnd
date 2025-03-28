@@ -19,9 +19,8 @@ export class GoldGraphComponent implements OnInit {
 
   // Dynamic chart options based on the 'id'
   chartOptions = {
-    theme: "dark2",
+    theme: "dark1",
     zoomEnabled: true,
-    exportEnabled: true,
     animationEnabled: true,
     title: {
       text: "Forex.com",

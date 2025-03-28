@@ -102,7 +102,6 @@ export class StatisticsComponent implements OnInit {
     this.chartOptions = {
       theme: "light2",
       zoomEnabled: true,
-      exportEnabled: true,
       animationEnabled: true,
       title: { text: "Hourly Sales Distribution" },
       axisX: { title: "Hour" },
@@ -121,7 +120,6 @@ export class StatisticsComponent implements OnInit {
     this.chartOptions = {
       theme: "light2",
       zoomEnabled: true,
-      exportEnabled: true,
       animationEnabled: true,
       title: { text: "Product Sales Performance" },
       axisX: { title: "Product" },
@@ -178,7 +176,6 @@ export class StatisticsComponent implements OnInit {
     this.chartOptions = {
       theme: "light2",
       zoomEnabled: true,
-      exportEnabled: true,
       animationEnabled: true,
       title: { text: "Category Sales Performance" },
       axisX: { title: "Category" },
