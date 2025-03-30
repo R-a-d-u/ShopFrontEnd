@@ -44,6 +44,11 @@ import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.comp
 import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
 import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
 import { StatisticsComponent } from './components/admin/statistics/statistics.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -87,12 +92,17 @@ import { StatisticsComponent } from './components/admin/statistics/statistics.co
     MatMenuModule,
     MatButtonModule,
     CanvasJSAngularChartsModule,
-    ToastModule
+    ToastModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [
     AuthService,
     MessageService,
     AuthGuard,
+    MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
