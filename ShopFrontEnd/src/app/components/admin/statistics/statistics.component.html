@@ -59,16 +59,16 @@
             <span>{{ selectedProductDetails.productName }}</span>
           </div>
           <div class="detail-item">
-            <strong>Average Selling Price:</strong>
-            <span>${{ selectedProductDetails.averagePrice | number:'1.2-2' }}</span>
+            <strong>Selling Percentage:</strong>
+            <span>{{ selectedProductDetails.sellingPercentage }}%</span>
           </div>
           <div class="detail-item">
             <strong>Total Quantity Sold:</strong>
             <span>{{ selectedProductDetails.totalQuantitySold }}</span>
           </div>
           <div class="detail-item">
-            <strong>Selling Percentage:</strong>
-            <span>{{ selectedProductDetails.sellingPercentage }}%</span>
+            <strong>Average Price:</strong>
+            <span>${{ selectedProductDetails.averagePrice | number:'1.2-2' }}</span>
           </div>
         </div>
       </div>
