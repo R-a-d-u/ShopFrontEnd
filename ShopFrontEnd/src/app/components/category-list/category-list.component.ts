@@ -102,6 +102,9 @@ export class CategoryListComponent implements OnInit {
   addCategory(): void {
     this.router.navigate(['/admin/category/add']);
   }
+  goBack() : void{
+    this.router.navigate(['/admin']);
+  }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatisticsService } from '../../../services/statistics.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
@@ -19,7 +20,7 @@ export class StatisticsComponent implements OnInit {
 
   lastProductName: string = "";
 
-  constructor(private statisticsService: StatisticsService) { }
+  constructor(private statisticsService: StatisticsService,private router: Router) { }
 
   ngOnInit() {
     const now = new Date();
@@ -202,5 +203,8 @@ export class StatisticsComponent implements OnInit {
     if (this.startDate && this.endDate) {
       this.fetchStatistics();
     }
+  }
+  goBack() : void{
+    this.router.navigate(['/admin']);
   }
 }

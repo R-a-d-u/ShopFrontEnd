@@ -118,3 +118,18 @@
   .error-message {
     color: #ff4d4f;
   }
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    background-color: white;
+    font-family: Roboto;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+
+  }
+  
+  .back-button:hover {
+    background-color: white;
+  }
