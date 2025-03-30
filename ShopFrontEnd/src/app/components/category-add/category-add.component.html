@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<section class="section add-category-section">
+  <div class="container">
+    <p-toast position="top-center" closable="false"></p-toast>
+    <div class="login-container" data-aos="fade-up">
+      <h3 class="text-center" *ngIf="!loading">Add New Category</h3>
+      <form *ngIf="!loading || submitted" [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="name">Category Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            placeholder="Enter category name" 
+            class="form-input"
+            [ngClass]="{'is-invalid': submitted && f['name'].errors}"
+          >
+          <div *ngIf="submitted && f['name'].errors" class="error-message">
+            <span *ngIf="f['name'].errors['required']">Category name is required</span>
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="btn save-btn roboto-button" [disabled]="loading">
+            <span *ngIf="!loading">Save</span>
+          </button>
+          
+          <button type="button" class="btn cancel-btn roboto-button" routerLink="/admin/category">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

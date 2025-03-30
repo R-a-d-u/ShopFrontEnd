@@ -36,7 +36,6 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProductAdministrationComponent } from './components/product-administration/product-administration.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { CategoryAdministrationComponent } from './components/category-administration/category-administration.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
@@ -48,6 +47,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { CategoryDetailsComponent } from './components/category-details/category-details.component';
+import { CategoryAddComponent } from './components/category-add/category-add.component';
+import { CategoryEditComponent } from './components/category-edit/category-edit.component';
 
 
 @NgModule({
@@ -72,7 +75,6 @@ import { MatInputModule } from '@angular/material/input';
     ProductAdministrationComponent,
     AddProductComponent,
     EditProductComponent,
-    CategoryAdministrationComponent,
     AddCategoryComponent,
     UserAdministrationComponent,
     AddUserComponent,
@@ -80,6 +82,10 @@ import { MatInputModule } from '@angular/material/input';
     EditUserPasswordComponent,
     EditUserInfoComponent,
     StatisticsComponent,
+    CategoryListComponent,
+    CategoryDetailsComponent,
+    CategoryAddComponent,
+    CategoryEditComponent,
   ],
   imports: [
     BrowserModule,

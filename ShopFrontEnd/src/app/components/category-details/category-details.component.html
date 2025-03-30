@@ -1,0 +1,69 @@
+<!-- category-detail.component.html -->
+<app-navbar></app-navbar>
+<section class="section category-detail-section">
+    <div class="container">
+        <p-toast position="top-center" closable="false"></p-toast>
+        <div class="detail-container" data-aos="fade-up">
+            <div *ngIf="loading" class="text-center">
+                <span class="spinner"></span>
+                <p>Loading category details...</p>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message text-center">
+                <p>{{ errorMessage }}</p>
+                <button class="btn back-btn" (click)="backToList()">Back to Categories</button>
+            </div>
+
+            <div *ngIf="!loading && !errorMessage && category">
+                <div class="detail-header">
+                    <h3>Category Details: {{ category.name }}</h3>
+                </div>
+
+                <div class="category-info">
+                    <div class="info-row">
+                        <span class="info-label">Products Count:</span>
+                        <span class="info-value">{{ category.products.length || 0 }}</span>
+                    </div>
+                </div>
+
+                <div class="product-list-container" *ngIf="category.products && category.products.length > 0">
+                    <div class="header-container">
+                        <h4>Products in this Category</h4>
+                        <button (click)="backToList()">Edit Products</button>
+                      </div>
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Last Modified</th>
+                                <th>Product State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of category.products">
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>${{ product.sellingPrice.toFixed(2) }}</td>
+                                <td>{{ product.stockQuantity }}</td>
+                                <td>{{ formatDate(product.lastModifiedDate) }}</td>
+                                <td [ngClass]="getProductStateDetails(product.productState).cssClass">
+                                    {{ getProductStateDetails(product.productState).label }}
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div *ngIf="!category.products || category.products.length === 0" class="no-products">
+                    <p>No products in this category.</p>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn" (click)="backToList()">Back to Categories</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -17,6 +17,10 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
 import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
 import { StatisticsComponent } from './components/admin/statistics/statistics.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { CategoryDetailsComponent } from './components/category-details/category-details.component';
+import { CategoryAddComponent } from './components/category-add/category-add.component';
+import { CategoryEditComponent } from './components/category-edit/category-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -32,9 +36,13 @@ const routes: Routes = [
   { path: 'order/:id', component: OrderComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'checkout', component: CheckoutComponent },
-  {path: 'edit-user-info', component : EditUserInfoComponent},
-  {path: 'edit-user-password', component : EditUserPasswordComponent},
+  { path: 'edit-user-info', component : EditUserInfoComponent},
+  { path: 'edit-user-password', component : EditUserPasswordComponent},
   { path: 'admin/statistics', component: StatisticsComponent },
+  { path: 'admin/category', component: CategoryListComponent },
+  { path: 'admin/category/details/:id', component: CategoryDetailsComponent },
+  { path: 'admin/category/add', component: CategoryAddComponent },
+  { path: 'admin/category/edit/:id', component: CategoryEditComponent },
   { 
     path: 'cart', 
     component: CartComponent,
