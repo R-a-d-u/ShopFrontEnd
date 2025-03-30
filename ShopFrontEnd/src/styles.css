@@ -650,6 +650,63 @@ p {
   font-family: Roboto;
 }
 
+/* Semi-transparent dialog */
+.p-confirm-dialog {
+  background-color: rgba(255, 255, 255, 0.774) !important;
+  backdrop-filter: blur(20px) !important; 
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Dialog content */
+ .p-confirm-dialog .p-dialog-content {
+  background: transparent;
+  background-color: rgba(255, 255, 255, 0.774) !important;
+  backdrop-filter: blur(20px) !important; 
+}
+
+/* Custom buttons */
+ .custom-accept-btn {
+  background: #9b601c !important;
+  border: none !important;
+  padding: 8px 20px !important;
+  font-size: 14px !important;
+  min-width: 100px;
+  transition: all 0.3s;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+ .custom-reject-btn {
+  background: #c5a47e !important;
+  border: none !important;
+  padding: 8px 20px !important;
+  font-size: 14px !important;
+  min-width: 100px;
+  transition: all 0.3s;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Button hover effects */
+ .custom-accept-btn:hover {
+  background: #9b601c !important;
+  transform: scale(1.05);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+ .custom-reject-btn:hover {
+  background: #c5a47e !important;
+  transform: scale(1.05);
+  box-shadow: none !important;
+  outline: none !important;
+}
+ .custom-confirm-dialog .p-confirm-dialog-icon {
+  color: #971414 !important;
+  font-size: 2.0rem !important;
+}
+
 html,
 body {
   height: 100%;

@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 // Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -103,10 +104,12 @@ import { CategoryEditComponent } from './components/category-edit/category-edit.
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    ConfirmDialogModule,
   ],
   providers: [
     AuthService,
     MessageService,
+    ConfirmationService,
     AuthGuard,
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
