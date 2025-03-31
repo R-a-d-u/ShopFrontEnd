@@ -14,7 +14,7 @@
         </div>
 
         <img *ngIf="product.image" [src]="'assets/' + product.image + '.jpg'" [alt]="product.name" class="left-image">
-        <div *ngIf="!product?.image" class="no-image">No image available</div>
+        <img *ngIf="!product?.image" class="left-image" [src]="'assets/loading.gif'">
         <div class="quantity-selector" style="margin-top:13%">
           <label for="quantity">Quantity:</label>
           <div class="quantity-input-group">

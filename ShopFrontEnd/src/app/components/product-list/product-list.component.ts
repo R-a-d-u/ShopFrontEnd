@@ -220,7 +220,7 @@ export class ProductListComponent implements OnInit {
           next: (response) => {
             if (response.isSuccess) {
               this.messageService.add({
-                severity: 'success',
+                severity: 'warn',
                 summary: 'Success',
                 detail: 'Product marked as Discontinued'
               });
@@ -246,8 +246,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addNewProduct(): void {
-    console.log('Add new product');
-    // this.router.navigate(['/products/add']);
+    this.router.navigate(['/admin/product/add']);
   }
 
   // Helper methods

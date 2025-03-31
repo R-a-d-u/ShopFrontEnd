@@ -70,6 +70,9 @@ export class ProductService {
     
     return this.http.get<ResponseValidator<PagedResult<Product>>>(`${this.apiUrl}/GetByName`, { params });
   }
+  addProduct(product: any): Observable<ResponseValidator<number>> {
+    return this.http.post<ResponseValidator<number>>(`${this.apiUrl}/Add`, product);
+  }
 
   // Additional methods for product state changes
   setProductInStock(productId: number): Observable<ResponseValidator<boolean>> {

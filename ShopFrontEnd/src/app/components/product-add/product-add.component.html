@@ -1,1 +1,111 @@
-<p>product-add works!</p>
+<app-navbar></app-navbar>
+<section class="section add-product-section">
+  <div class="container">
+    <p-toast position="top-center" closable="false"></p-toast>
+    <div class="login-container" data-aos="fade-up">
+      <h3 class="text-center" *ngIf="!loading">Add New Product</h3>
+      <form *ngIf="!loading || submitted" [formGroup]="productForm" (ngSubmit)="onSubmit()" class="login-form">
+        
+        <!-- Product name and image on same line -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="name">Product Name:</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name" 
+              placeholder="Name..." 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['name'].errors}">
+            <div *ngIf="submitted && f['name'].errors" class="error-message">
+              <span *ngIf="f['name'].errors['required']">Product name is required</span>
+            </div>
+          </div>
+          
+          <div class="form-group col-6">
+            <label for="image">Product Image:</label>
+            <input type="text" id="image" formControlName="image" class="form-input">
+          </div>
+        </div>
+        
+        <!-- Product type and category on same line -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="productType">Product Type</label>
+            <select id="productType" formControlName="productType" class="form-input">
+              <option *ngFor="let type of productTypes" [value]="type.id">{{ type.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="categoryId">Category</label>
+            <select id="categoryId" formControlName="categoryId" class="form-input">
+              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Gold weight, additional value, and selling price on same line -->
+        <div class="form-row">
+          <div class="form-group col-4">
+            <label for="goldWeightInGrams">Gold Weight (grams)</label>
+            <input type="number" id="goldWeightInGrams" formControlName="goldWeightInGrams" class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['goldWeightInGrams'].errors}">
+            <div *ngIf="submitted && f['goldWeightInGrams'].errors" class="error-message">
+              <span *ngIf="f['goldWeightInGrams'].errors['required']">Gold weight is required</span>
+              <span *ngIf="f['goldWeightInGrams'].errors['min']">Gold weight cannot be negative</span>
+            </div>
+            <small class="form-text text-muted">
+                Current gold price: {{ currentGoldPrice | currency }}
+              </small>
+          </div>
+
+          <div class="form-group col-4">
+            <label for="additionalValue">Additional Value</label>
+            <input type="number" id="additionalValue" formControlName="additionalValue" class="form-input">
+          </div>
+          
+          <div class="form-group col-4">
+            <label for="sellingPrice">Selling Price</label>
+            <input type="number" id="sellingPrice" formControlName="sellingPrice" class="form-input" [disabled]="true"
+              [ngClass]="{'is-invalid': (submitted && f['sellingPrice'].errors) || f['sellingPrice'].value <= 0}">
+            <div *ngIf="(submitted && f['sellingPrice'].errors) || f['sellingPrice'].value <= 0" class="error-message">
+              <span>Selling price must be greater than 0</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Stock quantity and description under previous fields -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label for="stockQuantity">Stock Quantity</label>
+            <input type="number" id="stockQuantity" formControlName="stockQuantity" class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['stockQuantity'].errors}">
+            <div *ngIf="submitted && f['stockQuantity'].errors" class="error-message">
+              <span *ngIf="f['stockQuantity'].errors['required']">Stock quantity is required</span>
+              <span *ngIf="f['stockQuantity'].errors['min']">Stock quantity must be greater than 0</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn end-btn roboto-button" [disabled]="loading">
+            <span *ngIf="!loading">Save</span>
+            <span *ngIf="loading">Saving...</span>
+          </button>
+          
+          <button type="button" class="btn end-btn roboto-button" routerLink="/admin/product">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
