@@ -46,10 +46,11 @@ export class ProductService {
     return this.http.get<ResponseValidator<Product>>(`${this.apiUrl}/Get/${id}`);
   }
 
-  getAllProductsByCategoryId(categoryId: number, page: number = 1): Observable<ResponseValidator<PagedResult<Product>>> {
+  getAllProductsByCategoryId(categoryId: number, page: number = 1, pageSize: number = 4): Observable<ResponseValidator<PagedResult<Product>>> {
     const params = new HttpParams()
-      .set('page', page.toString());
-
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString()); // Pass page size to API
+  
     return this.http.get<ResponseValidator<PagedResult<Product>>>(`${this.apiUrl}/GetByCategory/${categoryId}`, { params });
   }
 }

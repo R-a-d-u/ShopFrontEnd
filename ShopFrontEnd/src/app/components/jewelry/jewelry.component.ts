@@ -21,19 +21,19 @@ export class JewelryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.loadProducts(1, 4);
   }
 
-  loadProducts(page: number = 1): void {
+  loadProducts(page: number = 1, pageSize: number = 4): void {
     this.loading = true;
     this.currentPage = page;
-
-    this.productService.getAllProductsByCategoryId(1, page).subscribe({
+  
+    this.productService.getAllProductsByCategoryId(1, page, pageSize).subscribe({
       next: (response) => {
         if (response.isSuccess && response.result) {
           this.products = response.result.items;
           this.totalPages = response.result.totalPages;
-          this.totalCount = response.result.totalItems; 
+          this.totalCount = response.result.totalItems;
           this.currentPage = response.result.pageNumber;
         } else {
           this.error = response.errorMessage || 'Failed to fetch products';
