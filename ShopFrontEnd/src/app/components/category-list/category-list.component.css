@@ -6,16 +6,15 @@
   
   .category-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin: 24px 0;
   }
   
   .add-category-btn {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 8px;
-    background-color: #4a6cf7;
     color: white;
     border: none;
     padding: 10px 16px;

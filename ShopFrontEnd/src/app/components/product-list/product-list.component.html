@@ -20,8 +20,7 @@
             <h2>Product Management</h2>
             
             <div class="product-actions">
-                <button class="btn " (click)="addNewProduct()">
-                    <i class="pi pi-plus"></i> Add New Product
+                <button class="btn " (click)="addNewProduct()"> Add Product
                 </button>
             </div>
             
@@ -43,7 +42,7 @@
                 <div *ngIf="selectedSearchOption === 'name'" class="name-search">
                     <label for="nameSearch">Product Name:</label>
                     <input type="text" id="nameSearch" [(ngModel)]="searchName" placeholder="Enter product name...">
-                    <button class="btn search-btn" (click)="onSearch()">Search</button>
+                    <button class="btn " (click)="onSearch()">Search</button>
                 </div>
             </div>
             

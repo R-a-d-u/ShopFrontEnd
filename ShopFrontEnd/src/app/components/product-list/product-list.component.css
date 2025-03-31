@@ -10,6 +10,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 25px;
+    min-height: 600px;
 }
 
 .product-dashboard h2 {
@@ -138,7 +139,12 @@ select, input {
     transform: translateY(-2px);
 }
 
-.loading-indicator, .error-message, .no-products {
+.no-products, .loading-indicator, .error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
     text-align: center;
     padding: 30px;
     background-color: #f8f9fa;
@@ -147,9 +153,7 @@ select, input {
 }
 
 .error-message {
-    color: #dc3545;
-    border: 1px solid #f5c6cb;
-    background-color: #f8d7da;
+    color: #000000;
 }
 
 .pagination {
@@ -184,6 +188,13 @@ select, input {
     font-size: 14px;
     color: #6c757d;
 }
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
 
 @media (max-width: 992px) {
     .search-controls {
