@@ -54,6 +54,10 @@ import { CategoryAddComponent } from './components/category-add/category-add.com
 import { CategoryEditComponent } from './components/category-edit/category-edit.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductStockListComponent } from './components/product-stock-list/product-stock-list.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
+import { ProductEditInfoComponent } from './components/product-edit-info/product-edit-info.component';
+import { ProductEditStockComponent } from './components/product-edit-stock/product-edit-stock.component';
+import { ProductEditPriceComponent } from './components/product-edit-price/product-edit-price.component';
 
 
 @NgModule({
@@ -91,6 +95,10 @@ import { ProductStockListComponent } from './components/product-stock-list/produ
     CategoryEditComponent,
     ProductListComponent,
     ProductStockListComponent,
+    ProductAddComponent,
+    ProductEditInfoComponent,
+    ProductEditStockComponent,
+    ProductEditPriceComponent,
   ],
   imports: [
     BrowserModule,
