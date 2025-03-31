@@ -47,9 +47,6 @@
             </div>
             
             <div class="product-list">
-                <div *ngIf="errorMessage" class="error-message">
-                    <p>{{ errorMessage }}</p>
-                </div>
                 <table class="product-table" *ngIf="!loading && !errorMessage && products.length > 0">
                     <thead>
                         <tr>
