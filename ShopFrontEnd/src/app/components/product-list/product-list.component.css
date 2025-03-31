@@ -1,0 +1,218 @@
+/* product-list.component.css */
+.product-section {
+    padding: 30px 0;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 120px);
+}
+
+.product-dashboard {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+}
+
+.product-dashboard h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.add-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.add-btn:hover {
+    background-color: #43a047;
+}
+
+.search-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.search-option, .category-selection, .name-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+select, input {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.search-btn:hover {
+    background-color: #0069d9;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.product-table th, .product-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.product-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+.product-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.edit-info-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-price-btn {
+    background-color: #6610f2;
+    color: white;
+}
+
+.edit-stock-btn {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.in-stock-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.out-stock-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.discontinued-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.loading-indicator, .error-message, .no-products {
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: #dc3545;
+    border: 1px solid #f5c6cb;
+    background-color: #f8d7da;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    padding: 8px 16px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: #e9ecef;
+}
+
+.page-info {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+@media (max-width: 992px) {
+    .search-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .product-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

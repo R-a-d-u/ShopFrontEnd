@@ -22,16 +22,16 @@ export interface Product {
 
 export interface PagedResult<T> {
   items: T[];
-  totalItems: number;      // Changed from 'totalCount'
-  pageNumber: number;      // Changed from 'currentPage'
+  totalItems: number;
+  pageNumber: number;
   pageSize: number;
   totalPages: number;
 }
 
 export interface ResponseValidator<T> {
   isSuccess: boolean;
-  result: T | null;  // Changed from 'data' to 'result'
-  errorMessage: string | null;  // Changed from 'message' to 'errorMessage'
+  result: T | null;
+  errorMessage: string | null;
 }
 
 @Injectable({
@@ -49,8 +49,38 @@ export class ProductService {
   getAllProductsByCategoryId(categoryId: number, page: number = 1, pageSize: number = 4): Observable<ResponseValidator<PagedResult<Product>>> {
     const params = new HttpParams()
       .set('page', page.toString())
-      .set('pageSize', pageSize.toString()); // Pass page size to API
-  
+      .set('pageSize', pageSize.toString());
+    
     return this.http.get<ResponseValidator<PagedResult<Product>>>(`${this.apiUrl}/GetByCategory/${categoryId}`, { params });
+  }
+
+  getAllDiscontinuedProducts(page: number = 1, pageSize: number = 5): Observable<ResponseValidator<PagedResult<Product>>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<ResponseValidator<PagedResult<Product>>>(`${this.apiUrl}/GetAllDiscontinued`, { params });
+  }
+
+  getProductsByName(name: string, page: number = 1, pageSize: number = 5): Observable<ResponseValidator<PagedResult<Product>>> {
+    const params = new HttpParams()
+      .set('name', name)
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    
+    return this.http.get<ResponseValidator<PagedResult<Product>>>(`${this.apiUrl}/GetByName`, { params });
+  }
+
+  // Additional methods for product state changes
+  setProductInStock(productId: number): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/SetInStock/${productId}`, {});
+  }
+
+  setProductOutOfStock(productId: number): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/SetOutOfStock/${productId}`, {});
+  }
+
+  setProductDiscontinued(productId: number): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/SetDiscontinued/${productId}`, {});
   }
 }

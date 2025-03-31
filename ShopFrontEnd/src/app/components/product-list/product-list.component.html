@@ -1,0 +1,127 @@
+<!-- product-list.component.html -->
+<app-navbar></app-navbar>
+<section class="section product-section">
+    <div class="container">
+        <p-toast position="top-center" closable="false"></p-toast>
+        <p-confirmDialog 
+            [style]="{width: '450px'}"
+            header="Confirmation" 
+            icon="pi pi-exclamation-triangle"
+            acceptLabel="Yes" 
+            rejectLabel="Cancel"
+            acceptButtonStyleClass="custom-accept-btn"
+            rejectButtonStyleClass="custom-reject-btn"
+            styleClass="custom-confirm-dialog"
+            [closeOnEscape]="true"
+            [dismissableMask]="true">
+        </p-confirmDialog>
+        
+        <div class="product-dashboard" data-aos="fade-up">
+            <h2>Product Management</h2>
+            
+            <div class="product-actions">
+                <button class="btn add-btn" (click)="addNewProduct()">
+                    <i class="pi pi-plus"></i> Add New Product
+                </button>
+            </div>
+            
+            <div class="search-controls">
+                <div class="search-option">
+                    <label for="searchOption">Search By:</label>
+                    <select id="searchOption" [(ngModel)]="selectedSearchOption" (change)="onSearchOptionChange()">
+                        <option *ngFor="let option of searchOptions" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </div>
+                
+                <div *ngIf="selectedSearchOption === 'category'" class="category-selection">
+                    <label for="categorySelect">Category:</label>
+                    <select id="categorySelect" [(ngModel)]="selectedCategoryId" (change)="onSearch()">
+                        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                    </select>
+                </div>
+                
+                <div *ngIf="selectedSearchOption === 'name'" class="name-search">
+                    <label for="nameSearch">Product Name:</label>
+                    <input type="text" id="nameSearch" [(ngModel)]="searchName" placeholder="Enter product name...">
+                    <button class="btn search-btn" (click)="onSearch()">Search</button>
+                </div>
+            </div>
+            
+            <div class="product-list">
+                <div *ngIf="loading" class="loading-indicator">
+                    <p>Loading products...</p>
+                </div>
+                
+                <div *ngIf="errorMessage" class="error-message">
+                    <p>{{ errorMessage }}</p>
+                </div>
+                
+                <table class="product-table" *ngIf="!loading && !errorMessage && products.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Weight (g)</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Category</th>
+                            <th>Last Modified</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of products">
+                            <td>{{ product.name }}</td>
+                            <td>{{ getProductTypeName(product.productType) }}</td>
+                            <td>{{ product.sellingPrice | currency:'USD':'symbol':'1.2-2' }}</td>
+                            <td>{{ product.goldWeightInGrams }}</td>
+                            <td>{{ product.stockQuantity }}</td>
+                            <td>{{ getProductStateName(product.productState) }}</td>
+                            <td>{{ product.categoryId }}</td>
+                            <td>{{ formatDate(product.lastModifiedDate) }}</td>
+                            <td class="action-buttons">
+                                <button class="action-btn view-btn" title="View Details" (click)="viewProductDetails(product.id)">
+                                    <i class="pi pi-eye"></i>
+                                </button>
+                                <button class="action-btn edit-info-btn" title="Edit Information" (click)="editProductInfo(product.id)">
+                                    <i class="pi pi-pencil"></i>
+                                </button>
+                                <button class="action-btn edit-price-btn" title="Edit Price" (click)="editProductPrice(product.id)">
+                                    <i class="pi pi-dollar"></i>
+                                </button>
+                                <button class="action-btn edit-stock-btn" title="Edit Stock" (click)="editProductStock(product.id)">
+                                    <i class="pi pi-box"></i>
+                                </button>
+                                <button class="action-btn in-stock-btn" title="Set In Stock" (click)="setInStock(product.id)">
+                                    <i class="pi pi-check-circle"></i>
+                                </button>
+                                <button class="action-btn out-stock-btn" title="Set Out of Stock" (click)="setOutOfStock(product.id)">
+                                    <i class="pi pi-times-circle"></i>
+                                </button>
+                                <button class="action-btn discontinued-btn" title="Set Discontinued" (click)="setDiscontinued(product.id)">
+                                    <i class="pi pi-ban"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div *ngIf="!loading && !errorMessage && products.length === 0" class="no-products">
+                    <p>No products found.</p>
+                </div>
+                
+                <div class="pagination" *ngIf="totalPages > 1">
+                    <button [disabled]="currentPage === 1" (click)="prevPage()" class="pagination-btn">
+                        <i class="pi pi-chevron-left"></i> Previous
+                    </button>
+                    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button [disabled]="currentPage === totalPages" (click)="nextPage()" class="pagination-btn">
+                        Next <i class="pi pi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
