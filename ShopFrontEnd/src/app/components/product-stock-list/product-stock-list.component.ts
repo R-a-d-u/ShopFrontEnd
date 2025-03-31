@@ -1,4 +1,3 @@
-// product-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product, PagedResult, ResponseValidator } from '../../services/product.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -10,14 +9,13 @@ interface SearchOption {
   label: string;
   value: string;
 }
-
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-product-stock-list',
+  templateUrl: './product-stock-list.component.html',
+  styleUrls: ['./product-stock-list.component.css']
 })
-export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+export class ProductStockListComponent {
+ products: Product[] = [];
   loading: boolean = true;
   errorMessage: string | null = null;
   
@@ -325,8 +323,8 @@ export class ProductListComponent implements OnInit {
   getProductTypeName(typeId: number): string {
     switch (typeId) {
       case 1: return 'Jewelry';
-      case 2: return 'Gold Coin';
       case 3: return 'Gold Bar';
+      case 4: return 'Silver Item';
       default: return 'Unknown';
     }
   }
@@ -343,9 +341,5 @@ export class ProductListComponent implements OnInit {
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  }
-  getCategoryName(categoryId: number): string {
-    const category = this.categories.find(c => c.id === categoryId);
-    return category ? category.name : 'Unknown';
   }
 }

@@ -82,7 +82,6 @@ select, input {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    table-layout: fixed; 
 }
 
 .product-table th, .product-table td {
@@ -103,35 +102,56 @@ select, input {
 
 .action-buttons {
     display: flex;
-    gap: 8px;
-  }
-  
-  .action-btn {
-    background-color: transparent;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
     border: none;
-    cursor: pointer;
-    padding: 6px;
     border-radius: 4px;
-    transition: background-color 0.2s;
-  }
-  
-  .edit-btn:hover {
-    background-color: #fff8e6;
-    color: #f7bb4a;
-  }
-  .edit-price-btn:hover {
-    background-color: #fff8e6;
-    color: #f7bb4a;
-  }
-  
-  .view-btn:hover {
-    background-color: #ebf5f9;
-    color: #1a34c4;
-  }
-  .delete-btn:hover {
-    background-color: #f9efeb;
-    color: #c43c1a;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.edit-info-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-price-btn {
+    background-color: #6610f2;
+    color: white;
+}
+
+.edit-stock-btn {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.in-stock-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.out-stock-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.discontinued-btn {
+    background-color: #dc3545;
+    color: white;
+}
 
 .action-btn:hover {
     opacity: 0.85;

@@ -53,6 +53,7 @@ import { CategoryDetailsComponent } from './components/category-details/category
 import { CategoryAddComponent } from './components/category-add/category-add.component';
 import { CategoryEditComponent } from './components/category-edit/category-edit.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductStockListComponent } from './components/product-stock-list/product-stock-list.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
     CategoryAddComponent,
     CategoryEditComponent,
     ProductListComponent,
+    ProductStockListComponent,
   ],
   imports: [
     BrowserModule,

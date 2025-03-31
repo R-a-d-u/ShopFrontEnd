@@ -59,50 +59,50 @@
                 <table class="product-table" *ngIf="!loading && !errorMessage && products.length > 0">
                     <thead>
                         <tr>
-                            <th>Type</th>
-                            <th>Category</th>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Price</th>
+                            <th>Weight (g)</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Category</th>
                             <th>Last Modified</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let product of products">
+                            <td>{{ product.name }}</td>
                             <td>{{ getProductTypeName(product.productType) }}</td>
-                            <td>{{ getCategoryName(product.categoryId) }}</td>
-                            <td [title]="product.name">{{ product.name }}</td>
                             <td>{{ product.sellingPrice | currency:'USD':'symbol':'1.2-2' }}</td>
-                            <td [title]="formatDate(product.lastModifiedDate)">{{ formatDate(product.lastModifiedDate) }}</td>
+                            <td>{{ product.goldWeightInGrams }}</td>
+                            <td>{{ product.stockQuantity }}</td>
+                            <td>{{ getProductStateName(product.productState) }}</td>
+                            <td>{{ product.categoryId }}</td>
+                            <td>{{ formatDate(product.lastModifiedDate) }}</td>
                             <td class="action-buttons">
-                                <div class="action-buttons-container" style="display: flex; gap: 8px;">  <!-- Added container for consistent spacing -->
-                                    <button class="action-btn view-btn" title="View Details" (click)="viewProductDetails(product.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                            <circle cx="12" cy="12" r="3" />
-                                        </svg>
-                                    </button>
-                                
-                                    <button class="action-btn edit-btn" title="Edit Information" (click)="editProductInfo(product.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34" />
-                                            <polygon points="18 2 22 6 12 16 8 16 8 12 18 2" />
-                                        </svg>
-                                    </button>
-                                
-                                    <button class="action-btn edit-price-btn" title="Edit Price" (click)="editProductPrice(product.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                                            <text x="12" y="21" font-size="20" font-family="Arial, sans-serif" text-anchor="middle" fill="currentColor">$</text>
-                                        </svg>
-                                    </button>
-                                
-                                    <button class="action-btn delete-btn" title="Set Discontinued" (click)="setDiscontinued(product.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>                            
+                                <button class="action-btn view-btn" title="View Details" (click)="viewProductDetails(product.id)">
+                                    <i class="pi pi-eye"></i>
+                                </button>
+                                <button class="action-btn edit-info-btn" title="Edit Information" (click)="editProductInfo(product.id)">
+                                    <i class="pi pi-pencil"></i>
+                                </button>
+                                <button class="action-btn edit-price-btn" title="Edit Price" (click)="editProductPrice(product.id)">
+                                    <i class="pi pi-dollar"></i>
+                                </button>
+                                <button class="action-btn edit-stock-btn" title="Edit Stock" (click)="editProductStock(product.id)">
+                                    <i class="pi pi-box"></i>
+                                </button>
+                                <button class="action-btn in-stock-btn" title="Set In Stock" (click)="setInStock(product.id)">
+                                    <i class="pi pi-check-circle"></i>
+                                </button>
+                                <button class="action-btn out-stock-btn" title="Set Out of Stock" (click)="setOutOfStock(product.id)">
+                                    <i class="pi pi-times-circle"></i>
+                                </button>
+                                <button class="action-btn discontinued-btn" title="Set Discontinued" (click)="setDiscontinued(product.id)">
+                                    <i class="pi pi-ban"></i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
