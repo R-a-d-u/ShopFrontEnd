@@ -212,80 +212,9 @@ export class ProductListComponent implements OnInit {
     // this.router.navigate(['/products/edit-price', productId]);
   }
 
-  editProductStock(productId: number): void {
-    console.log('Edit product stock:', productId);
-    // this.router.navigate(['/products/edit-stock', productId]);
-  }
-
-  setInStock(productId: number): void {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to set this product as In Stock?',
-      accept: () => {
-        this.productService.setProductInStock(productId).subscribe({
-          next: (response) => {
-            if (response.isSuccess) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Product set to In Stock'
-              });
-              this.loadProducts(); // Reload products after status change
-            } else {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: response.errorMessage || 'Unknown error occurred'
-              });
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error?.errorMessage || error.message || 'Failed to update product status'
-            });
-          }
-        });
-      }
-    });
-  }
-
-  setOutOfStock(productId: number): void {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to set this product as Out of Stock?',
-      accept: () => {
-        this.productService.setProductOutOfStock(productId).subscribe({
-          next: (response) => {
-            if (response.isSuccess) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Product set to Out of Stock'
-              });
-              this.loadProducts(); // Reload products after status change
-            } else {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: response.errorMessage || 'Unknown error occurred'
-              });
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error?.errorMessage || error.message || 'Failed to update product status'
-            });
-          }
-        });
-      }
-    });
-  }
-
  setDiscontinued(productId: number): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to mark this product as Discontinued?',
+      message: 'The product will be removed from the customer store page?',
       accept: () => {
         this.productService.setProductDiscontinued(productId).subscribe({
           next: (response) => {
