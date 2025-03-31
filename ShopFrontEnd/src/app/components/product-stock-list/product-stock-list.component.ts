@@ -27,7 +27,6 @@ export class ProductStockListComponent {
   
   // Search and filter options
   searchOptions: SearchOption[] = [
-    { label: 'All Discontinued', value: 'discontinued' },
     { label: 'By Category', value: 'category' },
     { label: 'By Name', value: 'name' }
   ];
@@ -74,42 +73,13 @@ export class ProductStockListComponent {
     this.errorMessage = null;
     
     switch (this.selectedSearchOption) {
-      case 'discontinued':
-        this.loadDiscontinuedProducts();
-        break;
       case 'category':
         this.loadProductsByCategory();
         break;
       case 'name':
         this.loadProductsByName();
         break;
-      default:
-        this.loadDiscontinuedProducts();
     }
-  }
-
-  loadDiscontinuedProducts(): void {
-    this.productService.getAllDiscontinuedProducts(this.currentPage, this.pageSize)
-      .subscribe({
-        next: (response) => {
-          if (response.isSuccess && response.result) {
-            this.products = response.result.items;
-            this.totalItems = response.result.totalItems;
-            this.totalPages = response.result.totalPages;
-            this.currentPage = response.result.pageNumber;
-            this.pageSize = response.result.pageSize;
-          } else {
-            // Use API's error message
-            this.errorMessage = response.errorMessage || 'Unknown error occurred';
-          }
-          this.loading = false;
-        },
-        error: (error) => {
-          // Use API's error message if available
-          this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
-          this.loading = false;
-        }
-      });
   }
   loadProductsByCategory(): void {
     this.productService.getAllProductsByCategoryId(this.selectedCategoryId, this.currentPage, this.pageSize)
@@ -200,16 +170,6 @@ export class ProductStockListComponent {
     // this.router.navigate(['/products', productId]);
   }
 
-  editProductInfo(productId: number): void {
-    console.log('Edit product info:', productId);
-    // this.router.navigate(['/products/edit', productId]);
-  }
-
-  editProductPrice(productId: number): void {
-    console.log('Edit product price:', productId);
-    // this.router.navigate(['/products/edit-price', productId]);
-  }
-
   editProductStock(productId: number): void {
     console.log('Edit product stock:', productId);
     // this.router.navigate(['/products/edit-stock', productId]);
@@ -281,50 +241,11 @@ export class ProductStockListComponent {
     });
   }
 
- setDiscontinued(productId: number): void {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to mark this product as Discontinued?',
-      accept: () => {
-        this.productService.setProductDiscontinued(productId).subscribe({
-          next: (response) => {
-            if (response.isSuccess) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Product marked as Discontinued'
-              });
-              this.loadProducts(); // Reload products after status change
-            } else {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: response.errorMessage || 'Unknown error occurred'
-              });
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error?.errorMessage || error.message || 'Failed to update product status'
-            });
-          }
-        });
-      }
-    });
-  }
-
-  addNewProduct(): void {
-    console.log('Add new product');
-    // this.router.navigate(['/products/add']);
-  }
-
-  // Helper methods
   getProductTypeName(typeId: number): string {
     switch (typeId) {
       case 1: return 'Jewelry';
+      case 2: return 'Gold Coin';
       case 3: return 'Gold Bar';
-      case 4: return 'Silver Item';
       default: return 'Unknown';
     }
   }

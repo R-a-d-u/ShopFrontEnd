@@ -86,7 +86,7 @@ export class ProductListComponent implements OnInit {
         this.loadProductsByName();
         break;
       default:
-        this.loadDiscontinuedProducts();
+        this.loadProductsByCategory();
     }
   }
 

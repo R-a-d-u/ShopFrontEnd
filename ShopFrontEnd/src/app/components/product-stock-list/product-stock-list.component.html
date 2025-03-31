@@ -17,14 +17,8 @@
         </p-confirmDialog>
         
         <div class="product-dashboard" data-aos="fade-up">
-            <h2>Product Management</h2>
-            
-            <div class="product-actions">
-                <button class="btn " (click)="addNewProduct()">
-                    <i class="pi pi-plus"></i> Add New Product
-                </button>
-            </div>
-            
+            <h2>Stock Management</h2>
+
             <div class="search-controls">
                 <div class="search-option">
                     <label for="searchOption">Search By:</label>
@@ -43,7 +37,7 @@
                 <div *ngIf="selectedSearchOption === 'name'" class="name-search">
                     <label for="nameSearch">Product Name:</label>
                     <input type="text" id="nameSearch" [(ngModel)]="searchName" placeholder="Enter product name...">
-                    <button class="btn search-btn" (click)="onSearch()">Search</button>
+                    <button class="btn" (click)="onSearch()">Search</button>
                 </div>
             </div>
             
@@ -61,11 +55,9 @@
                         <tr>
                             <th>Name</th>
                             <th>Type</th>
-                            <th>Price</th>
-                            <th>Weight (g)</th>
+                            <th>Gold Weight (g)</th>
                             <th>Stock</th>
                             <th>Status</th>
-                            <th>Category</th>
                             <th>Last Modified</th>
                             <th>Actions</th>
                         </tr>
@@ -74,33 +66,35 @@
                         <tr *ngFor="let product of products">
                             <td>{{ product.name }}</td>
                             <td>{{ getProductTypeName(product.productType) }}</td>
-                            <td>{{ product.sellingPrice | currency:'USD':'symbol':'1.2-2' }}</td>
                             <td>{{ product.goldWeightInGrams }}</td>
                             <td>{{ product.stockQuantity }}</td>
                             <td>{{ getProductStateName(product.productState) }}</td>
-                            <td>{{ product.categoryId }}</td>
                             <td>{{ formatDate(product.lastModifiedDate) }}</td>
                             <td class="action-buttons">
                                 <button class="action-btn view-btn" title="View Details" (click)="viewProductDetails(product.id)">
-                                    <i class="pi pi-eye"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
                                 </button>
-                                <button class="action-btn edit-info-btn" title="Edit Information" (click)="editProductInfo(product.id)">
-                                    <i class="pi pi-pencil"></i>
-                                </button>
-                                <button class="action-btn edit-price-btn" title="Edit Price" (click)="editProductPrice(product.id)">
-                                    <i class="pi pi-dollar"></i>
-                                </button>
-                                <button class="action-btn edit-stock-btn" title="Edit Stock" (click)="editProductStock(product.id)">
-                                    <i class="pi pi-box"></i>
+                                <button class="action-btn edit-btn" title="Edit Stock" (click)="editProductStock(product.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34" />
+                                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2" />
+                                    </svg>
                                 </button>
                                 <button class="action-btn in-stock-btn" title="Set In Stock" (click)="setInStock(product.id)">
-                                    <i class="pi pi-check-circle"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                        <path d="M22 4 12 14.01l-3-3" />
+                                    </svg>
                                 </button>
                                 <button class="action-btn out-stock-btn" title="Set Out of Stock" (click)="setOutOfStock(product.id)">
-                                    <i class="pi pi-times-circle"></i>
-                                </button>
-                                <button class="action-btn discontinued-btn" title="Set Discontinued" (click)="setDiscontinued(product.id)">
-                                    <i class="pi pi-ban"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="M15 9l-6 6" />
+                                        <path d="M9 9l6 6" />
+                                    </svg>
                                 </button>
                             </td>
                         </tr>
