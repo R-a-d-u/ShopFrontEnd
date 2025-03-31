@@ -277,4 +277,7 @@ export class ProductListComponent implements OnInit {
     const category = this.categories.find(c => c.id === categoryId);
     return category ? category.name : 'Unknown';
   }
+  goBack() : void{
+    this.router.navigate(['/admin']);
+  }
 }

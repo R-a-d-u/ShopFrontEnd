@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'admin/category/add', component: CategoryAddComponent },
   { path: 'admin/category/edit/:id', component: CategoryEditComponent },
   { path: 'admin/product', component: ProductListComponent },
-  { path: 'admin/stock', component: ProductStockListComponent},
+  { path: 'admin/inventory', component: ProductStockListComponent},
   { 
     path: 'cart', 
     component: CartComponent,

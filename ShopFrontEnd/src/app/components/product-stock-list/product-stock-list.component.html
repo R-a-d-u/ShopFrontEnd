@@ -17,7 +17,8 @@
         </p-confirmDialog>
         
         <div class="product-dashboard" data-aos="fade-up">
-            <h2>Stock Management</h2>
+            <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
+            <h2>Inventory Management</h2>
 
             <div class="search-controls">
                 <div class="search-option">
@@ -55,7 +56,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Type</th>
-                            <th>Gold Weight (g)</th>
                             <th>Stock</th>
                             <th>Status</th>
                             <th>Last Modified</th>
@@ -66,7 +66,6 @@
                         <tr *ngFor="let product of products">
                             <td>{{ product.name }}</td>
                             <td>{{ getProductTypeName(product.productType) }}</td>
-                            <td>{{ product.goldWeightInGrams }}</td>
                             <td>{{ product.stockQuantity }}</td>
                             <td>{{ getProductStateName(product.productState) }}</td>
                             <td>{{ formatDate(product.lastModifiedDate) }}</td>

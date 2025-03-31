@@ -263,4 +263,8 @@ export class ProductStockListComponent {
     const date = new Date(dateString);
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
+  goBack() : void{
+    this.router.navigate(['/admin']);
+  }
 }
+

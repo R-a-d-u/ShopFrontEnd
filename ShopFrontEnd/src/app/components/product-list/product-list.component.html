@@ -15,8 +15,8 @@
             [closeOnEscape]="true"
             [dismissableMask]="true">
         </p-confirmDialog>
-        
         <div class="product-dashboard" data-aos="fade-up">
+            <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
             <h2>Product Management</h2>
             
             <div class="product-actions">
@@ -53,9 +53,8 @@
                 <table class="product-table" *ngIf="!loading && !errorMessage && products.length > 0">
                     <thead>
                         <tr>
-                            <th>Type</th>
-                            <th>Category</th>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Price</th>
                             <th>Last Modified</th>
                             <th>Actions</th>
@@ -63,9 +62,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let product of products">
-                            <td>{{ getProductTypeName(product.productType) }}</td>
-                            <td>{{ getCategoryName(product.categoryId) }}</td>
                             <td [title]="product.name">{{ product.name }}</td>
+                            <td>{{ getProductTypeName(product.productType) }}</td>
                             <td>{{ product.sellingPrice | currency:'USD':'symbol':'1.2-2' }}</td>
                             <td [title]="formatDate(product.lastModifiedDate)">{{ formatDate(product.lastModifiedDate) }}</td>
                             <td class="action-buttons">
