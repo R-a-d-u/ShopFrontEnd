@@ -74,13 +74,13 @@
                                         <polygon points="18 2 22 6 12 16 8 16 8 12 18 2" />
                                     </svg>
                                 </button>
-                                <button class="action-btn in-stock-btn" title="Set In Stock" (click)="setInStock(product.id)">
+                                <button *ngIf="product.productState !== 1" class="action-btn in-stock-btn" title="Set In Stock" (click)="setInStock(product.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                                         <path d="M22 4 12 14.01l-3-3" />
                                     </svg>
                                 </button>
-                                <button class="action-btn out-stock-btn" title="Set Out of Stock" (click)="setOutOfStock(product.id)">
+                                <button *ngIf="product.productState !== 2"class="action-btn out-stock-btn" title="Set Out of Stock" (click)="setOutOfStock(product.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <circle cx="12" cy="12" r="10" />
                                         <path d="M15 9l-6 6" />
