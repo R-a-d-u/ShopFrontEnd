@@ -203,13 +203,11 @@ export class ProductListComponent implements OnInit {
   }
 
   editProductInfo(productId: number): void {
-    console.log('Edit product info:', productId);
-    // this.router.navigate(['/products/edit', productId]);
+    this.router.navigate(['/admin/product/edit-info/', productId]);
   }
 
   editProductPrice(productId: number): void {
-    console.log('Edit product price:', productId);
-    // this.router.navigate(['/products/edit-price', productId]);
+    this.router.navigate(['/admin/product/edit-price/', productId]);
   }
 
  setDiscontinued(productId: number): void {

@@ -89,4 +89,17 @@ export class ProductService {
   editStock(productId: number, stockQuantity: number): Observable<ResponseValidator<boolean>> {
     return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/EditStock/${productId}`, { stockQuantity });
   }
+  editPrice(productId: number, additionalValue: number): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/EditPrice/${productId}`, { additionalValue });
+  }
+  
+  editInformation(productId: number, productInfo: {
+    name: string,
+    image: string,
+    categoryId: number,
+    description: string,
+    productType: number
+  }): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/EditInformation/${productId}`, productInfo);
+  }
 }

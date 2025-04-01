@@ -1,1 +1,92 @@
-<p>product-edit-info works!</p>
+<!-- src/app/components/edit-information/edit-information.component.html -->
+<app-navbar></app-navbar>
+<section class="section edit-info-section">
+  <div class="container">
+    <p-toast position="top-center" closable="false"></p-toast>
+    <div class="login-container" data-aos="fade-up">
+      <h3 class="text-center" *ngIf="!loading">Edit Product Information</h3>
+      <form *ngIf="!loading" [formGroup]="infoForm" (ngSubmit)="onSubmit()" class="login-form">
+        <!-- Product name and image on same line -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="name">Product Name:</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name" 
+              placeholder="Name..." 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['name'].errors}">
+            <div *ngIf="submitted && f['name'].errors" class="error-message">
+              <span *ngIf="f['name'].errors['required']">Product name is required</span>
+            </div>
+          </div>
+          
+          <div class="form-group col-6">
+            <label for="image">Product Image URL:</label>
+            <input 
+              type="text" 
+              id="image" 
+              formControlName="image" 
+              placeholder="Image URL..." 
+              class="form-input">
+          </div>
+        </div>
+        
+        <!-- Product type and category on same line -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="productType">Product Type</label>
+            <select 
+              id="productType" 
+              formControlName="productType" 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['productType'].errors}">
+              <option *ngFor="let type of productTypes" [value]="type.id">{{ type.name }}</option>
+            </select>
+            <div *ngIf="submitted && f['productType'].errors" class="error-message">
+              <span *ngIf="f['productType'].errors['required']">Product type is required</span>
+            </div>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="categoryId">Category</label>
+            <select 
+              id="categoryId" 
+              formControlName="categoryId" 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['categoryId'].errors}">
+              <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            </select>
+            <div *ngIf="submitted && f['categoryId'].errors" class="error-message">
+              <span *ngIf="f['categoryId'].errors['required']">Category is required</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Description -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label for="description">Description</label>
+            <textarea 
+              id="description" 
+              formControlName="description" 
+              class="form-input" 
+              rows="4"
+              placeholder="Product description..."></textarea>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn roboto-button" [disabled]="loading">
+            <span *ngIf="!loading">Update Information</span>
+          </button>
+          
+          <button type="button" class="btn roboto-button" routerLink="/admin/product">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

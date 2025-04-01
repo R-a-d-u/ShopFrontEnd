@@ -1,1 +1,60 @@
-<p>product-edit-price works!</p>
+<app-navbar></app-navbar>
+<section class="section edit-price-section">
+  <div class="container">
+    <p-toast position="top-center" closable="false"></p-toast>
+    <div class="login-container" data-aos="fade-up">
+      <h3 class="text-center" *ngIf="!loading">Edit Product Price</h3>
+      <div *ngIf="loading" class="text-center">
+        <p>Loading product information...</p>
+      </div>
+      
+      <div *ngIf="product && !loading" class="product-info">
+        <p><strong>Product:</strong> {{ product.name }}</p>
+        <p><strong>Current Additional Value:</strong> {{ product.additionalValue | currency }}</p>
+        <p><strong>Current Selling Price:</strong> {{ product.sellingPrice | currency }}</p>
+      </div>
+      
+        <form *ngIf="!loading" [formGroup]="priceForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-column">
+          <div class="form-group">
+            <label for="additionalValue">Additional Value</label>
+            <input 
+              type="number" 
+              id="additionalValue" 
+              formControlName="additionalValue" 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['additionalValue'].errors}">
+            <div *ngIf="submitted && f['additionalValue'].errors" class="error-message">
+              <span *ngIf="f['additionalValue'].errors['required']">Additional value is required</span>
+              <span *ngIf="f['additionalValue'].errors['min']">Additional value cannot be negative</span>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="sellingPrice">Calculated Selling Price</label>
+            <input 
+              type="number" 
+              id="sellingPrice" 
+              formControlName="sellingPrice" 
+              class="form-input" 
+              [disabled]="true">
+            <small class="form-text text-muted">
+              Based on gold weight and additional value
+            </small>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn roboto-button" [disabled]="loading">
+            <span *ngIf="!loading">Update Price</span>
+            <span *ngIf="loading">Updating...</span>
+          </button>
+          
+          <button type="button" class="btn roboto-button" routerLink="/admin/product">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

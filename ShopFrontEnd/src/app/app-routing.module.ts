@@ -25,6 +25,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductStockListComponent } from './components/product-stock-list/product-stock-list.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
 import { ProductEditStockComponent } from './components/product-edit-stock/product-edit-stock.component';
+import { ProductEditPriceComponent } from './components/product-edit-price/product-edit-price.component';
+import { ProductEditInfoComponent } from './components/product-edit-info/product-edit-info.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'admin/category/edit/:id', component: CategoryEditComponent },
   { path: 'admin/product', component: ProductListComponent },
   { path: 'admin/product/add', component: ProductAddComponent },
+  { path: 'admin/product/edit-price/:id', component: ProductEditPriceComponent },
+  { path: 'admin/product/edit-info/:id', component: ProductEditInfoComponent },
   { path: 'admin/inventory', component: ProductStockListComponent},
   { path: 'admin/inventory/edit-stock/:id', component: ProductEditStockComponent},
   { 
