@@ -171,8 +171,7 @@ export class ProductStockListComponent {
   }
 
   editProductStock(productId: number): void {
-    console.log('Edit product stock:', productId);
-    // this.router.navigate(['/products/edit-stock', productId]);
+    this.router.navigate(['/admin/inventory/edit-stock/', productId]);
   }
 
   setInStock(productId: number): void {

@@ -1,1 +1,43 @@
-<p>product-edit-stock works!</p>
+<!-- src/app/components/edit-stock/edit-stock.component.html -->
+<app-navbar></app-navbar>
+<section class="section edit-stock-section">
+  <div class="container">
+    <p-toast position="top-center" closable="false"></p-toast>
+    <div class="login-container" data-aos="fade-up">
+      <h3 class="text-center" *ngIf="!loading">Edit Stock Quantity</h3>
+      
+      <div *ngIf="product && !loading" class="product-info">
+        <p><strong>Product:</strong> {{ product.name }}</p>
+        <p><strong>Current Stock:</strong> {{ product.stockQuantity }}</p>
+      </div>
+      
+      <form *ngIf="!loading" [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label for="stockQuantity">New Stock Quantity</label>
+            <input 
+              type="number" 
+              id="stockQuantity" 
+              formControlName="stockQuantity" 
+              class="form-input"
+              [ngClass]="{'is-invalid': submitted && f['stockQuantity'].errors}">
+            <div *ngIf="submitted && f['stockQuantity'].errors" class="error-message">
+              <span *ngIf="f['stockQuantity'].errors['required']">Stock quantity is required</span>
+              <span *ngIf="f['stockQuantity'].errors['min']">Stock quantity must be greater than 0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn  roboto-button" [disabled]="loading">
+            <span *ngIf="!loading">Update Stock</span>
+          </button>
+          
+          <button type="button" class="btn  roboto-button" routerLink="/admin/product">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

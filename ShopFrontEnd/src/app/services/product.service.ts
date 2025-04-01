@@ -86,4 +86,7 @@ export class ProductService {
   setProductDiscontinued(productId: number): Observable<ResponseValidator<boolean>> {
     return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/SetDiscontinued/${productId}`, {});
   }
+  editStock(productId: number, stockQuantity: number): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/EditStock/${productId}`, { stockQuantity });
+  }
 }
