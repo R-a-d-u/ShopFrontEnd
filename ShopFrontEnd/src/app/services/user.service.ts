@@ -79,14 +79,20 @@ export class UserService {
   }
 
   setUserAsAdmin(id: number): Observable<ResponseValidator<User>> {
-    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/SetAsAdmin/${id}`, {});
+    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/SetUserAsAdmin/${id}`, {});
   }
 
   setUserAsEmployee(id: number): Observable<ResponseValidator<User>> {
-    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/SetAsEmployee/${id}`, {});
+    return this.http.put<ResponseValidator<User>>(`${this.apiUrl}/SetUserAsEmployee/${id}`, {});
   }
 
   deleteUser(id: number): Observable<ResponseValidator<boolean>> {
     return this.http.delete<ResponseValidator<boolean>>(`${this.apiUrl}/Delete/${id}`);
+  }
+  authenticateAdmin(email: string, password: string): Observable<ResponseValidator<boolean>> {
+    return this.http.post<ResponseValidator<boolean>>(`${this.apiUrl}/AuthenticateAdmin`, {
+      email: email,
+      password: password
+    });
   }
 }

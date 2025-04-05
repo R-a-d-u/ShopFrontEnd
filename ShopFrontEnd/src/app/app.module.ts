@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 // Components
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -60,6 +62,7 @@ import { ProductEditStockComponent } from './components/product-edit-stock/produ
 import { ProductEditPriceComponent } from './components/product-edit-price/product-edit-price.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
+import { AuthConfirmDialogComponent } from './components/auth-confirm-dialog/auth-confirm-dialog.component';
 
 
 @NgModule({
@@ -103,6 +106,7 @@ import { UserViewAnalyticsComponent } from './components/user-view-analytics/use
     ProductEditPriceComponent,
     UserListComponent,
     UserViewAnalyticsComponent,
+    AuthConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,6 +125,8 @@ import { UserViewAnalyticsComponent } from './components/user-view-analytics/use
     MatFormFieldModule,
     MatInputModule,
     ConfirmDialogModule,
+    DialogModule,
+    InputTextModule
   ],
   providers: [
     AuthService,

@@ -13,10 +13,14 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   loading: boolean = true;
   errorMessage: string | null = null;
-  
+
   currentPage: number = 1;
   totalPages: number = 1;
-  
+
+  showAuthDialog: boolean = false;
+  currentUserId: number = 0;
+  currentUserName: string = '';
+
   selectedSearchOption: string = 'admins';
   searchOptions = [
     { label: 'All Admins', value: 'admins' },
@@ -25,10 +29,10 @@ export class UserListComponent implements OnInit {
     { label: 'By Name', value: 'name' },
     { label: 'By Email', value: 'email' }
   ];
-  
+
   searchName: string = '';
   searchEmail: string = '';
-  
+
   userAccessTypes: Record<number, string> = {
     1: 'Customer',
     2: 'Employee',
@@ -49,9 +53,9 @@ export class UserListComponent implements OnInit {
   loadUsers(): void {
     this.loading = true;
     this.errorMessage = null;
-    
+
     let request;
-    
+
     switch (this.selectedSearchOption) {
       case 'admins':
         request = this.userService.getAllAdmins(this.currentPage);
@@ -91,7 +95,7 @@ export class UserListComponent implements OnInit {
       default:
         request = this.userService.getAllAdmins(this.currentPage);
     }
-    
+
     request.subscribe({
       next: (response) => {
         if (response.isSuccess && response.result) {
@@ -184,7 +188,7 @@ export class UserListComponent implements OnInit {
           summary: 'User Role Updated',
           detail: `User ${userName} has been set as Admin`
         });
-        
+
         // In a real implementation, you would call the service here
         // this.userService.setUserAsAdmin(userId).subscribe({
         //   next: (response) => {
@@ -216,46 +220,9 @@ export class UserListComponent implements OnInit {
   }
 
   confirmSetAsEmployee(userId: number, userName: string): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to set ${userName} as an Employee?`,
-      header: 'Set User as Employee',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // Placeholder for set as employee functionality
-        this.messageService.add({
-          severity: 'success',
-          summary: 'User Role Updated',
-          detail: `User ${userName} has been set as Employee`
-        });
-        
-        // In a real implementation, you would call the service here
-        // this.userService.setUserAsEmployee(userId).subscribe({
-        //   next: (response) => {
-        //     if (response.isSuccess) {
-        //       this.messageService.add({
-        //         severity: 'success',
-        //         summary: 'User Role Updated',
-        //         detail: `User ${userName} has been set as Employee`
-        //       });
-        //       this.loadUsers();
-        //     } else {
-        //       this.messageService.add({
-        //         severity: 'error',
-        //         summary: 'Action Failed',
-        //         detail: response.errorMessage || 'Failed to update user role'
-        //       });
-        //     }
-        //   },
-        //   error: (error) => {
-        //     this.messageService.add({
-        //       severity: 'error',
-        //       summary: 'Action Failed',
-        //       detail: 'An error occurred while updating user role'
-        //     });
-        //   }
-        // });
-      }
-    });
+    this.currentUserId = userId;
+    this.currentUserName = userName;
+    this.showAuthDialog = true;
   }
 
   deleteUser(userId: number, userName: string): void {
@@ -264,39 +231,61 @@ export class UserListComponent implements OnInit {
       header: 'Confirm User Deletion',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        // Placeholder for delete functionality
-        this.messageService.add({
-          severity: 'success',
-          summary: 'User Deleted',
-          detail: `User ${userName} has been deleted`
+        this.userService.deleteUser(userId).subscribe({
+          next: (response) => {
+            if (response.isSuccess) {
+              this.messageService.add({
+                severity: 'warn',
+                summary: 'User Deleted',
+                detail: `User ${userName} has been deleted`
+              });
+              this.loadUsers();
+            } else {
+              this.messageService.add({
+                severity: 'danger',
+                summary: 'Action Failed',
+                detail: response.errorMessage || 'Failed to delete user'
+              });
+            }
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'danger',
+              summary: 'Action Failed',
+              detail: 'An error occurred while deleting user'
+            });
+          }
         });
-        
-        // In a real implementation, you would call the service here
-        // this.userService.deleteUser(userId).subscribe({
-        //   next: (response) => {
-        //     if (response.isSuccess) {
-        //       this.messageService.add({
-        //         severity: 'success',
-        //         summary: 'User Deleted',
-        //         detail: `User ${userName} has been deleted`
-        //       });
-        //       this.loadUsers();
-        //     } else {
-        //       this.messageService.add({
-        //         severity: 'error',
-        //         summary: 'Action Failed',
-        //         detail: response.errorMessage || 'Failed to delete user'
-        //       });
-        //     }
-        //   },
-        //   error: (error) => {
-        //     this.messageService.add({
-        //       severity: 'error',
-        //       summary: 'Action Failed',
-        //       detail: 'An error occurred while deleting user'
-        //     });
-        //   }
-        // });
+
+      }
+    });
+  }
+
+  handleAuthSuccess(userId: number): void {
+    // Authentication was successful, proceed with setting user as employee
+    this.userService.setUserAsEmployee(userId).subscribe({
+      next: (response) => {
+        if (response.isSuccess) {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'User Role Updated',
+            detail: `User ${this.currentUserName} has been set as Employee`
+          });
+          this.loadUsers();
+        } else {
+          this.messageService.add({
+            severity: 'danger',
+            summary: 'Action Failed',
+            detail: response.errorMessage || 'Failed to update user role'
+          });
+        }
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'danger',
+          summary: 'Action Failed',
+          detail: 'An error occurred while updating user role'
+        });
       }
     });
   }
