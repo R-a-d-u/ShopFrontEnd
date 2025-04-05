@@ -1,19 +1,27 @@
-/* product-list.component.css */
-.product-section {
+/* user-list.component.css */
+.user-section {
     padding: 30px 0;
     min-height: calc(100vh - 120px);
     margin-top:100px;
 }
 
-.product-dashboard {
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.user-dashboard {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 25px;
     min-height: 600px;
+    position: relative;
 }
 
-.product-dashboard h2 {
+.user-dashboard h2 {
     margin-bottom: 20px;
     color: #333;
     font-size: 24px;
@@ -22,28 +30,19 @@
     padding-bottom: 10px;
 }
 
-.product-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-.btn {
-    padding: 8px 16px;
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    background-color: #ffffff;
+    font-family: Roboto;
     border: none;
-    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
 }
 
-.add-btn {
-    background-color: #4caf50;
-    color: white;
-}
-
-.add-btn:hover {
-    background-color: #43a047;
+.back-button:hover {
+    background-color: #ffffff;
 }
 
 .search-controls {
@@ -57,7 +56,7 @@
     border: 1px solid #dee2e6;
 }
 
-.search-option, .category-selection, .name-search {
+.search-option, .name-search, .email-search {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -70,76 +69,83 @@ select, input {
     font-size: 14px;
 }
 
-.search-btn {
-    background-color: #007bff;
-    color: white;
-}
 
-.search-btn:hover {
-    background-color: #0069d9;
-}
-
-.product-table {
+.user-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    table-layout: fixed; 
+    table-layout: fixed;
 }
 
-.product-table th, .product-table td {
+.user-table th, .user-table td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #e9ecef;
 }
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
 
-.product-table th {
+.user-table th {
     background-color: #f8f9fa;
     font-weight: 600;
     color: #495057;
 }
 
-.product-table tr:hover {
+.user-table tr:hover {
     background-color: #f8f9fa;
 }
 
 .action-buttons {
     display: flex;
     gap: 8px;
-  }
-  
-  .action-btn {
+}
+
+.action-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 6px;
     border-radius: 4px;
     transition: background-color 0.2s;
-  }
-  
-  .edit-btn:hover {
-    background-color: #fff8e6;
-    color: #f7bb4a;
-  }
-  .edit-price-btn:hover {
-    background-color: #fff8e6;
-    color: #f7bb4a;
-  }
-  
-  .view-btn:hover {
+}
+
+.view-btn:hover {
     background-color: #ebf5f9;
     color: #1a34c4;
-  }
-  .delete-btn:hover {
+}
+
+.analytics-btn:hover {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.admin-btn:hover {
+    background-color: #fff8e6;
+    color: #f7bb4a;
+}
+
+.employee-btn:hover {
+    background-color: #e0f2f1;
+    color: #00796b;
+}
+
+.delete-btn:hover {
     background-color: #f9efeb;
     color: #c43c1a;
-  }
+}
 
 .action-btn:hover {
     opacity: 0.85;
     transform: translateY(-2px);
 }
 
-.no-products, .loading-indicator, .error-message {
+.loading-spinner, .error-message, .no-users {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -188,28 +194,6 @@ select, input {
     font-size: 14px;
     color: #6c757d;
 }
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    background-color: #ffffff;
-    font-family: Roboto;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-
-  }
-  
-  .back-button:hover {
-    background-color: #ffffff;
-  }
-
 
 @media (max-width: 992px) {
     .search-controls {
@@ -217,7 +201,7 @@ select, input {
         align-items: flex-start;
     }
     
-    .product-table {
+    .user-table {
         display: block;
         overflow-x: auto;
     }

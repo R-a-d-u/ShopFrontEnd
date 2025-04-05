@@ -58,6 +58,8 @@ import { ProductAddComponent } from './components/product-add/product-add.compon
 import { ProductEditInfoComponent } from './components/product-edit-info/product-edit-info.component';
 import { ProductEditStockComponent } from './components/product-edit-stock/product-edit-stock.component';
 import { ProductEditPriceComponent } from './components/product-edit-price/product-edit-price.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
 
 
 @NgModule({
@@ -99,6 +101,8 @@ import { ProductEditPriceComponent } from './components/product-edit-price/produ
     ProductEditInfoComponent,
     ProductEditStockComponent,
     ProductEditPriceComponent,
+    UserListComponent,
+    UserViewAnalyticsComponent,
   ],
   imports: [
     BrowserModule,

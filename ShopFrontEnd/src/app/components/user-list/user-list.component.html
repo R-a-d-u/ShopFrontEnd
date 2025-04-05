@@ -1,0 +1,126 @@
+<app-navbar></app-navbar>
+<section class=" user-section">
+    <div class="container">
+        <p-toast position="top-center"></p-toast>
+        <p-confirmDialog 
+            [style]="{width: '450px'}"
+            icon="pi pi-exclamation-triangle"
+            acceptLabel="Yes" 
+            rejectLabel="No"
+            acceptButtonStyleClass="custom-accept-btn"
+            rejectButtonStyleClass="custom-reject-btn"
+            styleClass="custom-confirm-dialog"
+            [closeOnEscape]="true"
+            [dismissableMask]="true">
+        </p-confirmDialog>
+        
+        <div class="user-dashboard" data-aos="fade-up">
+            <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
+            <h2>User Management</h2>
+            
+            <div class="search-controls">
+                <div class="search-option">
+                    <label for="searchOption">Search By:</label>
+                    <select id="searchOption" [(ngModel)]="selectedSearchOption" (change)="onSearchOptionChange()">
+                        <option *ngFor="let option of searchOptions" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </div>
+                
+                <div *ngIf="selectedSearchOption === 'name'" class="name-search">
+                    <label for="nameSearch">User Name:</label>
+                    <input type="text" id="nameSearch" [(ngModel)]="searchName" placeholder="Enter user name...">
+                    <button class="btn" (click)="onSearch()">Search</button>
+                </div>
+                
+                <div *ngIf="selectedSearchOption === 'email'" class="email-search">
+                    <label for="emailSearch">User Email:</label>
+                    <input type="text" id="emailSearch" [(ngModel)]="searchEmail" placeholder="Enter user email...">
+                    <button class="btn" (click)="onSearch()">Search</button>
+                </div>
+            </div>
+            
+            <div class="user-list">
+                <div *ngIf="loading" class="loading-spinner">
+                    <p>Loading users...</p>
+                </div>
+                
+                <div *ngIf="errorMessage" class="error-message">
+                    <p>{{ errorMessage }}</p>
+                </div>
+                
+                <table class="user-table" *ngIf="!loading && !errorMessage && users.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>User Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <td [title]="user.name">{{ user.name }}</td>
+                            <td [title]="user.email">{{ user.email }}</td>
+                            <td [title]="user.phoneNumber">{{ user.phoneNumber }}</td>
+                            <td>{{ getUserAccessTypeName(user.userAccessType) }}</td>
+                            <td class="action-buttons">
+                                <div class="action-buttons-container" style="display: flex; gap: 8px;">
+                                    <button class="action-btn view-btn" title="View User Details" (click)="viewUserDetails(user.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </button>
+                                    
+                                    <button class="action-btn analytics-btn" title="View User Analytics" (click)="viewUserAnalytics(user.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                                        </svg>
+                                    </button>
+                                    
+                                    <button class="action-btn admin-btn" title="Set as Admin" (click)="confirmSetAsAdmin(user.id, user.name)" *ngIf="user.userAccessType !== 3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                    </button>
+                                    
+                                    <button class="action-btn employee-btn" title="Set as Employee" (click)="confirmSetAsEmployee(user.id, user.name)" *ngIf="user.userAccessType !== 2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    </button>
+                                    
+                                    <button class="action-btn delete-btn" title="Delete User" (click)="deleteUser(user.id, user.name)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div *ngIf="!loading && !errorMessage && users.length === 0" class="no-users">
+                    <p>No users found.</p>
+                </div>
+                
+                <div class="pagination" *ngIf="totalPages > 1">
+                    <button [disabled]="currentPage === 1" (click)="prevPage()" class="pagination-btn">
+                        <i class="pi pi-chevron-left"></i> Previous
+                    </button>
+                    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button [disabled]="currentPage === totalPages" (click)="nextPage()" class="pagination-btn">
+                        Next <i class="pi pi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
