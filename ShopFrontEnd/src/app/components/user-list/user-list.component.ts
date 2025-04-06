@@ -20,6 +20,7 @@ export class UserListComponent implements OnInit {
   showAuthDialog: boolean = false;
   currentUserId: number = 0;
   currentUserName: string = '';
+  dialogHeader: string='';
 
   selectedSearchOption: string = 'admins';
   searchOptions = [
@@ -177,116 +178,105 @@ export class UserListComponent implements OnInit {
   }
 
   confirmSetAsAdmin(userId: number, userName: string): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to set ${userName} as an Admin?`,
-      header: 'Set User as Admin',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // Placeholder for set as admin functionality
-        this.messageService.add({
-          severity: 'success',
-          summary: 'User Role Updated',
-          detail: `User ${userName} has been set as Admin`
-        });
-
-        // In a real implementation, you would call the service here
-        // this.userService.setUserAsAdmin(userId).subscribe({
-        //   next: (response) => {
-        //     if (response.isSuccess) {
-        //       this.messageService.add({
-        //         severity: 'success',
-        //         summary: 'User Role Updated',
-        //         detail: `User ${userName} has been set as Admin`
-        //       });
-        //       this.loadUsers();
-        //     } else {
-        //       this.messageService.add({
-        //         severity: 'error',
-        //         summary: 'Action Failed',
-        //         detail: response.errorMessage || 'Failed to update user role'
-        //       });
-        //     }
-        //   },
-        //   error: (error) => {
-        //     this.messageService.add({
-        //       severity: 'error',
-        //       summary: 'Action Failed',
-        //       detail: 'An error occurred while updating user role'
-        //     });
-        //   }
-        // });
-      }
-    });
-  }
-
-  confirmSetAsEmployee(userId: number, userName: string): void {
+    this.dialogHeader = "Confirm new role as admin!";
     this.currentUserId = userId;
     this.currentUserName = userName;
     this.showAuthDialog = true;
   }
 
+  confirmSetAsEmployee(userId: number, userName: string): void {
+    this.dialogHeader="Confirm new role as employee!"
+    this.currentUserId = userId;
+    this.currentUserName = userName;
+    this.showAuthDialog = true;
+  }
   deleteUser(userId: number, userName: string): void {
-    this.confirmationService.confirm({
-      message: `Are you sure you want to delete user ${userName}?`,
-      header: 'Confirm User Deletion',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.userService.deleteUser(userId).subscribe({
-          next: (response) => {
-            if (response.isSuccess) {
-              this.messageService.add({
-                severity: 'warn',
-                summary: 'User Deleted',
-                detail: `User ${userName} has been deleted`
-              });
-              this.loadUsers();
-            } else {
-              this.messageService.add({
-                severity: 'danger',
-                summary: 'Action Failed',
-                detail: response.errorMessage || 'Failed to delete user'
-              });
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'danger',
-              summary: 'Action Failed',
-              detail: 'An error occurred while deleting user'
-            });
-          }
-        });
-
-      }
-    });
+    this.dialogHeader = "Confirm user deletion!";
+    this.currentUserId = userId;
+    this.currentUserName = userName;
+    this.showAuthDialog = true;
   }
 
   handleAuthSuccess(userId: number): void {
-    // Authentication was successful, proceed with setting user as employee
-    this.userService.setUserAsEmployee(userId).subscribe({
-      next: (response) => {
-        if (response.isSuccess) {
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'User Role Updated',
-            detail: `User ${this.currentUserName} has been set as Employee`
-          });
-          this.loadUsers();
-        } else {
+    // Authentication was successful, proceed with the appropriate action
+    if (this.dialogHeader === "Confirm new role as admin!") {
+      this.userService.setUserAsAdmin(userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'User Role Updated',
+              detail: `User ${this.currentUserName} has been set as Admin`
+            });
+            this.loadUsers();
+          } else {
+            this.messageService.add({
+              severity: 'danger',
+              summary: 'Action Failed',
+              detail: response.errorMessage || 'Failed to update user role'
+            });
+          }
+        },
+        error: (error) => {
           this.messageService.add({
             severity: 'danger',
             summary: 'Action Failed',
-            detail: response.errorMessage || 'Failed to update user role'
+            detail: 'An error occurred while updating user role'
           });
         }
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'danger',
-          summary: 'Action Failed',
-          detail: 'An error occurred while updating user role'
-        });
-      }
-    });
+      });
+    } else if (this.dialogHeader === "Confirm new role as employee!") {
+      this.userService.setUserAsEmployee(userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'User Role Updated',
+              detail: `User ${this.currentUserName} has been set as Employee`
+            });
+            this.loadUsers();
+          } else {
+            this.messageService.add({
+              severity: 'danger',
+              summary: 'Action Failed',
+              detail: response.errorMessage || 'Failed to update user role'
+            });
+          }
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'danger',
+            summary: 'Action Failed',
+            detail: 'An error occurred while updating user role'
+          });
+        }
+      });
+    } else if (this.dialogHeader === "Confirm user deletion!") {
+      this.userService.deleteUser(userId).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'User Deleted',
+              detail: `User ${this.currentUserName} has been deleted`
+            });
+            this.loadUsers();
+          } else {
+            this.messageService.add({
+              severity: 'danger',
+              summary: 'Action Failed',
+              detail: response.errorMessage || 'Failed to delete user'
+            });
+          }
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'danger',
+            summary: 'Action Failed',
+            detail: 'An error occurred while deleting user'
+          });
+        }
+      });
+    }
   }
 }

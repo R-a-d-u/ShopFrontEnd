@@ -15,7 +15,7 @@ export class AuthConfirmDialogComponent {
   @Input() userId: number = 0;
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() authSuccess = new EventEmitter<number>();
-  
+  @Input() dialogHeader: string = 'Confirm!';
   authForm: FormGroup;
   loading: boolean = false;
   errorMessage: string | null = null;

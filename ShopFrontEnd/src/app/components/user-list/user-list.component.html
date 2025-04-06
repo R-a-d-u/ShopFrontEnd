@@ -7,7 +7,7 @@
             styleClass="custom-confirm-dialog" [closeOnEscape]="true" [dismissableMask]="true">
         </p-confirmDialog>
         <!-- Add this to your component's template -->
-        <app-auth-confirm-dialog [(visible)]="showAuthDialog" [userName]="currentUserName" [userId]="currentUserId"
+        <app-auth-confirm-dialog [(visible)]="showAuthDialog" [userName]="currentUserName" [userId]="currentUserId" [dialogHeader]="dialogHeader"
             (authSuccess)="handleAuthSuccess($event)">
         </app-auth-confirm-dialog>
 
