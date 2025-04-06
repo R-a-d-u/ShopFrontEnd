@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { MessageService } from 'primeng/api';
 import { GoldHistoryService } from 'src/app/services/gold-history.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-add',
@@ -29,7 +30,9 @@ export class ProductAddComponent implements OnInit {
     private categoryService: CategoryService,
     private messageService: MessageService,
     private goldService: GoldHistoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -156,11 +159,17 @@ export class ProductAddComponent implements OnInit {
     }
 
     this.loading = true;
-    const productData = { ...this.productForm.getRawValue(), productState: 1 };
+    const productData = { 
+      ...this.productForm.getRawValue(), 
+      productType: Number(this.productForm.get('productType')?.value), // force number
+      productState: 1 
+    };
 
     this.productService.addProduct(productData).subscribe({
       next: () => {
         this.messageService.add({ severity: 'warn', summary: 'Success', detail: 'Product added successfully!' });
+        this.router.navigate(['/admin/product']);
+
       },
       error: (error) => {
         this.messageService.add({ severity: 'danger', summary: 'Error', detail: error.error?.errorMessage || 'Failed to add product' });
