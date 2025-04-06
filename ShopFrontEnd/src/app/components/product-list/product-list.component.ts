@@ -198,8 +198,7 @@ export class ProductListComponent implements OnInit {
 
   // Action methods
   viewProductDetails(productId: number): void {
-    console.log('View product details:', productId);
-    // this.router.navigate(['/products', productId]);
+    this.router.navigate(['/product-details', productId]);
   }
 
   editProductInfo(productId: number): void {

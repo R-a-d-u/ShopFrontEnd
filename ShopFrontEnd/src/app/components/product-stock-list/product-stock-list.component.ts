@@ -166,8 +166,7 @@ export class ProductStockListComponent {
 
   // Action methods
   viewProductDetails(productId: number): void {
-    console.log('View product details:', productId);
-    // this.router.navigate(['/products', productId]);
+    this.router.navigate(['/product-details', productId]);
   }
 
   editProductStock(productId: number): void {
