@@ -169,12 +169,7 @@ export class UserListComponent implements OnInit {
   }
 
   viewUserAnalytics(userId: number): void {
-    // Placeholder for view analytics functionality
-    this.messageService.add({
-      severity: 'info',
-      summary: 'User Analytics',
-      detail: `Viewing analytics for user with ID: ${userId}`
-    });
+    this.router.navigate(['/admin/user/details/', userId]);
   }
 
   confirmSetAsAdmin(userId: number, userName: string): void {

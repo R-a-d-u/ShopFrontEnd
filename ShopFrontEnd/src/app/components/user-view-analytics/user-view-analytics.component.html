@@ -1,1 +1,67 @@
-<p>user-view-analytics works!</p>
+<!-- user-view-analytics.component.html -->
+<app-navbar></app-navbar>
+<div class="profile-container">
+    <div class="profile-card" data-aos="fade-up">
+        <h2>User Analytics</h2>
+
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <div *ngIf="!loading && currentUser" class="user-details">
+            <div class="profile-row">
+                <div class="profile-field">
+                    <label>Email</label>
+                    <p>{{ currentUser.email }}</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Phone Number</label>
+                    <p>{{ currentUser.phoneNumber }}</p>
+                </div>
+            </div>
+            <div class="profile-row">
+                <div class="profile-field">
+                    <label>Name</label>
+                    <p>{{ currentUser.name }}</p>
+                </div>
+                <div class="profile-field">
+                    <label>Last Modified</label>
+                    <p>{{ currentUser.lastModifyDate | date:'medium' }}</p>
+                </div>
+            </div>
+            <div class="analytics-section" *ngIf="!statsLoading && userStats">
+                <h3>Purchase Statistics</h3>
+
+                <div class="profile-field">
+                    <label>Total Orders</label>
+                    <p>{{ userStats.totalOrderCount }}</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Total Spent</label>
+                    <p>{{ userStats.totalSpent | currency }}</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Average Order Value</label>
+                    <p>{{ userStats.averageOrderValue | currency }}</p>
+                </div>
+
+                <div class="profile-field">
+                    <label>Last Purchase Date</label>
+                    <p>{{ userStats.lastPurchaseDate | date:'medium' }}</p>
+                </div>
+            </div>
+
+            <div *ngIf="!statsLoading && !userStats && currentUser" class="error-message">
+                No purchase data found for this user.
+              </div>
+
+            <div class="button-group" *ngIf="!loading && !statsLoading">
+                <button (click)="goBack()" class="btn btn-login">Back to Users</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

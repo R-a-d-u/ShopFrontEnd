@@ -42,4 +42,8 @@ export class StatisticsService {
     
     return this.http.get(`${this.apiUrl}/GetCategorySalesPerformance`, { params });
   }
+  getUserPurchasePatterns(userId: number): Observable<any> {
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.get(`${this.apiUrl}/GetCustomerPurchasePatterns`, { params });
+  }
 }

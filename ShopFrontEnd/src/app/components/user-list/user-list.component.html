@@ -63,14 +63,6 @@
                             <td>{{ getUserAccessTypeName(user.userAccessType) }}</td>
                             <td class="action-buttons">
                                 <div class="action-buttons-container" style="display: flex; gap: 8px;">
-                                    <button class="action-btn view-btn" title="View User Details"
-                                        (click)="viewUserDetails(user.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                            <circle cx="12" cy="12" r="3" />
-                                        </svg>
-                                    </button>
 
                                     <button class="action-btn analytics-btn" title="View User Analytics"
                                         (click)="viewUserAnalytics(user.id)">
