@@ -107,6 +107,10 @@ select, input {
 }
 
 .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
     background-color: transparent;
     border: none;
     cursor: pointer;
