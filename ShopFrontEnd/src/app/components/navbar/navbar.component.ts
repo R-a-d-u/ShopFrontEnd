@@ -96,7 +96,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
     );
   }
   navigateToCategory(categoryId: number): void {
-    this.router.navigate(['/products', categoryId]);
+    this.router.navigate(['/category', categoryId]);
   }
   updateCartCount(): void {
     if (this.currentUser) {

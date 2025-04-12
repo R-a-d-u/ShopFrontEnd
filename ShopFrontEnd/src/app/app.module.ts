@@ -66,6 +66,7 @@ import { AuthConfirmDialogComponent } from './components/auth-confirm-dialog/aut
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
 import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
+import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { CustomerOrderListComponent } from './components/customer-order-list/cus
     OrderListComponent,
     CustomerListComponent,
     CustomerOrderListComponent,
+    ProductShopListComponent,
   ],
   imports: [
     BrowserModule,

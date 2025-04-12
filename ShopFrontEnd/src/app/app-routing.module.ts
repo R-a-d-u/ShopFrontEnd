@@ -32,6 +32,7 @@ import { UserViewAnalyticsComponent } from './components/user-view-analytics/use
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
 import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
+import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'gold-bars', component: GoldBarsComponent },
   { path: 'gold-coins', component: GoldCoinsComponent },
+  { path: 'category/:id', component: ProductShopListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'product-details/:id', component: ProductDetailsComponent },
   { path: 'my-orders', component: MyOrdersComponent },
