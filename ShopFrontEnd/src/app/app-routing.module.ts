@@ -66,7 +66,8 @@ const routes: Routes = [
   { path: 'admin/order/details/:id', component: OrderComponent},
   { path: 'admin/customer', component: CustomerListComponent},
   { path: 'admin/customer/details/:id', component: UserViewAnalyticsComponent},
-  { path: 'admin/customer/order/:id', component: CustomerOrderListComponent},
+  { path: 'admin/customer/order-list/:id', component: CustomerOrderListComponent},
+  { path: 'admin/customer/order/:id', component: OrderComponent},
   { 
     path: 'cart', 
     component: CartComponent,

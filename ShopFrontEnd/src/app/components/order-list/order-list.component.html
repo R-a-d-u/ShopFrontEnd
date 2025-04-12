@@ -109,7 +109,7 @@
                                     </button>
 
                                     <!-- Cancel Button - For orders that can be canceled (Created, Processing, Shipping) -->
-                                    <button *ngIf="order.orderStatus" 
+                                    <button *ngIf="order.orderStatus!=6 && order.orderStatus!=5 && order.orderStatus!=4" 
                                             class="action-btn cancel-btn" 
                                             title="Cancel Order" 
                                             (click)="updateToCanceled(order.id)">

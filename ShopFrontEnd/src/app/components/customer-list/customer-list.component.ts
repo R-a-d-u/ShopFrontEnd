@@ -144,7 +144,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   viewCustomerOrders(customerId: number): void {
-    this.router.navigate(['/admin/customer/orders/', customerId]);
+    this.router.navigate(['/admin/customer/order-list/', customerId]);
   }
 
   handleAuthSuccess(userId: number): void {
