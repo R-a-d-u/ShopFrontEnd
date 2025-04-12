@@ -10,7 +10,8 @@ import { MessageService } from 'primeng/api';
 export enum ProductType {
   Jewelry = 1,
   GoldCoins = 2,
-  GoldBars = 3
+  GoldBars = 3,
+  Other=4,
 }
 
 @Component({
@@ -80,17 +81,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    const categoryRoutes: { [key: number]: string } = {
-      1: '/jewelry',
-      2: '/gold-coins',
-      3: '/gold-bars'
-    };
-
-    if (this.product?.categoryId && categoryRoutes[this.product.categoryId]) {
-      this.router.navigate([categoryRoutes[this.product.categoryId]]);
-    } else {
-      this.router.navigate(['/']); // Default fallback
-    }
+    if (this.product?.categoryId) 
+      this.router.navigate(['/category', this.product.categoryId]);
   }
 
   getProductTypeName(productType: number): string {
@@ -101,10 +93,11 @@ export class ProductDetailsComponent implements OnInit {
     const categoryNames: { [key: number]: string } = {
       1: 'jewelry',
       2: 'gold coins',
-      3: 'gold bars'
+      3: 'gold bars',
+      4: 'products'
     };
 
-    return this.product?.categoryId ? categoryNames[this.product.categoryId] || '' : '';
+    return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
   }
   addToCart(): void {
     if (!this.product || !this.quantity || this.quantity <= 0) {

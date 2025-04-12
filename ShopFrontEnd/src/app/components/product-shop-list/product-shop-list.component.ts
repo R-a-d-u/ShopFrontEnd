@@ -39,7 +39,7 @@ export class ProductShopListComponent implements OnInit {
   onImageError(productId: number): void {
     this.imageLoadFailedMap[productId] = true;
   }
-
+  
   loadProducts(categoryId :number,page: number = 1, pageSize: number = 4): void {
     this.loading = true;
     this.currentPage = page;
