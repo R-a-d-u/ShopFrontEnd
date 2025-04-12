@@ -1,0 +1,104 @@
+<app-navbar></app-navbar>
+<section class="user-section">
+    <div class="container">
+        <p-toast position="top-center"></p-toast>
+        <p-confirmDialog [style]="{width: '450px'}" icon="pi pi-exclamation-triangle" acceptLabel="Yes" rejectLabel="No"
+            acceptButtonStyleClass="custom-accept-btn" rejectButtonStyleClass="custom-reject-btn"
+            styleClass="custom-confirm-dialog" [closeOnEscape]="true" [dismissableMask]="true">
+        </p-confirmDialog>
+        <app-auth-confirm-dialog [(visible)]="showAuthDialog" [userName]="currentUserName" [userId]="currentUserId" [dialogHeader]="dialogHeader"
+            (authSuccess)="handleAuthSuccess($event)">
+        </app-auth-confirm-dialog>
+
+        <div class="user-dashboard" data-aos="fade-up">
+            <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
+            <h2>Customer Management</h2>
+
+            <div class="search-controls">
+                <div class="search-option">
+                    <label for="searchOption">Search By:</label>
+                    <select id="searchOption" [(ngModel)]="selectedSearchOption" (change)="onSearchOptionChange()">
+                        <option *ngFor="let option of searchOptions" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                </div>
+
+                <div *ngIf="selectedSearchOption === 'name'" class="name-search">
+                    <label for="nameSearch">Customer Name:</label>
+                    <input type="text" id="nameSearch" [(ngModel)]="searchName" placeholder="Enter customer name...">
+                    <button class="btn" (click)="onSearch()">Search</button>
+                </div>
+
+                <div *ngIf="selectedSearchOption === 'email'" class="email-search">
+                    <label for="emailSearch">Customer Email:</label>
+                    <input type="text" id="emailSearch" [(ngModel)]="searchEmail" placeholder="Enter customer email...">
+                    <button class="btn" (click)="onSearch()">Search</button>
+                </div>
+            </div>
+
+            <div class="user-list">
+                <div *ngIf="loading" class="loading-spinner">
+                    <p>Loading customers...</p>
+                </div>
+
+                <div *ngIf="errorMessage" class="error-message">
+                    <p>{{ errorMessage }}</p>
+                </div>
+
+                <table class="user-table" *ngIf="!loading && !errorMessage && customers.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Available Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let customer of customers">
+                            <td [title]="customer.name">{{ customer.name }}</td>
+                            <td [title]="customer.email">{{ customer.email }}</td>
+                            <td [title]="customer.phoneNumber">{{ customer.phoneNumber }}</td>
+                            <td class="action-buttons">
+                                <div class="action-buttons-container" style="display: flex; gap: 8px;">
+                                    <button class="action-btn analytics-btn" title="View Customer Statistics"
+                                        (click)="viewCustomerStatistics(customer.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                                        </svg>
+                                        Statistics
+                                    </button>
+
+                                    <button class="action-btn orders-btn" title="View Customer Orders"
+                                        (click)="viewCustomerOrders(customer.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                            <path d="M9 14l2 2 4-4"></path>
+                                        </svg>
+                                        Orders
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="!loading && !errorMessage && customers.length === 0" class="no-users">
+                    <p>No customers found.</p>
+                </div>
+
+                <div class="pagination" *ngIf="totalPages > 1">
+                    <button [disabled]="currentPage === 1" (click)="prevPage()" class="pagination-btn">
+                        <i class="pi pi-chevron-left"></i> Previous
+                    </button>
+                    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button [disabled]="currentPage === totalPages" (click)="nextPage()" class="pagination-btn">
+                        Next <i class="pi pi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

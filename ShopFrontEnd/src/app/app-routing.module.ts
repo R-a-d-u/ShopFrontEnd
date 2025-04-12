@@ -30,6 +30,7 @@ import { ProductEditInfoComponent } from './components/product-edit-info/product
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { CustomerListComponent } from './components/customer-list/customer-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -62,6 +63,8 @@ const routes: Routes = [
   { path: 'admin/user/details/:id', component: UserViewAnalyticsComponent},
   { path: 'admin/order', component: OrderListComponent},
   { path: 'admin/order/details/:id', component: OrderComponent},
+  { path: 'admin/customer', component: CustomerListComponent},
+  { path: 'admin/customer/details/:id', component: UserViewAnalyticsComponent},
   { 
     path: 'cart', 
     component: CartComponent,

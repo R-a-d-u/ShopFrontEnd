@@ -64,6 +64,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
 import { AuthConfirmDialogComponent } from './components/auth-confirm-dialog/auth-confirm-dialog.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { CustomerListComponent } from './components/customer-list/customer-list.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
     UserViewAnalyticsComponent,
     AuthConfirmDialogComponent,
     OrderListComponent,
+    CustomerListComponent,
   ],
   imports: [
     BrowserModule,
