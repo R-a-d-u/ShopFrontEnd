@@ -25,6 +25,7 @@ export class ProductDetailsComponent implements OnInit {
   quantity: number | null = null;
   addingToCart = false;
   cartId: number =-1;
+  imageLoadFailed = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -134,5 +135,8 @@ export class ProductDetailsComponent implements OnInit {
           });
         }
       });
+  }
+  onImageError(): void {
+    this.imageLoadFailed = true;
   }
 }
