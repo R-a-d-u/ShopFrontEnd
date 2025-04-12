@@ -8,9 +8,10 @@
       <div class="product-image-details-container">
         <div class="left-container">
           <h2>{{ product.name }}</h2>
-          <p *ngIf="product?.categoryId==1" class="description">Finely Crafted Jewelry</p>
-          <p *ngIf="product?.categoryId==2" class="description">Historic Gold Coin</p>
-          <p *ngIf="product?.categoryId==3" class="description">Swiss Gold Bar</p>
+          <p *ngIf="product?.productType==1" class="description">Finely Crafted Jewelry</p>
+          <p *ngIf="product?.productType==2" class="description">Historic Gold Coin</p>
+          <p *ngIf="product?.productType==3" class="description">Swiss Gold Bar</p>
+          <p *ngIf="product?.productType!=1 && product?.productType!=2 && product?.productType!=3" class="description">Finely Crafted Item</p>
         </div>
         <img *ngIf="loading" class="left-image" [src]="'assets/loading.gif'" alt="Loading...">
         <img *ngIf="!loading && !imageLoadFailed && product?.image"
@@ -49,10 +50,10 @@
         <div class="details-section">
           <h3>Key Features</h3>
           <ul>
-            <li class="description">LBMA certified {{ getProductTypeName(product.categoryId) }}</li>
-            <li *ngIf="product?.categoryId==3" class="description">Individually serialized</li>
-            <li *ngIf="product?.categoryId==2" class="description">Excellent collector's item</li>
-            <li *ngIf="product?.categoryId==1" class="description">VS1 clarity, F color grade</li>
+            <li class="description">LBMA certified {{ getProductTypeName(product.productType) }}</li>
+            <li *ngIf="product?.productType==3" class="description">Individually serialized</li>
+            <li *ngIf="product?.productType!=3 && product?.productType!=1" class="description">Excellent collector's item</li>
+            <li *ngIf="product?.productType==1" class="description">VS1 clarity, F color grade</li>
             <li class="description">Includes certificate of autenticity</li>
             <li class="description">Secure packaging</li>
           </ul>
@@ -67,14 +68,14 @@
             </div>
             <div class="spec-item">
               <span class="spec-label">Purity:</span>
-              <span *ngIf="product?.categoryId==3" class="spec-label">999.9 (24K)</span>
-              <span *ngIf="product?.categoryId!==3" class="spec-label">916.7 (22K)</span>
+              <span *ngIf="product?.productType==3" class="spec-label">999.9 (24K)</span>
+              <span *ngIf="product?.productType!==3" class="spec-label">916.7 (22K)</span>
             </div>
             <div class="spec-item">
               <span class="spec-label">Manufacturer:</span>
-              <span *ngIf="product?.categoryId==2 || product?.categoryId==3 " class="spec-label">Swiss Bank
+              <span *ngIf="product?.productType==2 || product?.productType==3 " class="spec-label">Swiss Bank
                 Corporation</span>
-              <span *ngIf="product?.categoryId==1" class="spec-label">LVMH. Paris, France</span>
+              <span *ngIf="product?.productType!=2 && product?.productType!=3" class="spec-label">LVMH. Paris, France</span>
             </div>
             <div class="spec-item">
               <span class="spec-label"> Certification:</span>

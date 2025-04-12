@@ -94,7 +94,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductTypeName(productType: number): string {
-    return ProductType[productType] || 'Unknown';
+    return ProductType[productType] || 'Item';
   }
 
   getCategoryNameById(): string {
