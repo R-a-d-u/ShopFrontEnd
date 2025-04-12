@@ -86,7 +86,7 @@ export class CustomerListComponent implements OnInit {
     request.subscribe({
       next: (response) => {
         if (response.isSuccess && response.result) {
-          this.customers = response.result.items;
+          this.customers = response.result.items.filter(customer => customer.userAccessType == 1);
           this.totalPages = response.result.totalPages;
           this.currentPage = response.result.pageNumber;
           this.errorMessage = null;
