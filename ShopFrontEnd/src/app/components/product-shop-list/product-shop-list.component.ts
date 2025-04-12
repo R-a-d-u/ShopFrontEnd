@@ -17,6 +17,7 @@ export class ProductShopListComponent implements OnInit {
   totalPages = 0;
   totalCount = 0;
   categoryId: number = 0;
+  imageLoadFailedMap: { [productId: number]: boolean } = {};
 
   constructor(
     private productService: ProductService,
@@ -34,6 +35,9 @@ export class ProductShopListComponent implements OnInit {
       }
       this.loadProducts(this.categoryId, 1, 4);
     });
+  }
+  onImageError(productId: number): void {
+    this.imageLoadFailedMap[productId] = true;
   }
 
   loadProducts(categoryId :number,page: number = 1, pageSize: number = 4): void {
