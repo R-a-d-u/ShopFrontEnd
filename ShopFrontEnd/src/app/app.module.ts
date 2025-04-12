@@ -63,6 +63,7 @@ import { ProductEditPriceComponent } from './components/product-edit-price/produ
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
 import { AuthConfirmDialogComponent } from './components/auth-confirm-dialog/auth-confirm-dialog.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { AuthConfirmDialogComponent } from './components/auth-confirm-dialog/aut
     UserListComponent,
     UserViewAnalyticsComponent,
     AuthConfirmDialogComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,

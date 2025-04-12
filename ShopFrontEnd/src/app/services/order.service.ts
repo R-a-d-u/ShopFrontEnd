@@ -30,6 +30,14 @@ export class OrderService {
         })
       );
   }
+  getAllOrdersByStatus(orderStatus: number, page: number = 1): Observable<ResponseValidator<PagedResult<OrderDto>>> {
+    return this.http.get<ResponseValidator<PagedResult<OrderDto>>>(`${this.apiUrl}/Order/GetAllOrdersByOrderStatus/${orderStatus}?page=${page}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get orders by status'));
+        })
+      );
+  }
 
   getOrderById(orderId: string): Observable<OrderDto> {
     return this.http.get<ResponseValidator<OrderDto>>(`${this.apiUrl}/Order/Get/${orderId}`)
