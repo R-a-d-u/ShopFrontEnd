@@ -205,6 +205,20 @@ export class CartService {
       }
     );
   }
+  getCartItemCount(cartId: number): Observable<number> {
+    return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetCartItemCount/${cartId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Failed to get cart item count');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get cart item count'));
+        })
+      );
+  }
   clearCart(cartId: number): Observable<boolean> {
     return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/Cart/Clear/${cartId}`)
       .pipe(

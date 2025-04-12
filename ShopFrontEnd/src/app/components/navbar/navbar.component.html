@@ -2,9 +2,14 @@
   <div class="container">
     <a routerLink="/" class="logo">Luxury & Gold</a>
     <div class="nav-links">
-      <a style="margin-top: 3px;" routerLink="/jewelry">Jewelry</a>
-      <a style="margin-top: 3px;" routerLink="/gold-coins">Gold Coins</a>
-      <a style="margin-top: 3px;" routerLink="/gold-bars">Gold Bars</a>
+      <!-- Replace static category links with dynamic ones -->
+      <a *ngFor="let category of categories" 
+         style="margin-top: 3px;" 
+         (click)="navigateToCategory(category.id)"
+         [routerLink]="['/products', category.id]">
+        {{ category.name }}
+      </a>
+      
       <div class="search-container" (mousedown)="keepDropdownOpen($event)">
         <a class="search-icon" (click)="toggleSearch()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -34,6 +39,8 @@
           <p class="no-results" *ngIf="searchResults && searchResults.length === 0">No products found</p>
         </div>
       </div>
+      
+      <!-- Rest of your navbar items -->
       <a routerLink="/cart" class="cart-link">
         <img src="assets/cartIcon.png" alt="Cart" class="cart-icon" />
         <span class="cart-count" *ngIf="cartItemCount !== null">{{ cartItemCount }}</span>
@@ -42,7 +49,7 @@
         <a routerLink="/login" *ngIf="!currentUser" class="btn btn-login">Login</a>
         <a mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser" class="btn btn-profile">
           Profile
-          </a>
+        </a>
       </div>
      
       <mat-menu #menu="matMenu" xPosition="after" >

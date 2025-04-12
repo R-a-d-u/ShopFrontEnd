@@ -6,6 +6,9 @@ import { UserDto } from 'src/app/models/user.model';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
+import { ProductService } from 'src/app/services/product.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { Product } from 'src/app/services/product.service'; // Import the Product interface
 
 interface SearchResponse {
   isSuccess: boolean;
@@ -18,21 +21,13 @@ interface SearchResponse {
   };
   errorMessage: string | null;
 }
-
-interface Product {
+interface CategoryDto {
   id: number;
-  productType: number;
   name: string;
-  image: string;
-  additionalValue: number;
-  goldWeightInGrams: number;
-  sellingPrice: number;
-  categoryId: number;
-  description: string;
-  stockQuantity: number;
-  productState: number;
   lastModifiedDate: string;
 }
+
+
 
 @Component({
   selector: 'app-navbar',
@@ -50,13 +45,16 @@ export class NavbarComponent implements OnInit,OnDestroy {
   searchResults: Product[] = [];
   isDropdownOpen=false;
   cartItemCount: number | null = null;
+  categories: CategoryDto[] = [];
   
   
   constructor(
     private router: Router,
     private http: HttpClient,
     public authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private productService: ProductService,
+    private categoryService: CategoryService
   ) {}
   ngOnDestroy(): void {
     if (this.cartCountSubscription) {
@@ -66,6 +64,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
   
   ngOnInit(): void {
     this.updateCartCount();
+    this.loadCategories();
     // Modified event listener for document clicks
     document.addEventListener('mousedown', (event) => {
       // Only close if the click is outside the search container element
@@ -86,16 +85,25 @@ export class NavbarComponent implements OnInit,OnDestroy {
     });
     this.authService.autoLogin();
   }
+  loadCategories(): void {
+    this.categoryService.getAllCategoryNames().subscribe(
+      categories => {
+        this.categories = categories;
+      },
+      error => {
+        console.error('Error loading categories:', error);
+      }
+    );
+  }
+  navigateToCategory(categoryId: number): void {
+    this.router.navigate(['/products', categoryId]);
+  }
   updateCartCount(): void {
     if (this.currentUser) {
-      const userId = this.currentUser.id; // Assuming user ID is accessible
-      this.http.get<any>(`https://localhost:7041/Cart/GetCartItemCount/${userId}`).subscribe(
-        response => {
-          if (response.isSuccess && response.result !== undefined) {
-            this.cartItemCount = response.result;
-          } else {
-            this.cartItemCount = null;
-          }
+      const userId = this.currentUser.id;
+      this.cartService.getCartItemCount(userId).subscribe(
+        count => {
+          this.cartItemCount = count;
         },
         error => {
           console.error('Error fetching cart count:', error);
@@ -149,12 +157,9 @@ export class NavbarComponent implements OnInit,OnDestroy {
       return;
     }
     
-    
-    const url = `https://localhost:7041/Product/GetByName?name=${encodeURIComponent(this.searchTerm)}&page=1`;
-    
-    this.http.get<SearchResponse>(url).subscribe(
+    this.productService.getProductsByName(this.searchTerm).subscribe(
       response => {
-        if (response.isSuccess && response.result) {
+        if (response && response.isSuccess && response.result) {
           this.searchResults = response.result.items;
         } else {
           this.searchResults = [];
