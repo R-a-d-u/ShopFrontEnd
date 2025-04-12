@@ -31,6 +31,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UserViewAnalyticsComponent } from './components/user-view-analytics/user-view-analytics.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
+import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -65,6 +66,7 @@ const routes: Routes = [
   { path: 'admin/order/details/:id', component: OrderComponent},
   { path: 'admin/customer', component: CustomerListComponent},
   { path: 'admin/customer/details/:id', component: UserViewAnalyticsComponent},
+  { path: 'admin/customer/order/:id', component: CustomerOrderListComponent},
   { 
     path: 'cart', 
     component: CartComponent,
