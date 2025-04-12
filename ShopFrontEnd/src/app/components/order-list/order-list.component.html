@@ -1,4 +1,4 @@
-<!-- order-list.component.html -->
+<!-- order-list.component.html - updated with status update buttons -->
 <app-navbar></app-navbar>
 <section class="order-section">
     <div class="container">
@@ -30,7 +30,6 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>User ID</th>
                             <th>Created Date</th>
                             <th>Total</th>
                             <th>Status</th>
@@ -40,12 +39,12 @@
                     <tbody>
                         <tr *ngFor="let order of orders">
                             <td [title]="order.id" class="order-id-cell">{{ order.id.substring(0, 8) }}...</td>
-                            <td>{{ order.userId }}</td>
                             <td>{{ formatDate(order.orderCreatedDate) }}</td>
                             <td>{{ formatCurrency(order.totalSum) }}</td>
                             <td>{{ getOrderStatusName(order.orderStatus) }}</td>
                             <td class="action-buttons">
                                 <div class="action-buttons-container" style="display: flex; gap: 8px;">
+                                    <!-- View Button -->
                                     <button class="action-btn view-btn" title="View Order Details"
                                         (click)="viewOrderDetails(order.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -53,16 +52,73 @@
                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                             <circle cx="12" cy="12" r="3"></circle>
                                         </svg>
+                                        View 
                                     </button>
 
-                                    <button class="action-btn update-btn" title="Update Status" 
-                                        [disabled]="order.orderStatus === 4 || order.orderStatus === 5"
-                                        (click)="updateOrderStatus(order.id, order.orderStatus + 1)">
+                                    <!-- Status Update Buttons - Only show appropriate next status buttons -->
+                                    <!-- Processing Button - Only for Created orders -->
+                                    <button *ngIf="order.orderStatus === 1" 
+                                            class="action-btn update-btn" 
+                                            title="Update to Processing" 
+                                            (click)="updateToProcessing(order.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                             <path d="M12 20h9"></path>
                                             <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
                                         </svg>
+                                     Processing
+                                    </button>
+
+                                    <!-- Shipping Button - Only for Processing orders -->
+                                    <button *ngIf="order.orderStatus === 2" 
+                                            class="action-btn update-btn" 
+                                            title="Update to Shipping" 
+                                            (click)="updateToShipping(order.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg>
+                                     Shipping
+                                    </button>
+
+                                    <!-- Delivered Button - Only for Shipping orders -->
+                                    <button *ngIf="order.orderStatus === 3" 
+                                            class="action-btn update-btn" 
+                                            title="Update to Delivered" 
+                                            (click)="updateToDelivered(order.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg>
+                                         Delivered
+                                    </button>
+
+                                    <!-- Returned Button - Only for Delivered orders -->
+                                    <button *ngIf="order.orderStatus === 4" 
+                                            class="action-btn update-btn" 
+                                            title="Update to Returned" 
+                                            (click)="updateToReturned(order.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg>
+                                         Returned
+                                    </button>
+
+                                    <!-- Cancel Button - For orders that can be canceled (Created, Processing, Shipping) -->
+                                    <button *ngIf="order.orderStatus" 
+                                            class="action-btn cancel-btn" 
+                                            title="Cancel Order" 
+                                            (click)="updateToCanceled(order.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                        Cancelled
                                     </button>
                                 </div>
                             </td>

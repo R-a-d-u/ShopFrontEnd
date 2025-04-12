@@ -1,4 +1,4 @@
-// order-list.component.ts - fixed version
+// order-list.component.ts - updated with status update methods
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -64,23 +64,23 @@ export class OrderListComponent implements OnInit {
     
     switch (this.selectedSearchOption) {
       case 'created':
-        request = this.orderService.getAllOrdersByStatus(1, this.currentPage); // Assuming 'Created' status=1 is pending
+        request = this.orderService.getAllOrdersByStatus(1, this.currentPage);
         break;
       case 'processing':
-        request = this.orderService.getAllOrdersByStatus(2, this.currentPage); // Assuming 'Delivered' status=4 is completed
+        request = this.orderService.getAllOrdersByStatus(2, this.currentPage);
         break;
       case 'shipped':
-          request = this.orderService.getAllOrdersByStatus(3, this.currentPage); // Assuming 'Delivered' status=4 is completed
-          break;
+        request = this.orderService.getAllOrdersByStatus(3, this.currentPage);
+        break;
       case 'delivered':
-          request = this.orderService.getAllOrdersByStatus(4, this.currentPage); // Assuming 'Delivered' status=4 is completed
-          break;
+        request = this.orderService.getAllOrdersByStatus(4, this.currentPage);
+        break;
       case 'returned':
-          request = this.orderService.getAllOrdersByStatus(5, this.currentPage); // Assuming 'Delivered' status=4 is completed
-          break;  
+        request = this.orderService.getAllOrdersByStatus(5, this.currentPage);
+        break;  
       case 'cancelled':
-          request = this.orderService.getAllOrdersByStatus(6, this.currentPage); // Assuming 'Delivered' status=4 is completed
-          break;      
+        request = this.orderService.getAllOrdersByStatus(6, this.currentPage);
+        break;      
       default:
         request = this.orderService.getAllOrdersByStatus(1, this.currentPage);
     }
@@ -152,21 +152,84 @@ export class OrderListComponent implements OnInit {
     this.router.navigate(['/admin/order/details', orderId]);
   }
 
-  updateOrderStatus(orderId: string, newStatus: number): void {
-    // Placeholder for update order status functionality
+  // New methods for status updates
+  updateToProcessing(orderId: string): void {
+    this.confirmUpdateStatus(orderId, 'Processing', () => {
+      this.orderService.updateStatusToProcessing(orderId).subscribe({
+        next: (response) => this.handleStatusUpdateResponse(response, 'Processing'),
+        error: (error) => this.handleStatusUpdateError(error)
+      });
+    });
+  }
+
+  updateToShipping(orderId: string): void {
+    this.confirmUpdateStatus(orderId, 'Shipping', () => {
+      this.orderService.updateStatusToShipping(orderId).subscribe({
+        next: (response) => this.handleStatusUpdateResponse(response, 'Shipping'),
+        error: (error) => this.handleStatusUpdateError(error)
+      });
+    });
+  }
+
+  updateToDelivered(orderId: string): void {
+    this.confirmUpdateStatus(orderId, 'Delivered', () => {
+      this.orderService.updateStatusToDelivered(orderId).subscribe({
+        next: (response) => this.handleStatusUpdateResponse(response, 'Delivered'),
+        error: (error) => this.handleStatusUpdateError(error)
+      });
+    });
+  }
+
+  updateToReturned(orderId: string): void {
+    this.confirmUpdateStatus(orderId, 'Returned', () => {
+      this.orderService.updateStatusToReturned(orderId).subscribe({
+        next: (response) => this.handleStatusUpdateResponse(response, 'Returned'),
+        error: (error) => this.handleStatusUpdateError(error)
+      });
+    });
+  }
+
+  updateToCanceled(orderId: string): void {
+    this.confirmUpdateStatus(orderId, 'Canceled', () => {
+      this.orderService.updateStatusToCanceled(orderId).subscribe({
+        next: (response) => this.handleStatusUpdateResponse(response, 'Canceled'),
+        error: (error) => this.handleStatusUpdateError(error)
+      });
+    });
+  }
+
+  // Helper methods for status updates
+  private confirmUpdateStatus(orderId: string, statusName: string, callback: () => void): void {
     this.confirmationService.confirm({
-      message: `Are you sure you want to update this order's status?`,
+      message: `Are you sure you want to update this order's status to ${statusName}?`,
       header: 'Confirm Status Update',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        // Call your service method here to update the order status
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Order Updated',
-          detail: `Order status has been updated`
-        });
-        this.loadOrders();
-      }
+      accept: callback
+    });
+  }
+
+  private handleStatusUpdateResponse(response: any, statusName: string): void {
+    if (response && response.isSuccess) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Order Updated',
+        detail: `Order status has been updated to ${statusName}`
+      });
+      this.loadOrders();
+    } else {
+      this.messageService.add({
+        severity: 'danger',
+        summary: 'Update Failed',
+        detail: response.errorMessage || `Failed to update order status to ${statusName}`
+      });
+    }
+  }
+
+  private handleStatusUpdateError(error: any): void {
+    this.messageService.add({
+      severity: 'danger',
+      summary: 'Update Failed',
+      detail: error.message || 'An error occurred while updating the order status'
     });
   }
 }

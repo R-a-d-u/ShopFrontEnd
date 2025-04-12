@@ -111,6 +111,10 @@ select, input {
 }
 
 .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -127,6 +131,10 @@ select, input {
 .update-btn:hover {
     background-color: #e8f5e9;
     color: #2e7d32;
+}
+.cancel-btn:hover {
+    background-color: #f5e9e8;
+    color: #721616;
 }
 
 .action-btn:hover {

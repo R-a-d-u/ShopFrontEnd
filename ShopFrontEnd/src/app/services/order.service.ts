@@ -73,4 +73,49 @@ export class OrderService {
         })
       );
   }
+
+  updateStatusToProcessing(orderId: string): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/Order/UpdateStatusToProcessing/${orderId}`, {})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to update order status'));
+        })
+      );
+  }
+
+  updateStatusToShipping(orderId: string): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/Order/UpdateStatusToShipping/${orderId}`, {})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to update order status'));
+        })
+      );
+  }
+
+  updateStatusToDelivered(orderId: string): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/Order/UpdateStatusToDelivered/${orderId}`, {})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to update order status'));
+        })
+      );
+  }
+
+  updateStatusToReturned(orderId: string): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/Order/UpdateStatusToReturned/${orderId}`, {})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to update order status'));
+        })
+      );
+  }
+
+  updateStatusToCanceled(orderId: string): Observable<ResponseValidator<boolean>> {
+    return this.http.put<ResponseValidator<boolean>>(`${this.apiUrl}/Order/UpdateStatusToCanceled/${orderId}`, {})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to update order status'));
+        })
+      );
+  }
 }
