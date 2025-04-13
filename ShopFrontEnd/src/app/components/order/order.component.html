@@ -12,7 +12,7 @@
       </div>
       <div>        
         <div class="button-container" *ngIf="!loading && !error && order" data-aos="fade-down">
-          <button class="back-button" (click)="goBack()">⬅ Back to my orders page</button>
+          <button class="back-button" (click)="goBack()">⬅ Back to {{getURLName()}} page</button>
           <app-pdf-generator  [elementId]="'order-pdf-container'" [fileName]="'Luxury&Gold-order.pdf'"></app-pdf-generator>
 
       </div>      

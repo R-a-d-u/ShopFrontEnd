@@ -5,8 +5,6 @@ import { OrderDto } from '../../models/order.model';
 import { formatDate } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { User, UserService } from 'src/app/services/user.service';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-order',
@@ -18,6 +16,7 @@ export class OrderComponent implements OnInit {
   loading = true;
   error: string | null = null;
   user: User | null = null;  // Add user property
+  currentUrl: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +24,7 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService,
     private authService: AuthService,
     private userService: UserService
-  ) { }
+  ) { this.currentUrl = this.router.url; }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -75,7 +74,7 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-  
+
 
   getPaymentMethodName(method: number): string {
     switch (method) {
@@ -110,17 +109,36 @@ export class OrderComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleString("en-US", { 
-      year: "numeric", 
-      month: "2-digit", 
-      day: "2-digit", 
-      hour: "2-digit", 
-      minute: "2-digit", 
-      hour12: false 
+    return new Date(dateString).toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
     });
   }
   goBack(): void {
     this.router.navigate(['/my-orders']);
+
+    if (this.currentUrl.startsWith('/admin/order')) {
+      this.router.navigate(['/admin/order']);
+    } else if (this.currentUrl.startsWith('/admin/customer/order')) {
+      this.router.navigate(['/admin/customer']);
+    }
+    else {
+      this.router.navigate(['/my-orders']);
+    }
+  }
+  getURLName(): string {
+    if (this.currentUrl.startsWith('/admin/order')) {
+      return 'Order Management'
+    }else if (this.currentUrl.startsWith('/admin/customer/order')) {
+      return 'Customer Order Management'
+    }
+     else {
+      return 'My Orders'
+    }
   }
 }
 

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { StatisticsService } from '../../services/statistics.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-user-view-analytics',
@@ -17,15 +16,14 @@ export class UserViewAnalyticsComponent implements OnInit {
   userId: number = 0;
   loading: boolean = true;
   statsLoading: boolean = false;
-  isCustomerRoute: boolean = false;
+  currentUrl: string = '';
 
   constructor(
     private userService: UserService,
     private statisticsService: StatisticsService,
     private route: ActivatedRoute,
     private router: Router,
-    private navigationService: NavigationService
-  ) { }
+  ) { this.currentUrl = this.router.url; }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -81,16 +79,14 @@ export class UserViewAnalyticsComponent implements OnInit {
   }
 
   goBack(): void {
-    const previousUrl = this.navigationService.getPreviousUrl();
-    if (this.navigationService.previousUrlContainsCustomer() && previousUrl) {
+    if (this.currentUrl.startsWith('/admin/customer')) {
       this.router.navigate(['/admin/customer']);
-    } else {
+    } else if (this.currentUrl.startsWith('/admin/user')) {
       this.router.navigate(['/admin/user']);
-    }
   }
-  getURLName(): string {
-    const previousUrl = this.navigationService.getPreviousUrl();
-    if (this.navigationService.previousUrlContainsCustomer() && previousUrl) {
+}
+  getURLName(): string {   
+    if (this.currentUrl.startsWith('/admin/customer')) {
       return 'Customer';
     } else {
       return 'User';

@@ -6,7 +6,6 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { MessageService } from 'primeng/api';
-import { NavigationService } from 'src/app/services/navigation.service';
 
 export enum ProductType {
   Jewelry = 1,
@@ -28,18 +27,17 @@ export class ProductDetailsComponent implements OnInit {
   addingToCart = false;
   cartId: number = -1;
   imageLoadFailed = false;
-  isAdminRoute: boolean = false;
+  currentUrl: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
     private cartService: CartService,
     private messageService: MessageService,
-    private navigationService: NavigationService
-  ) { }
+  ) {  this.currentUrl = this.router.url;}
 
   ngOnInit(): void {
-    this.isAdminRoute = this.router.url.includes('admin');
     this.loading = true;
     this.cartService.getCartByUserId().subscribe(cartId => {
       this.cartId = cartId;
@@ -85,14 +83,15 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    if (this.navigationService.previousUrlContainsInventory()) {
+    if (this.currentUrl.startsWith('/admin/inventory')) {
       this.router.navigate(['/admin/inventory']);
-    } else if (this.navigationService.previousUrlContainsProduct()) {
+    } else if (this.currentUrl.startsWith('/admin/product')) {
       this.router.navigate(['/admin/product']);
     } else if (this.product?.categoryId) {
       this.router.navigate(['/category', this.product.categoryId]);
     }
   }
+  
 
   getProductTypeName(productType: number): string {
     if (productType > 3)
@@ -107,10 +106,9 @@ export class ProductDetailsComponent implements OnInit {
       3: 'gold bars',
       4: 'products'
     };
-
-    if (this.navigationService.previousUrlContainsInventory()) {
+    if (this.currentUrl.startsWith('/admin/inventory')) {
       return 'Inventory Management';
-    } else if (this.navigationService.previousUrlContainsProduct()) {
+    } else if (this.currentUrl.startsWith('/admin/product')) {
       return 'Product Management';
     } else {
       return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
