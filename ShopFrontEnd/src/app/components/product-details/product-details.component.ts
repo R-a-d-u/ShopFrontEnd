@@ -12,7 +12,7 @@ export enum ProductType {
   Jewelry = 1,
   GoldCoins = 2,
   GoldBars = 3,
-  Other=4,
+  Other = 4,
 }
 
 @Component({
@@ -26,7 +26,7 @@ export class ProductDetailsComponent implements OnInit {
   error: string | null = null;
   quantity: number | null = null;
   addingToCart = false;
-  cartId: number =-1;
+  cartId: number = -1;
   imageLoadFailed = false;
   isAdminRoute: boolean = false;
   constructor(
@@ -85,19 +85,17 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    const previousUrl = this.navigationService.getPreviousUrl();
-
-     if (this.navigationService.previousUrlContainsAdmin() && previousUrl) {
-    this.router.navigateByUrl(previousUrl) // or another admin fallback
-  } else if (this.product?.categoryId) {
-    this.router.navigate(['/category', this.product.categoryId]);
-  } else {
-    this.router.navigate(['/']);
-  }
+    if (this.navigationService.previousUrlContainsInventory()) {
+      this.router.navigate(['/admin/inventory']);
+    } else if (this.navigationService.previousUrlContainsProduct()) {
+      this.router.navigate(['/admin/product']);
+    } else if (this.product?.categoryId) {
+      this.router.navigate(['/category', this.product.categoryId]);
+    }
   }
 
   getProductTypeName(productType: number): string {
-    if(productType>3)
+    if (productType > 3)
       return 'Item';
     return ProductType[productType] || 'Item';
   }
@@ -110,10 +108,10 @@ export class ProductDetailsComponent implements OnInit {
       4: 'products'
     };
 
-    if (this.navigationService.previousUrlContainsAdmin()) {
-      return 'product administration';
-    } else if (this.product?.categoryId) {
-      return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
+    if (this.navigationService.previousUrlContainsInventory()) {
+      return 'Inventory Management';
+    } else if (this.navigationService.previousUrlContainsProduct()) {
+      return 'Product Management';
     } else {
       return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
     }
@@ -124,7 +122,7 @@ export class ProductDetailsComponent implements OnInit {
     }
 
     this.addingToCart = true;
-    
+
     this.cartService.addToCart(this.product.id, this.cartId, this.quantity)
       .subscribe({
         next: (result) => {

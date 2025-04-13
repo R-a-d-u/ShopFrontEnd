@@ -2,6 +2,7 @@
 <app-navbar></app-navbar>
 <div class="profile-container">
     <div class="profile-card" data-aos="fade-up">
+        <button (click)="goBack()" class="back-button">⬅ Back to {{getURLName()}} Management</button>
         <h2>User Analytics</h2>
 
         <div *ngIf="errorMessage" class="error-message">
@@ -57,10 +58,6 @@
             <div *ngIf="!statsLoading && !userStats && currentUser" class="error-message">
                 No purchase data found for this user.
               </div>
-
-            <div class="button-group" *ngIf="!loading && !statsLoading">
-                <button (click)="goBack()" class="btn btn-login">Back to Users</button>
-            </div>
         </div>
     </div>
 </div>

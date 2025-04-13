@@ -15,9 +15,13 @@ export class NavigationService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
-        const navEnd = event as NavigationEnd; 
-        this.previousUrl = this.currentUrl;
-        this.currentUrl = navEnd.urlAfterRedirects;
+        const navEnd = event as NavigationEnd;
+
+        // Delay history update until AFTER component init
+        setTimeout(() => {
+          this.previousUrl = this.currentUrl;
+          this.currentUrl = navEnd.urlAfterRedirects;
+        });
       });
   }
 
@@ -27,5 +31,14 @@ export class NavigationService {
 
   public previousUrlContainsAdmin(): boolean {
     return this.previousUrl?.includes('admin') ?? false;
+  }
+  public previousUrlContainsCustomer(): boolean {
+    return this.previousUrl?.includes('customer') ?? false;
+  }
+  public previousUrlContainsInventory(): boolean {
+    return this.previousUrl?.includes('admin/inventory') ?? false;
+  }
+  public previousUrlContainsProduct(): boolean {
+    return this.previousUrl?.includes('admin/product') ?? false;
   }
 }

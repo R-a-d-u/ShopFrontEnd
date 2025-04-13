@@ -94,7 +94,7 @@ export class CustomerOrderListComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/admin/user']);
+    this.router.navigate(['/admin/customer']);
   }
 
   getOrderStatusName(statusType: number): string {

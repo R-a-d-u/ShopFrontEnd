@@ -4,16 +4,10 @@
     <div class="container">
         <p-toast position="top-center" closable="false"></p-toast>
         <div class="detail-container" data-aos="fade-up">
-            <div *ngIf="loading" class="text-center">
-                <span class="spinner"></span>
-                <p>Loading category details...</p>
-            </div>
-
+            <button class="back-button"  (click)="backToList()">⬅ Back to Category Management</button>
             <div *ngIf="errorMessage" class="error-message text-center">
                 <p>{{ errorMessage }}</p>
-                <button class="btn back-btn" (click)="backToList()">Back to Categories</button>
             </div>
-
             <div *ngIf="!loading && !errorMessage && category">
                 <div class="detail-header">
                     <h3>Category Details: {{ category.name }}</h3>
@@ -59,9 +53,6 @@
 
                 <div *ngIf="!category.products || category.products.length === 0" class="no-products">
                     <p>No products in this category.</p>
-                </div>
-                <div class="action-buttons">
-                    <button class="btn" (click)="backToList()">Back to Categories</button>
                 </div>
             </div>
         </div>

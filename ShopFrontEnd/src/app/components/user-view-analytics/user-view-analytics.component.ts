@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { StatisticsService } from '../../services/statistics.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-user-view-analytics',
@@ -16,12 +17,14 @@ export class UserViewAnalyticsComponent implements OnInit {
   userId: number = 0;
   loading: boolean = true;
   statsLoading: boolean = false;
+  isCustomerRoute: boolean = false;
 
   constructor(
     private userService: UserService,
     private statisticsService: StatisticsService,
     private route: ActivatedRoute,
     private router: Router,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +37,7 @@ export class UserViewAnalyticsComponent implements OnInit {
   loadUserData(): void {
     this.loading = true;
     this.errorMessage = null;
-    
+
     this.userService.getUserById(this.userId).subscribe({
       next: (response) => {
         this.loading = false;
@@ -54,7 +57,7 @@ export class UserViewAnalyticsComponent implements OnInit {
 
   getUserStatistics(userId: number): void {
     this.statsLoading = true;
-    
+
     this.statisticsService.getUserPurchasePatterns(userId).subscribe({
       next: (response) => {
         this.statsLoading = false;
@@ -76,8 +79,22 @@ export class UserViewAnalyticsComponent implements OnInit {
   refreshData(): void {
     this.loadUserData();
   }
-  
+
   goBack(): void {
-    this.router.navigate(['/admin/user']);
+    const previousUrl = this.navigationService.getPreviousUrl();
+    if (this.navigationService.previousUrlContainsCustomer() && previousUrl) {
+      this.router.navigate(['/admin/customer']);
+    } else {
+      this.router.navigate(['/admin/user']);
+    }
+  }
+  getURLName(): string {
+    const previousUrl = this.navigationService.getPreviousUrl();
+    if (this.navigationService.previousUrlContainsCustomer() && previousUrl) {
+      return 'Customer';
+    } else {
+      return 'User';
+    }
+    
   }
 }
