@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../app/components/home/home.component'; 
+import { HomeComponent } from '../app/components/home/home.component';
 import { AdminComponent } from '../app/components/admin/admin.component';
 import { CartComponent } from '../app/components/cart/cart.component';
 import { CreateAccountComponent } from '../app/components/create-account/create-account.component';
 import { LoginComponent } from '../app/components/login/login.component';
-import { ProductDetailsComponent } from '../app/components/product-details/product-details.component'; 
+import { ProductDetailsComponent } from '../app/components/product-details/product-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
@@ -32,60 +32,191 @@ import { CustomerOrderListComponent } from './components/customer-order-list/cus
 import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }, 
-  { path: 'cart', component: CartComponent },
-  { path: 'create-account', component: CreateAccountComponent },
-  { path: 'category/:id', component: ProductShopListComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'product-details/:id', component: ProductDetailsComponent },
-  { path: 'my-orders', component: MyOrdersComponent },
-  { path: 'order/:id', component: OrderComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'profile/edit-info', component : EditUserInfoComponent},
-  { path: 'profile/edit-password', component : EditUserPasswordComponent},
-  { path: 'admin', component: AdminComponent },
-  { path: 'admin/statistics', component: StatisticsComponent },
-  { path: 'admin/category', component: CategoryListComponent },
-  { path: 'admin/category/details/:id', component: CategoryDetailsComponent },
-  { path: 'admin/category/add', component: CategoryAddComponent },
-  { path: 'admin/category/edit/:id', component: CategoryEditComponent },
-  { path: 'admin/product', component: ProductListComponent },
-  { path: 'admin/product/add', component: ProductAddComponent },
-  { path: 'admin/product/edit-price/:id', component: ProductEditPriceComponent },
-  { path: 'admin/product/edit-info/:id', component: ProductEditInfoComponent },
-  { path: 'admin/product/product-details/:id', component: ProductDetailsComponent},
-  { path: 'admin/inventory', component: ProductStockListComponent},
-  { path: 'admin/inventory/edit-stock/:id', component: ProductEditStockComponent},
-  { path: 'admin/inventory/product-details/:id', component: ProductDetailsComponent},
-  { path: 'admin/user', component: UserListComponent},
-  { path: 'admin/user/details/:id', component: UserViewAnalyticsComponent},
-  { path: 'admin/order', component: OrderListComponent},
-  { path: 'admin/order/details/:id', component: OrderComponent},
-  { path: 'admin/customer', component: CustomerListComponent},
-  { path: 'admin/customer/details/:id', component: UserViewAnalyticsComponent},
-  { path: 'admin/customer/order-list/:id', component: CustomerOrderListComponent},
-  { path: 'admin/customer/order/:id', component: OrderComponent},
-  { 
-    path: 'cart', 
-    component: CartComponent,
+  {
+    path: '', component: HomeComponent
+  },
+  {
+    path: 'create-account',
+    component: CreateAccountComponent
+  },
+  {
+    path: 'category/:id',
+    component: ProductShopListComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'product-details/:id',
+    component: ProductDetailsComponent
+  },
+  {
+    path: 'my-orders',
+    component: MyOrdersComponent,
     canActivate: [AuthGuard]
   },
-  { 
-    path: 'admin', 
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/edit-info',
+    component: EditUserInfoComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile/edit-password',
+    component: EditUserPasswordComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'admin',
     component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/statistics',
+    component: StatisticsComponent,
     canActivate: [AuthGuard],
     data: { roles: ['admin'] }
   },
-  { 
-    path: 'profile', 
+  {
+    path: 'admin/category',
+    component: CategoryListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/category/details/:id',
+    component: CategoryDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/category/add',
+    component: CategoryAddComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/category/edit/:id',
+    component: CategoryEditComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/product',
+    component: ProductListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/product/add',
+    component: ProductAddComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/product/edit-price/:id',
+    component: ProductEditPriceComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/product/edit-info/:id',
+    component: ProductEditInfoComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/product/product-details/:id',
+    component: ProductDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/inventory',
+    component: ProductStockListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/inventory/edit-stock/:id',
+    component: ProductEditStockComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/inventory/product-details/:id',
+    component: ProductDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/user',
+    component: UserListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/user/details/:id',
+    component: UserViewAnalyticsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
+  },
+  {
+    path: 'admin/order',
+    component: OrderListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/order/details/:id',
+    component: OrderComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/customer',
+    component: CustomerListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/customer/details/:id',
+    component: UserViewAnalyticsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/customer/order-list/:id',
+    component: CustomerOrderListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/customer/order/:id',
+    component: OrderComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },
-  { 
-    path: 'orders/:id', 
-    component: OrderComponent, 
-    canActivate: [AuthGuard] 
+  {
+    path: 'order/:id',
+    component: OrderComponent,
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

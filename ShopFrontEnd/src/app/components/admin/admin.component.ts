@@ -19,9 +19,6 @@ export class AdminComponent implements OnInit {
     private employeeService: EmployeeService,
     private router: Router
   ) {
-    if (!this.authService.isAdmin()) {
-      this.router.navigate(['/']);
-    }
   }
 
   ngOnInit(): void {

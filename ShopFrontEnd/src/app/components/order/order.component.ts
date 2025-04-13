@@ -41,7 +41,7 @@ export class OrderComponent implements OnInit {
       next: (data) => {
         // Check if current user is allowed to view this order
         const currentUser = this.authService.currentUserValue;
-        if (currentUser && (this.authService.isAdmin() || data.userId === currentUser.id)) {
+        if (currentUser && (this.authService.isAdmin()|| this.authService.isEmployee() || data.userId === currentUser.id)) {
           this.order = data;
           this.fetchUserInfo(data.userId);
           this.loading = false;

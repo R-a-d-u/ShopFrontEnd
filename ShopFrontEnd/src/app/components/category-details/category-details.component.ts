@@ -59,6 +59,10 @@ export class CategoryDetailsComponent implements OnInit {
   backToList(): void {
     this.router.navigate(['/admin/category']);
   }
+  goToProducts() :void {
+    this.router.navigate(['/admin/product']);
+  }
+  
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
