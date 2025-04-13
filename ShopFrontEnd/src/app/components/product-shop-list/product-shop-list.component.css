@@ -12,7 +12,7 @@
       padding: 8px 16px; /* Button padding */
       font-size: 10px;
       background-color: #c5a47e; /* Same background color as product price */
-      border: 1px solid #f7c600; /* Match border color with background */
+      border: 1px solid #c5a47e; /* Match border color with background */
       border-radius: 5px;
       cursor: pointer;
       color: white;
