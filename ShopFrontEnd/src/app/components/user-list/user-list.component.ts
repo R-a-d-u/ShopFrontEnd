@@ -172,13 +172,6 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/admin/user/details/', userId]);
   }
 
-  confirmSetAsAdmin(userId: number, userName: string): void {
-    this.dialogHeader = "Confirm new role as admin!";
-    this.currentUserId = userId;
-    this.currentUserName = userName;
-    this.showAuthDialog = true;
-  }
-
   confirmSetAsEmployee(userId: number, userName: string): void {
     this.dialogHeader="Confirm new role as employee!"
     this.currentUserId = userId;
