@@ -2,7 +2,7 @@
 <app-navbar></app-navbar>
 <section class="section">
     <div class="container" *ngIf="!loading">
-        <h2 data-aos="fade-up">sss</h2>
+        <h2 data-aos="fade-up">{{categoryName}}</h2>
 
         <div *ngIf="!error" class="product-grid">
             <div class="product-card" data-aos="fade-up" [attr.data-aos-delay]="(50 * (i + 1))"

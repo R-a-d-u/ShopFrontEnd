@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, Product, PagedResult } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from '../../services/category.service';
 
 
 @Component({
@@ -18,11 +19,13 @@ export class ProductShopListComponent implements OnInit {
   totalCount = 0;
   categoryId: number = 0;
   imageLoadFailedMap: { [productId: number]: boolean } = {};
+  categoryName: string = '';
 
   constructor(
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +37,15 @@ export class ProductShopListComponent implements OnInit {
         return;
       }
       this.loadProducts(this.categoryId, 1, 4);
+      this.categoryService.getCategoryNameById(this.categoryId).subscribe({
+        next: name => {
+          this.categoryName = name;
+        },
+        error: err => {
+          console.error('Failed to fetch category name:', err.message);
+          this.categoryName = 'Unknown Category';
+        }
+      });
     });
   }
   onImageError(productId: number): void {

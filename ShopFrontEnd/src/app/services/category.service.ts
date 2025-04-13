@@ -44,6 +44,20 @@ export class CategoryService {
         })
       );
   }
+  getCategoryNameById(categoryId: number): Observable<string> {
+    return this.http.get<ResponseValidator<string>>(`${this.apiUrl}/Category/GetName/${categoryId}`)
+      .pipe(
+        map(response => {
+          if (response && response.isSuccess) {
+            return response.result;
+          }
+          throw new Error(response.errorMessage || 'Category name not found');
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => new Error(error.error?.errorMessage || 'Failed to get category name'));
+        })
+      );
+  }
 
   addCategory(categoryName: string): Observable<boolean> {
     const categoryData = {
