@@ -35,17 +35,24 @@ export class AuthGuard implements CanActivate {
     
     // Check for role-based access if specified in route data
     if (route.data['roles']) {
-      const roles = route.data['roles'] as string[];
+      const requiredRoles = route.data['roles'] as string[];
+      let hasRequiredRole = false;
       
-      if (roles.includes('admin') && !this.authService.isAdmin()) {
-        return this.router.createUrlTree(['/unauthorized']);
+      // Check if user has any of the required roles
+      if (requiredRoles.includes('admin') && this.authService.isAdmin()) {
+        hasRequiredRole = true;
       }
       
-      if (roles.includes('employee') && !this.authService.isEmployee()) {
-        return this.router.createUrlTree(['/unauthorized']);
+      if (requiredRoles.includes('employee') && this.authService.isEmployee()) {
+        hasRequiredRole = true;
       }
       
-      if (roles.includes('customer') && !this.authService.isCustomer()) {
+      if (requiredRoles.includes('customer') && this.authService.isCustomer()) {
+        hasRequiredRole = true;
+      }
+      
+      // If user doesn't have any required role, redirect
+      if (!hasRequiredRole) {
         return this.router.createUrlTree(['/unauthorized']);
       }
     }

@@ -6,6 +6,7 @@
     padding: 20px;
     background: #f8f9fa;
     border-radius: 10px;
+    justify-content: center;
   }
 
   .menu-button {
@@ -36,3 +37,8 @@
     stroke: #666;
     transition: stroke 0.3s ease;
   }
+  .admin-section .container {
+    width: 1300px;
+    margin: 0 auto;
+  }
+  

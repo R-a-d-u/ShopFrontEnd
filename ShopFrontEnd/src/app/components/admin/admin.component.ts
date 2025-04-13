@@ -13,16 +13,18 @@ export class AdminComponent implements OnInit {
   lowStockItems: number = 0;
   totalProducts: number = 0;
   pendingOrders: number = 0;
-
+  isUserAdmin: boolean= false;
   constructor(
     public authService: AuthService,
     private employeeService: EmployeeService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
+    this.isUserAdmin=this.authService.isAdmin()
     this.fetchDashboardData();
+
   }
 
   fetchDashboardData(): void {
