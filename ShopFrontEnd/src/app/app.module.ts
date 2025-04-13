@@ -34,11 +34,8 @@ import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { OrderComponent } from './components/order/order.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ProductAdministrationComponent } from './components/product-administration/product-administration.component';
-import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
-import { AddUserComponent } from './components/add-user/add-user.component';
 import { PdfGeneratorComponent } from './shared/pdf-generator/pdf-generator.component';
 import { EditUserPasswordComponent } from './components/edit-user-password/edit-user-password.component';
 import { EditUserInfoComponent } from './components/edit-user-info/edit-user-info.component';
@@ -83,11 +80,8 @@ import { ProductShopListComponent } from './components/product-shop-list/product
     OrderComponent,
     CheckoutComponent,
     ProductAdministrationComponent,
-    AddProductComponent,
     EditProductComponent,
-    AddCategoryComponent,
     UserAdministrationComponent,
-    AddUserComponent,
     PdfGeneratorComponent,
     EditUserPasswordComponent,
     EditUserInfoComponent,
