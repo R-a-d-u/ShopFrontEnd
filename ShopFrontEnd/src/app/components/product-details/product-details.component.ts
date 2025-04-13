@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 export enum ProductType {
   Jewelry = 1,
@@ -35,13 +36,16 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private messageService: MessageService,
+    private authService: AuthService,
   ) {  this.currentUrl = this.router.url;}
 
   ngOnInit(): void {
     this.loading = true;
-    this.cartService.getCartByUserId().subscribe(cartId => {
-      this.cartId = cartId;
-    });
+    if (this.authService.isAuthenticated()) {
+      this.cartService.getCartByUserId().subscribe(cartId => {
+        this.cartId = cartId;
+      });
+    }
     this.route.paramMap.pipe(
       switchMap(params => {
         const id = Number(params.get('id'));
@@ -55,8 +59,6 @@ export class ProductDetailsComponent implements OnInit {
       next: (response) => {
         if (response && response.isSuccess && response.result) {
           this.product = response.result;
-
-          // Set initial quantity based on stock availability
           this.quantity = this.product.stockQuantity > 0 ? 1 : null;
         } else if (response) {
           this.error = response.errorMessage || 'Failed to fetch product details';
@@ -118,20 +120,32 @@ export class ProductDetailsComponent implements OnInit {
     if (!this.product || !this.quantity || this.quantity <= 0) {
       return;
     }
-
+    
+    // Check if user is logged in
+    if (!this.authService.isAuthenticated()) {
+      // Redirect to login page
+      this.router.navigate(['/login'], { 
+        queryParams: { returnUrl: this.router.url } 
+      });
+      this.messageService.add({
+        severity: 'info',
+        detail: 'Please log in to add items to your cart',
+        life: 3000
+      });
+      return;
+    }
+  
     this.addingToCart = true;
-
+  
     this.cartService.addToCart(this.product.id, this.cartId, this.quantity)
       .subscribe({
         next: (result) => {
           this.addingToCart = false;
-          // You can add some notification logic here
           this.messageService.add({
-            severity: 'warn',  // Type of message (success, error, warn, info)
+            severity: 'warn',
             detail: 'Product added to cart.',
-            life: 1200 // Auto-close after 3 seconds
+            life: 1200
           });
-          // Optional: Navigate to cart or show a success message
         },
         error: (err) => {
           this.addingToCart = false;
