@@ -13,11 +13,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { JewelryComponent } from './components/jewelry/jewelry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CartComponent } from './components/cart/cart.component';
-import { GoldBarsComponent } from './components/gold-bars/gold-bars.component';
-import { GoldCoinsComponent } from './components/gold-coins/gold-coins.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
@@ -74,11 +71,8 @@ import { ProductShopListComponent } from './components/product-shop-list/product
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    JewelryComponent,
     FooterComponent,
     CartComponent,
-    GoldBarsComponent,
-    GoldCoinsComponent,
     ProductDetailsComponent,
     LoginComponent,
     CreateAccountComponent,

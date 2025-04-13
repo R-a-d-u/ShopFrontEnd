@@ -86,6 +86,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductTypeName(productType: number): string {
+    if(productType>3)
+      return 'Item';
     return ProductType[productType] || 'Item';
   }
 
