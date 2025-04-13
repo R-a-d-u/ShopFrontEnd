@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
 import { MessageService } from 'primeng/api';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 export enum ProductType {
   Jewelry = 1,
@@ -27,15 +28,18 @@ export class ProductDetailsComponent implements OnInit {
   addingToCart = false;
   cartId: number =-1;
   imageLoadFailed = false;
+  isAdminRoute: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService,
     private cartService: CartService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
+    this.isAdminRoute = this.router.url.includes('admin');
     this.loading = true;
     this.cartService.getCartByUserId().subscribe(cartId => {
       this.cartId = cartId;
@@ -81,8 +85,15 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    if (this.product?.categoryId) 
-      this.router.navigate(['/category', this.product.categoryId]);
+    const previousUrl = this.navigationService.getPreviousUrl();
+
+     if (this.navigationService.previousUrlContainsAdmin() && previousUrl) {
+    this.router.navigateByUrl(previousUrl) // or another admin fallback
+  } else if (this.product?.categoryId) {
+    this.router.navigate(['/category', this.product.categoryId]);
+  } else {
+    this.router.navigate(['/']);
+  }
   }
 
   getProductTypeName(productType: number): string {
@@ -99,7 +110,13 @@ export class ProductDetailsComponent implements OnInit {
       4: 'products'
     };
 
-    return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
+    if (this.navigationService.previousUrlContainsAdmin()) {
+      return 'product administration';
+    } else if (this.product?.categoryId) {
+      return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
+    } else {
+      return this.product?.productType ? categoryNames[this.product.productType] || '' : '';
+    }
   }
   addToCart(): void {
     if (!this.product || !this.quantity || this.quantity <= 0) {
