@@ -18,6 +18,10 @@ export class ProductEditPriceComponent implements OnInit {
   submitted: boolean = false;
   currentGoldPrice: number = 0;
 
+  showAuthDialog: boolean = false;
+  dialogHeader: string = 'Price Change Confirmation';
+  authMessage: string = 'Authentication required to update product pricing!';
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -126,7 +130,10 @@ export class ProductEditPriceComponent implements OnInit {
     if (this.priceForm.invalid) {
       return;
     }
-
+    this.showAuthDialog = true;
+  }
+  handleAuthSuccess(productId: number): void {
+    // Authentication was successful, proceed with the price update
     this.loading = true;
     const additionalValue = this.priceForm.value.additionalValue;
 
@@ -145,7 +152,7 @@ export class ProductEditPriceComponent implements OnInit {
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'warn ',
+          severity: 'warn',
           summary: 'Error',
           detail: 'An error occurred while updating product price'
         });
