@@ -30,6 +30,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
 import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
 import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
+import { GoldHistoryComponent } from './components/gold-history/gold-history.component';
 
 const routes: Routes = [
   {
@@ -202,6 +203,12 @@ const routes: Routes = [
     component: OrderComponent,
     canActivate: [AuthGuard],
     data: { roles: ['admin', 'employee'] }
+  },
+  {
+    path: 'admin/gold-history',
+    component: GoldHistoryComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin'] }
   },
   {
     path: 'cart',

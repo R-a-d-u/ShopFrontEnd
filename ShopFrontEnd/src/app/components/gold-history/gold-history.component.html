@@ -1,1 +1,66 @@
-<p>gold-history works!</p>
+<!-- gold-history.component.html -->
+<app-navbar></app-navbar>
+<section class="product-section">
+    <div class="container">
+        <p-toast position="top-center" closable="false"></p-toast>
+        
+        <div class="product-dashboard" data-aos="fade-up">
+            <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
+            <h2>Gold Price History</h2>
+
+            <div class="search-controls">
+                <div class="date-selection">
+                    <label for="startDate">Start Date:</label>
+                    <input type="datetime-local" id="startDate" [(ngModel)]="startDateString">
+                </div>
+                
+                <div class="date-selection">
+                    <label for="endDate">End Date:</label>
+                    <input type="datetime-local" id="endDate" [(ngModel)]="endDateString">
+                </div>
+                
+                <button class="btn search-btn" (click)="onSearch()">Search</button>
+            </div>
+            
+            <div class="product-list">
+                <table class="product-table" *ngIf="!loading && !errorMessage && goldHistory.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Metal</th>
+                            <th>Price (oz)</th>
+                            <th>Price (g)</th>
+                            <th>Change</th>
+                            <th>Exchange</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let record of goldHistory">
+                            <td>{{ formatDate(record.date) }}</td>
+                            <td>{{ record.metal }}</td>
+                            <td>${{ record.priceOunce.toFixed(2) }}</td>
+                            <td>${{ record.priceGram.toFixed(2) }}</td>
+                            <td [ngClass]="getPercentageClass(record.percentageChange)">
+                                {{ record.percentageChange >= 0 ? '+' : '' }}{{ record.percentageChange.toFixed(2) }}%
+                            </td>
+                            <td>{{ record.exchange }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div *ngIf="loading" class="loading-indicator">
+                    <p>Loading gold history data...</p>
+                </div>
+                
+                <div *ngIf="errorMessage" class="error-message">
+                    <p>{{ errorMessage }}</p>
+                </div>
+                
+                <div *ngIf="!loading && !errorMessage && goldHistory.length === 0" class="no-products">
+                    <p>No gold history records found for the selected date range.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

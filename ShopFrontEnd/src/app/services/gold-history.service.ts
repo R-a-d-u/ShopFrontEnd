@@ -22,4 +22,15 @@ export class GoldHistoryService {
   getLastGoldPriceHistory(): Observable<{ isSuccess: boolean, result: GoldPriceHistory, errorMessage: string | null }> {
     return this.http.get<{ isSuccess: boolean, result: GoldPriceHistory, errorMessage: string | null }>(`${this.apiUrl}/GetLastGoldPriceHistory`);
   }
+  getGoldHistoryBetweenDates(startDate: string, endDate: string): Observable<{ 
+    isSuccess: boolean, 
+    result: any[], 
+    errorMessage: string | null 
+  }> {
+    return this.http.get<{
+      isSuccess: boolean,
+      result: any[],
+      errorMessage: string | null
+    }>(`${this.apiUrl}/GetBetweenDates?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
+  }
 }
