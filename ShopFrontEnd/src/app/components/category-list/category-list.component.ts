@@ -74,7 +74,7 @@ export class CategoryListComponent implements OnInit {
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
+          severity: 'danger',
           summary: 'Deletion Failed',
           detail: `An error occurred while deleting the category: ${error.message}`,
           life: 3000

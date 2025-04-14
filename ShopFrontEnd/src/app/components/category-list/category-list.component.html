@@ -4,7 +4,7 @@
     <div class="container">
         <p-toast position="top-center" closable="false"></p-toast>
         <app-auth-confirm-dialog [(visible)]="showAuthDialog" [userName]="currentCategoryName"
-            [userId]="currentCategoryId" [dialogHeader]="dialogHeader" (authSuccess)="handleAuthSuccess($event)" [authMessage]="'You will remove all the products inside this category!'">
+            [userId]="currentCategoryId" [dialogHeader]="dialogHeader" (authSuccess)="handleAuthSuccess($event)" [authMessage]="'Category must be empty before deletion!'">
         </app-auth-confirm-dialog>
         <div class="admin-dashboard" data-aos="fade-up">
             <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
