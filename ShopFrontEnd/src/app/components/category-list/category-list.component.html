@@ -3,19 +3,9 @@
 <section class="section admin-section">
     <div class="container">
         <p-toast position="top-center" closable="false"></p-toast>
-        <p-confirmDialog 
-        [style]="{width: '450px'}"
-        header="Confirmation" 
-        icon="pi pi-exclamation-triangle"
-        acceptLabel="Delete" 
-        rejectLabel="Cancel"
-        acceptButtonStyleClass="custom-accept-btn"
-        rejectButtonStyleClass="custom-reject-btn"
-        styleClass="custom-confirm-dialog"
-        [closeOnEscape]="true"
-        [dismissableMask]="true"
-       >
-      </p-confirmDialog>
+        <app-auth-confirm-dialog [(visible)]="showAuthDialog" [userName]="currentCategoryName"
+            [userId]="currentCategoryId" [dialogHeader]="dialogHeader" (authSuccess)="handleAuthSuccess($event)" [authMessage]="'You will remove all the products inside this category!'">
+        </app-auth-confirm-dialog>
         <div class="admin-dashboard" data-aos="fade-up">
             <button class="back-button" (click)="goBack()">⬅ Back to admin page</button>
             <h2>Category Management</h2>
@@ -62,9 +52,11 @@
                                 </button>
 
                                 <button class="action-btn delete-btn" title="Delete Category"
-                                    (click)="deleteCategory(category.id)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                    (click)="deleteCategory(category.id, category.name)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path
+                                            d="M3 6h18m-2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                                     </svg>
                                     Delete
                                 </button>

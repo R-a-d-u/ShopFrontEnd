@@ -18,6 +18,11 @@ export class CategoryListComponent implements OnInit {
   errorMessage = '';
   searchQuery = '';
 
+  showAuthDialog: boolean = false;
+  currentCategoryId: number = 0;
+  currentCategoryName: string = '';
+  dialogHeader: string = '';
+
   constructor(
     private categoryService: CategoryService,
     private router: Router,
@@ -43,39 +48,37 @@ export class CategoryListComponent implements OnInit {
       }
     });
   }
-  deleteCategory(categoryId: number): void {
-    this.confirmationService.confirm({
-      message: 'You will remove all the products inside this category',
-      header: 'Confirm Deletion',
-      accept: () => {
-        this.categoryService.deleteCategory(categoryId).subscribe({
-          next: (success) => {
-            if (success) {
-              // Remove the deleted category from the lists
-              this.categories = this.categories.filter(category => category.id !== categoryId);
-              this.filteredCategories = this.filteredCategories.filter(category => category.id !== categoryId);
-  
-              // Show success toast
-              this.messageService.add({
-                severity: 'warn',
-                summary: 'Category Deleted',
-                detail: 'The category has been successfully deleted.',
-                life: 3000
-              });
-            }
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',  // Note: 'danger' is not a standard severity in PrimeNG, use 'error'
-              summary: 'Deletion Failed',
-              detail: `An error occurred while deleting the category: ${error.message}`,
-              life: 3000
-            });
-          }
-        });
+  deleteCategory(categoryId: number, categoryName: string): void {
+    this.dialogHeader = "Confirm category deletion!";
+    this.currentCategoryId = categoryId;
+    this.currentCategoryName = categoryName;
+    this.showAuthDialog = true;
+  }
+  handleAuthSuccess(categoryId: number): void {
+    // Authentication was successful, proceed with category deletion
+    this.categoryService.deleteCategory(categoryId).subscribe({
+      next: (success) => {
+        if (success) {
+          // Remove the deleted category from the lists
+          this.categories = this.categories.filter(category => category.id !== categoryId);
+          this.filteredCategories = this.filteredCategories.filter(category => category.id !== categoryId);
+
+          // Show success toast
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Category Deleted',
+            detail: `Category ${this.currentCategoryName} has been successfully deleted.`,
+            life: 3000
+          });
+        }
       },
-      reject: () => {
-        // Optional: You can add some action when user rejects
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Deletion Failed',
+          detail: `An error occurred while deleting the category: ${error.message}`,
+          life: 3000
+        });
       }
     });
   }
