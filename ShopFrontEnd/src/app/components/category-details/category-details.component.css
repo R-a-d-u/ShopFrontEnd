@@ -216,15 +216,15 @@ body {
     align-items: center; /* Vertically centers the items if needed */
   }
   .in-stock {
-    color: green !important; /* Text color for in-stock */
+    color: rgb(8, 82, 8) !important; /* Text color for in-stock */
   }
   
   .out-of-stock {
-    color: orange !important; /* Text color for out-of-stock */
+    color: #811010 !important; /* Text color for out-of-stock */
   }
   
   .discontinued {
-    color: darkblue !important; /* Text color for discontinued */
+    color: black !important; /* Text color for discontinued */
   }
   
   /* Animations */

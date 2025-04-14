@@ -218,6 +218,12 @@ select, input {
   .back-button:hover {
     background-color: #ffffff;
   }
+  .in-stock {
+    color: rgb(8, 82, 8);
+  }
+  .unavailable {
+    color: #811010;
+  }
 
 
 @media (max-width: 992px) {

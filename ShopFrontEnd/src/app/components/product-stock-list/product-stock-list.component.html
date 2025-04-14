@@ -59,7 +59,12 @@
                             <td>{{ product.name }}</td>
                             <td>{{ getProductTypeName(product.productType) }}</td>
                             <td>{{ product.stockQuantity }}</td>
-                            <td>{{ getProductStateName(product.productState) }}</td>
+                            <td [ngClass]="{
+                                'unavailable': getProductStateName(product.productState) !== 'In Stock',
+                                'in-stock': getProductStateName(product.productState) === 'In Stock'
+                              }">
+                                {{ getProductStateName(product.productState) }}
+                              </td>
                             <td>{{ formatDate(product.lastModifiedDate) }}</td>
                             <td class="action-buttons">
                                 <button class="action-btn view-btn" title="View Details" (click)="viewProductDetails(product.id)">

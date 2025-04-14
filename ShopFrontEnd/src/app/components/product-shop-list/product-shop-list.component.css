@@ -36,4 +36,6 @@
     .error-middle{
       text-align: center;
     }
-  
+    .unavailable {
+      color:#811010;
+    }

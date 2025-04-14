@@ -14,7 +14,9 @@
                 <div class="product-info">
                     <h3>{{product.name}}</h3>
                     <p *ngIf="product.goldWeightInGrams"> Gold: {{product.goldWeightInGrams}} g</p>
-                    <p>{{product.productState === 1 && product.stockQuantity > 0 ? 'Available' : 'Unavailable'}}</p>
+                    <p [ngClass]="{'unavailable': !(product.productState === 1 && product.stockQuantity > 0)}">
+                        {{product.productState === 1 && product.stockQuantity > 0 ? 'Available' : 'Unavailable'}}
+                      </p>
                     <p class="price">Price: {{product.sellingPrice | currency}}</p>
                     <a [routerLink]="['/product-details', product.id]" class="btn">View Details</a>
                 </div>
