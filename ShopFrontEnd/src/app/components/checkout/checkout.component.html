@@ -160,8 +160,16 @@
           <h3>Order Summary</h3>
           <div class="checkout-items">
             <div class="checkout-item" *ngFor="let item of cartItems">
-              <img [src]="'assets/' + item.product.image + '.jpg'" [alt]="item.product.name"
-                class="checkout-item-image">
+              <img *ngIf="loading" class="checkout-item-image" [src]="'assets/loading.gif'" alt="Loading...">
+              <img *ngIf="!imageLoadFailedMap[item.product.id] && item.product.image"
+                   [src]="'assets/' + item.product.image + '.jpg'"
+                   [alt]="item.product.name"
+                   class="checkout-item-image"
+                   (error)="onImageError(item.product.id)">
+              <img *ngIf="imageLoadFailedMap[item.product.id] || !item.product.image"
+                   class="checkout-item-image"
+                   [src]="'assets/loading.gif'"
+                   alt="Product image not available">
               <div class="checkout-item-details">
                 <h4>{{ item.product.name }}</h4>
                 <p>Gold weight: {{ item.product.goldWeightInGrams }}g</p>

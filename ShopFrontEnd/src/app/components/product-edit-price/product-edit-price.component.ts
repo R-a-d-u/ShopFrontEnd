@@ -19,8 +19,8 @@ export class ProductEditPriceComponent implements OnInit {
   currentGoldPrice: number = 0;
 
   showAuthDialog: boolean = false;
-  dialogHeader: string = 'Price Change Confirmation';
-  authMessage: string = 'Authentication required to update product pricing!';
+  dialogHeader: string = 'Confirm price change!';
+  authMessage: string = 'Admin authentication required!';
 
   constructor(
     private fb: FormBuilder,

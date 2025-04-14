@@ -50,7 +50,16 @@
           <h3>Order Items</h3>
           <div class="order-item" *ngFor="let item of order.orderItems">
             <a [routerLink]="['/product-details', item.product.id]">
-            <img [src]="'/assets/' + item.product.image + '.jpg'" [alt]="item.product.name" class="order-item-image">
+              <img *ngIf="loading" class="order-item-image" [src]="'/assets/loading.gif'" alt="Loading...">
+              <img *ngIf="!imageLoadFailedMap[item.product.id] && item.product.image"
+                   [src]="'/assets/' + item.product.image + '.jpg'"
+                   [alt]="item.product.name"
+                   class="order-item-image"
+                   (error)="onImageError(item.product.id)">
+              <img *ngIf="imageLoadFailedMap[item.product.id] || !item.product.image"
+                   class="order-item-image"
+                   [src]="'/assets/loading.gif'"
+                   alt="Product image not available">
             </a>
             <div class="order-item-details">
               <h4 class="product-name">{{ item.product.name }}</h4>

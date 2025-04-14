@@ -29,7 +29,13 @@
           </div>
           <div class="search-results" *ngIf="searchResults && searchResults.length > 0">
             <div class="search-result-item" *ngFor="let product of searchResults" (click)="navigateToProduct(product.id)">
-              <img [src]="'assets/' + product.image + '.jpg'" [alt]="product.name">
+              <img *ngIf="!imageLoadFailedMap[product.id] && product.image"
+                   [src]="'assets/' + product.image + '.jpg'"
+                   [alt]="product.name"
+                   (error)="onImageError(product.id)" />
+              <img *ngIf="imageLoadFailedMap[product.id] || !product.image"
+                   [src]="'assets/loading.gif'"
+                   alt="Product image not available" />
               <div class="product-info">
                 <h4>{{ product.name }}</h4>
                 <p>${{ product.sellingPrice.toFixed(2) }}</p>

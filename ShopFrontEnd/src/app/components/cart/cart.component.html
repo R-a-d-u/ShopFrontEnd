@@ -26,7 +26,16 @@
           <div class="cart-items">
             <div class="cart-item" *ngFor="let item of cartItems">
               <a [routerLink]="['/product-details', item.product.id]">
-              <img [src]="'assets/' + item.product.image + '.jpg'" [alt]="item.product.name" class="cart-item-image">
+                <img *ngIf="loading" class="cart-item-image" [src]="'assets/loading.gif'" alt="Loading...">
+                <img *ngIf="!imageLoadFailedMap[item.product.id] && item.product.image"
+                     [src]="'assets/' + item.product.image + '.jpg'"
+                     [alt]="item.product.name"
+                     class="cart-item-image"
+                     (error)="onImageError(item.product.id)">
+                <img *ngIf="imageLoadFailedMap[item.product.id] || !item.product.image"
+                     class="cart-item-image"
+                     [src]="'assets/loading.gif'"
+                     alt="Product image not available">
               </a>
               <div class="cart-item-info">
                 <h3 style="cursor: pointer" (click)="goToProductDetails(item.product.id)">{{ item.product.name }}</h3>

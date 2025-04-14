@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   subtotalPrice = 0;
   shippingPrice = 0;
   totalPrice = 0;
+  imageLoadFailedMap: { [productId: number]: boolean } = {};
   
   // To store cart ID for API calls
   cartId: number | null = null;
@@ -213,5 +214,8 @@ export class CartComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+  onImageError(productId: number): void {
+    this.imageLoadFailedMap[productId] = true;
   }
 }

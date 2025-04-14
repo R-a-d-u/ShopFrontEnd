@@ -17,6 +17,8 @@ export class OrderComponent implements OnInit {
   error: string | null = null;
   user: User | null = null;  // Add user property
   currentUrl: string = '';
+  imageLoadFailedMap: { [productId: number]: boolean } = {};
+
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +57,9 @@ export class OrderComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+  onImageError(productId: number): void {
+    this.imageLoadFailedMap[productId] = true;
   }
   fetchUserInfo(userId: number): void {
     this.loading = true;  // Set loading to true while fetching user info

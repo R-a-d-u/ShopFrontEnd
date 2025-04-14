@@ -34,6 +34,7 @@ export class CheckoutComponent implements OnInit {
   subtotalPrice = 0;
   shippingPrice = 0;
   totalPrice = 0;
+  imageLoadFailedMap: { [productId: number]: boolean } = {};
 
   // Enums for template access
   paymentMethodEnum = PaymentMethod;
@@ -106,6 +107,9 @@ export class CheckoutComponent implements OnInit {
       expiryDateControl?.updateValueAndValidity();
       cvvControl?.updateValueAndValidity();
     });
+  }
+  onImageError(productId: number): void {
+    this.imageLoadFailedMap[productId] = true;
   }
 
   loadCartDetails(): void {

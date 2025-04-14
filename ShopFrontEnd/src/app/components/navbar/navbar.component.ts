@@ -46,6 +46,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
   isDropdownOpen=false;
   cartItemCount: number | null = null;
   categories: CategoryDto[] = [];
+  imageLoadFailedMap: { [productId: number]: boolean } = {};
   
   
   constructor(
@@ -84,6 +85,9 @@ export class NavbarComponent implements OnInit,OnDestroy {
       this.updateCartCount();
     });
     this.authService.autoLogin();
+  }
+  onImageError(productId: number): void {
+    this.imageLoadFailedMap[productId] = true;
   }
   loadCategories(): void {
     this.categoryService.getAllCategoryNames().subscribe(
