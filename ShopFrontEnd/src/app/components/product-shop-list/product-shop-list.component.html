@@ -27,7 +27,7 @@
         <div *ngIf="error" class="error-middle" data-aos="fade-up" >
             {{ error }}
         </div>
-        <div  class="pagination" data-aos="fade-up" >
+        <div  class="pagination" >
             <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">Previous</button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>
             <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">Next</button>
