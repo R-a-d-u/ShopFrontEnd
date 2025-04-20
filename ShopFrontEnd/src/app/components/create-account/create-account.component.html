@@ -3,6 +3,9 @@
   <div class="container">
     <div class="login-container" data-aos="fade-up">
       <h2>Create Account</h2>
+      <div *ngIf="successMessageShown" class="alert-success">
+        Account created successfully! Please check your email to confirm your account.
+      </div>
       <form [formGroup]="createAccountForm" (ngSubmit)="onSubmit()" class="login-form">
         <div class="form-group">
           <label for="name">Full Name</label>

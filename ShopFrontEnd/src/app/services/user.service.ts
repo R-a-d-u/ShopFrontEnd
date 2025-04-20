@@ -38,6 +38,10 @@ export interface ResponseValidator<T> {
   result: T | null;
   errorMessage: string | null;
 }
+export interface ResetPasswordData {
+  token: string;
+  newPassword: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -101,6 +105,9 @@ export class UserService {
       `${this.apiUrl}/ConfirmEmail`,
       { token }
     );
+  }
+  resetPassword(resetData: ResetPasswordData): Observable<ResponseValidator<User>> {
+    return this.http.post<ResponseValidator<User>>(`${this.apiUrl}/ResetPassword`, resetData);
   }
 
 }

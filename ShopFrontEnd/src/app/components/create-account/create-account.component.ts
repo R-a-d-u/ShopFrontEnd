@@ -13,6 +13,7 @@ export class CreateAccountComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  successMessageShown = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +61,8 @@ export class CreateAccountComponent implements OnInit {
 
     this.authService.register(name, email, password, phoneNumber, 1).subscribe({
       next: () => {
-        this.router.navigate(['/login']); // Redirect to login after successful registration
+        this.successMessageShown = true;
+        this.loading = false;
       },
       error: error => {
         this.error = error.message || 'Registration failed. Please try again.';

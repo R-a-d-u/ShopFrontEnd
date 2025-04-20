@@ -1,11 +1,12 @@
 // src/app/components/edit-user-password/edit-user-password.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { UserService, PasswordUpdateData } from '../../services/user.service';
+import { UserService, ResetPasswordData } from '../../services/user.service';
 import { finalize } from 'rxjs/operators';
 import { MessageService } from 'primeng/api'; 
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user-password',
@@ -18,25 +19,37 @@ export class EditUserPasswordComponent implements OnInit {
   submitted = false;
   error = '';
   success = '';
-  userId!: number;
+  token: string | null = null;
+  email: string | null = null;
+  isResetMode = false;
   
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UserService,
     private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
-    // Get current user ID
-    const currentUser = this.authService.currentUserValue;
-    if (!currentUser) {
-      this.router.navigate(['/login']);
-      return;
-    }
-    
-    this.userId = currentUser.id;
+    // Extract token and email from query parameters
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'] || null;
+      this.email = params['email'] || null;
+      
+      // If token is provided, we're in reset password mode
+      this.isResetMode = !!this.token;
+      
+      // If not in reset mode, ensure user is logged in
+      if (!this.isResetMode) {
+        const currentUser = this.authService.currentUserValue;
+        if (!currentUser) {
+          this.router.navigate(['/login']);
+          return;
+        }
+      }
+    });
     
     // Initialize the form with password matching validators
     this.passwordForm = this.formBuilder.group({
@@ -76,53 +89,84 @@ export class EditUserPasswordComponent implements OnInit {
     
     this.loading = true;
     
-    const passwordData: PasswordUpdateData = {
-      password: this.f['password'].value,
-      lastModifyDate: new Date().toISOString()
+    const resetData: ResetPasswordData = {
+      token: this.token || '', // Use empty string instead of null
+      newPassword: this.f['password'].value
     };
     
-    this.userService.updateUserPassword(this.userId, passwordData)
+    // If not in reset mode, we need to get the user ID
+    if (!this.isResetMode) {
+      const currentUser = this.authService.currentUserValue;
+      if (!currentUser) {
+        this.router.navigate(['/login']);
+        return;
+      }
+      // Include user ID for normal password change
+    }
+    
+    this.userService.resetPassword(resetData)
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: (response) => {
           if (response.isSuccess) {
-
             this.messageService.add({
               severity: 'warn',
-              detail: 'Password updated successfully.',
-              life: 1500 // 2 seconds
+              detail: this.isResetMode ? 'Password has been reset successfully.' : 'Password updated successfully.',
+              life: 1500
             });
-            // Show success message
-            this.success = 'Password updated successfully';
-            // Reset form
+            
+            this.success = this.isResetMode ? 'Password has been reset successfully' : 'Password updated successfully';
             this.passwordForm.reset();
             this.submitted = false;
             
-            // Update the lastModifyDate in the stored user data
-            const currentUser = this.authService.currentUserValue;
-            if (currentUser) {
-              const updatedUser = {
-                ...currentUser,
-                lastModifyDate: passwordData.lastModifyDate
-              };
-              localStorage.setItem('userData', JSON.stringify(updatedUser));
-              this.authService['currentUserSubject'].next(updatedUser);
+            // Log the user out if we're in reset mode or update user data if we're not
+            if (this.isResetMode) {
+              if (this.authService.currentUserValue) {
+                timer(3000).subscribe(() => {
+                this.authService.logout();
+              });
+              }
+            } else {
+              // Update the lastModifyDate in the stored user data
+              const currentUser = this.authService.currentUserValue;
+              if (currentUser) {
+                const updatedUser = {
+                  ...currentUser,
+                  lastModifyDate: new Date().toISOString()
+                };
+                localStorage.setItem('userData', JSON.stringify(updatedUser));
+                this.authService['currentUserSubject'].next(updatedUser);
+              }
+              timer(5000).subscribe(() => {
+                this.router.navigate(['/profile']);
+              });
             }
-            setTimeout(() => {
-              this.router.navigate(['/profile']);
-            }, 2000);
           } else {
             this.error = response.errorMessage || 'Failed to update password';
+            this.messageService.add({
+              severity: 'danger',
+              detail: this.error,
+              life: 1500
+            });
           }
         },
         error: (err) => {
-          this.error = err.message || 'An error occurred while updating password';
+          // Check if the error response contains a parsed JSON body
+          if (err.error && err.error.errorMessage) {
+            this.error = err.error.errorMessage;
+          } else {
+            this.error = err.message || 'An error occurred while updating password';
+          }
+          
           this.messageService.add({
             severity: 'danger',
-            detail: 'An error occurred while updating password.',
+            detail: this.error,
             life: 1500
           });
         }
-      });
-  }
-}
+  
+  
+  // Add this new method to the component class
+  
+  
+ })}}
