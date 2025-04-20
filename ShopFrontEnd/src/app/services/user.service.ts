@@ -42,6 +42,9 @@ export interface ResetPasswordData {
   token: string;
   newPassword: string;
 }
+export interface PasswordResetRequest {
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -108,6 +111,12 @@ export class UserService {
   }
   resetPassword(resetData: ResetPasswordData): Observable<ResponseValidator<User>> {
     return this.http.post<ResponseValidator<User>>(`${this.apiUrl}/ResetPassword`, resetData);
+  }
+  requestPasswordReset(email: string): Observable<ResponseValidator<boolean>> {
+    return this.http.post<ResponseValidator<boolean>>(
+      `${this.apiUrl}/RequestPasswordReset`,
+      { email }
+    );
   }
 
 }

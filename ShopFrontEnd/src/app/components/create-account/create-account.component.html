@@ -50,6 +50,7 @@
           >
           <div *ngIf="submitted && f['phoneNumber'].errors" class="error-message">
             <span *ngIf="f['phoneNumber'].errors['required']">Phone Number is required</span>
+            <span *ngIf="f['phoneNumber'].errors['pattern']">Please enter a valid 10-digit phone number</span>
           </div>
         </div>
 

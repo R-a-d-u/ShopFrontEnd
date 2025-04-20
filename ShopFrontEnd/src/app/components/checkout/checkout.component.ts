@@ -222,7 +222,7 @@ export class CheckoutComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         // Navigate to order confirmation page
         setTimeout(() => {
-          this.router.navigate(['/orders']);
+          this.router.navigate(['/my-orders']);
         }, 2500);
       },
       error: (error) => {

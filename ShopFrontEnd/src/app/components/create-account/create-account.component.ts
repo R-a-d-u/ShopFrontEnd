@@ -30,7 +30,7 @@ export class CreateAccountComponent implements OnInit {
     this.createAccountForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordMatchValidator });
