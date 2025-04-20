@@ -62,6 +62,7 @@ import { CustomerListComponent } from './components/customer-list/customer-list.
 import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
 import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
 import { GoldHistoryComponent } from './components/gold-history/gold-history.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import { GoldHistoryComponent } from './components/gold-history/gold-history.com
     CustomerOrderListComponent,
     ProductShopListComponent,
     GoldHistoryComponent,
+    ConfirmEmailComponent,
   ],
   imports: [
     BrowserModule,

@@ -31,6 +31,7 @@ import { CustomerListComponent } from './components/customer-list/customer-list.
 import { CustomerOrderListComponent } from './components/customer-order-list/customer-order-list.component';
 import { ProductShopListComponent } from './components/product-shop-list/product-shop-list.component';
 import { GoldHistoryComponent } from './components/gold-history/gold-history.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
     path: 'checkout',
     component: CheckoutComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'confirm-email',
+    component: ConfirmEmailComponent
   },
   {
     path: 'profile/edit-info',

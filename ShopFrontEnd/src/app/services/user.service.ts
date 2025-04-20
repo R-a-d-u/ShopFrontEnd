@@ -11,6 +11,7 @@ export interface User {
   userAccessType: number;
   lastModifyDate: string;
   isDeleted: boolean;
+  emailConfirmed: boolean;
 }
 
 export interface UserUpdateData {
@@ -95,4 +96,11 @@ export class UserService {
       password: password
     });
   }
+  confirmEmail(token: string): Observable<ResponseValidator<User>> {
+    return this.http.post<ResponseValidator<User>>(
+      `${this.apiUrl}/ConfirmEmail`,
+      { token }
+    );
+  }
+
 }

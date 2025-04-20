@@ -1,0 +1,60 @@
+.profile-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.alert-success {
+    background-color: rgba(13, 124, 13, 0.507) !important; 
+    color: white;
+}
+
+.alert-danger {
+    background-color: #9b040475 !important; 
+    color: white;
+}
+
+.spinner-border {
+    border-top-color: #3498db;
+    width: 3rem;
+    height: 3rem;
+}
+
+.not-logged-in {
+    text-align: center;
+}
+
+.not-logged-in p {
+    margin-bottom: 1.5rem;
+    color: #666;
+}

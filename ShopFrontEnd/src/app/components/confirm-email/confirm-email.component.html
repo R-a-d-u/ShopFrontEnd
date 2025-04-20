@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<div class="profile-container">
+  <div class="profile-card" data-aos="fade-up">
+    <h2>Email Confirmation</h2>
+
+    <div *ngIf="isLoading" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="alert" [ngClass]="{'alert-success': isSuccess, 'alert-danger': !isSuccess}">
+      <p class="mb-0">{{ message }}</p>
+      <p *ngIf="isSuccess" class="mt-2 mb-0">
+        You will be redirected to the login page...
+      </p>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
