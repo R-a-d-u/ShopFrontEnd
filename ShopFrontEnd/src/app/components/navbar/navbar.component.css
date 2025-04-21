@@ -28,6 +28,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 12px;
     z-index: 1000;
+    
+    
   }
   
   .search-input-container {
@@ -44,37 +46,7 @@
     outline: none;
   }
   
-
-
   
-  .search-results {
-    max-height: 350px;
-    overflow-y: auto;
-  }
-  
-  .search-result-item {
-    display: flex;
-    padding: 12px; /* Increased padding for more space */
-    border-bottom: 1px solid #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    align-items: center; /* Better vertical alignment */
-  }
-  
-  .search-result-item:last-child {
-    border-bottom: none;
-  }
-  
-  .search-result-item:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .search-result-item img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 12px;
-  }
   
   .product-info h4 {
     margin: 0 0 6px 0;
@@ -92,7 +64,7 @@
   
   .no-results {
     text-align: center;
-    color: #666;
+    color: #ffffff;
     padding: 8px;
   }
   
@@ -101,7 +73,7 @@
   padding: 8px 16px !important;
   font-size: 0.9rem !important;
   background: #c5a47e;
-  color: white !important;
+  color: black !important;
   text-decoration: none;
   border-radius: 5px;
   transition: background 0.3s ease;
@@ -113,6 +85,7 @@
 
   .btn-profile:hover {
     background: #b18d5f;
+    color:#000;
   }
   .cart-icon {
     width: 38px;  /* Adjust size as needed */
@@ -120,4 +93,171 @@
     margin-top: -7px;
     margin-right: -6px;
   }
+  .navbar {
+    background-color: #000;
+    color: #fff;
+}
+
+.navbar .logo,
+.navbar a,
+.navbar a:visited,
+.navbar .btn,
+.navbar .btn-profile,
+.search-icon svg {
+  color: #fff !important; /* Force white text/icons */
+}
+
+.navbar a:hover,
+.navbar .btn:hover,
+.navbar .btn-profile:hover {
+  color: #c5a47e !important; /* Optional: gold hover color */
+}
+
+/* Mat menu button text color */
+.mat-menu-content button {
+  color: #000; /* Keep dropdown menu buttons dark if needed */
+}
+
+/* Adjust search dropdown to visually pop over the dark navbar */
+.search-dropdown {
+  background-color: #fff;
+  color: #000;
   
+}
+
+/* Ensure input text is visible */
+.search-input-container input {
+  color: #000;
+  background-color: #fff;
+}
+
+/* Button inside search */
+.search-input-container .btn-login {
+  background-color: #c5a47e;
+  color: #fff;
+  border: none;
+  
+}
+
+.search-input-container .btn-login:hover {
+  background-color: #b18d5f;
+}
+
+/* Cart icon container */
+.cart-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+/* Adjust cart count styling for better visibility */
+.cart-count {
+  background-color: #c5a47e;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  margin-left: -22px;
+  position: relative;
+  top: -10px;
+}
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; /* Adjust based on how far the fade extends */
+  left: 0;
+  width: 100%;
+  height: 20px; /* Fade height */
+  background: linear-gradient(to bottom,  #c5a47e, transparent);
+  pointer-events: none;
+  z-index: 999;
+}
+.icon-svg {
+  stroke: #fff;
+  transition: stroke 0.3s ease;
+  cursor: pointer;
+}
+
+.icon-svg:hover {
+  stroke: #c5a47e;
+}
+
+/* Optional: cart-specific tweaks */
+.cart-svg {
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 160%;
+  left: -130%;
+  width: 300px;
+  background-color: #000; /* black background */
+  color: #fff; /* white text */
+  border-radius: 8px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  z-index: 1000;
+  overflow-x: hidden;
+}
+
+.search-input-container input {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #5f5f5f;
+}
+
+.search-input-container input::placeholder {
+  color: #ffffff;
+}
+.search-results {
+  max-height: 350px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+scrollbar-color: #888 #000; /* Thumb color, Track color */
+}
+
+.search-result-item {
+  display: flex;
+  padding: 12px; /* Increased padding for more space */
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-items: center; /* Better vertical alignment */
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #f9f9f9;
+}
+
+.search-result-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.search-result-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: 8px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  margin-bottom: 10px; /* Space between items */
+}
+
+.search-result-item:hover {
+  background-color: #f0f0f0;
+  transform: scale(0.99); /* Subtle pop effect on hover */
+}
+
+.product-info h4,
+.product-info p {
+  color: #000; /* Black text inside the item */
+}
