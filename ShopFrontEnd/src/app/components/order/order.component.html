@@ -11,12 +11,12 @@
         <p>{{ error }}</p>
       </div>
       <div>        
-        <div class="button-container" *ngIf="!loading && !error && order" data-aos="fade-down">
+        <div class="button-container" *ngIf="!loading && !error && order" data-aos="fade-up">
           <button class="back-button" (click)="goBack()">⬅ Back to {{getURLName()}} page</button>
           <app-pdf-generator  [elementId]="'order-pdf-container'" [fileName]="'Luxury&Gold-order.pdf'"></app-pdf-generator>
 
       </div>      
-      <div id="order-pdf-container" *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-down">
+      <div id="order-pdf-container" *ngIf="!loading && !error && order" class="order-detail-container" data-aos="fade-up">
         <div class="order-detail-header">
           <h2>Order: #{{ order.id }}</h2>
           <h1 class="order-status status-color">

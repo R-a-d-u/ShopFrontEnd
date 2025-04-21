@@ -36,6 +36,13 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css"
             ],
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "aos",
+              "raf",
+              "rgbcolor",
+              "@canvasjs/angular-charts"
+            ],
             "scripts": [ "node_modules/aos/dist/aos.js" ]
           },
           "configurations": {
