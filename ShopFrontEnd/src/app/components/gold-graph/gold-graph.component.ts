@@ -59,7 +59,7 @@ export class GoldGraphComponent implements OnInit {
       indexlabelLineThickness:2,
       type: "spline",
       name: "",
-      lineColor: "gold",  // Default color, will change based on 'id'
+      lineColor: "#c5a47e",  // Default color, will change based on 'id'
       color: "white",
       yValueFormatString: "$#,###.00",
       xValueType: "dateTime",
