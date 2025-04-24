@@ -22,7 +22,7 @@
         </div>
         <img *ngIf="loading" class="left-image" [src]="'assets/loading.gif'" alt="Loading...">
         <img *ngIf="imageLoadFailed || !product?.image" class="left-image" [src]="'assets/loading.gif'" alt="Product image not available">
-        <div class="quantity-selector" style="margin-top:13%">
+        <div class="quantity-selector" style="margin-top:18%">
           <label for="quantity">Quantity:</label>
           <div class="quantity-input-group">
             <button class="btn-quantity" (click)="decreaseQuantity()" [disabled]="product.stockQuantity<=0">-</button>

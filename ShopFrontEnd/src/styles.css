@@ -57,8 +57,6 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  margin-top: 4px;
-
 }
 
 .cart-count {
