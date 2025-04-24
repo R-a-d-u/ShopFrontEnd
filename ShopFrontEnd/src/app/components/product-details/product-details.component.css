@@ -101,3 +101,18 @@
 .in-stock {
   opacity: 1;
 }
+.image-wrapper {
+  width: 500px;
+  height: 350px;
+  background-color: rgba(14,14,14,255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.left-image {
+  object-fit: contain;
+  border-radius: 10px;
+}

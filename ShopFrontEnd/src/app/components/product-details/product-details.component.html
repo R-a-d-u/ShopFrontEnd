@@ -13,16 +13,15 @@
           <p *ngIf="product?.productType==3" class="description">Swiss Gold Bar</p>
           <p *ngIf="product?.productType!=1 && product?.productType!=2 && product?.productType!=3" class="description">Finely Crafted Item</p>
         </div>
+        <div class="image-wrapper" *ngIf="!loading && !imageLoadFailed && product?.image">
+          <img
+            [src]="'assets/' + product.image + '.jpg'"
+            [alt]="product.name"
+            class="left-image"
+            (error)="onImageError()" />
+        </div>
         <img *ngIf="loading" class="left-image" [src]="'assets/loading.gif'" alt="Loading...">
-        <img *ngIf="!loading && !imageLoadFailed && product?.image"
-             [src]="'assets/' + product.image + '.jpg'"
-             [alt]="product.name"
-             class="left-image"
-             (error)="onImageError()" />
-        <img *ngIf="imageLoadFailed || !product?.image"
-             class="left-image"
-             [src]="'assets/loading.gif'"
-             alt="Product image not available">
+        <img *ngIf="imageLoadFailed || !product?.image" class="left-image" [src]="'assets/loading.gif'" alt="Product image not available">
         <div class="quantity-selector" style="margin-top:13%">
           <label for="quantity">Quantity:</label>
           <div class="quantity-input-group">

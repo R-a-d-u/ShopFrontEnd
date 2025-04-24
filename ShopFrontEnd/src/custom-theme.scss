@@ -2,12 +2,14 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
+
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -33,3 +35,38 @@ $ShopFrontEnd-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($ShopFrontEnd-theme);
 
+.mat-mdc-menu-panel {
+  background: black !important;
+  margin-top: 8px !important;
+}
+
+.mat-mdc-menu-content {
+  background: black !important;
+}
+
+.mat-mdc-menu-item {
+  color: white !important;
+  
+  &:hover {
+    background: #333333 !important;
+  }
+  
+  // Target the text specifically
+  .mat-mdc-menu-item-text,
+  .mdc-list-item__primary-text {
+    color: white !important;
+  }
+}
+
+// Additional selectors to ensure text color is white
+.mat-mdc-menu-item .mat-mdc-menu-item-text {
+  color: white !important;
+}
+
+.mat-mdc-menu-item .mdc-list-item__primary-text {
+  color: white !important;
+}
+
+.mat-mdc-menu-item .mat-icon {
+  color: white !important;
+}
