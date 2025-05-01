@@ -38,8 +38,12 @@ export class GoldHistoryComponent implements OnInit {
   ngOnInit(): void {
     // Set default date range (last 6 months)
     this.endDate = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set to tomorrow
+    this.endDate = tomorrow;
+  
     this.startDate = new Date();
-    this.startDate.setMonth(this.startDate.getMonth() - 6);
+    this.startDate.setMonth(this.startDate.getMonth() - 1);
     
     this.loadGoldHistory();
   }

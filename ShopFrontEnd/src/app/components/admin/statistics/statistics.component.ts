@@ -25,12 +25,13 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     const now = new Date();
     const fourMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 4, now.getDate());
-
+  
     this.startDate = this.formatDateTime(fourMonthsAgo);
-    this.endDate = this.formatDateTime(now);
-    const romaniaDate = new Date(now);
-    romaniaDate.setHours(romaniaDate.getHours() + 2);
-    this.endDate=romaniaDate.toISOString().slice(0, 16);
+  
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.endDate = this.formatDateTime(tomorrow);
+  
     this.fetchStatistics();
   }
 
