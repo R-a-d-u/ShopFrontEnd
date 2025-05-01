@@ -166,11 +166,12 @@ export class StatisticsComponent implements OnInit {
 
   createRevenueSummary(data: any) {
     this.summaryData = [
-
       { title: 'Total Revenue', value: `$${data.totalRevenue.toFixed(2)}` },
       { title: 'Daily Avg Revenue', value: `$${data.dailyAverageRevenue.toFixed(2)}` },
       { title: 'Total Orders', value: data.totalOrderCount },
-      { title: 'Average Order Value', value: `$${data.averageOrderValue.toFixed(2)}` }
+      { title: 'Average Order Value', value: `$${data.averageOrderValue.toFixed(2)}` },
+      { title: 'Total Confirmed Customers', value: data.totalConfirmedClients },
+      { title: 'New Customers in Period', value: data.newClientsInTimeframe }
     ];
   }
 

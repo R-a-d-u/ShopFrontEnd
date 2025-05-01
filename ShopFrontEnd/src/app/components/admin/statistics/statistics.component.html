@@ -10,12 +10,12 @@
       <div class="statistics-controls">
         <div class="date-selection">
           <label for="startDate">Start Date:</label>
-          <input type="datetime-local" id="startDate" [(ngModel)]="startDate">
+          <input type="datetime-local" id="startDate" [(ngModel)]="startDate" (change)="fetchStatistics()">
         </div>
         
         <div class="date-selection">
           <label for="endDate">End Date:</label>
-          <input type="datetime-local" id="endDate" [(ngModel)]="endDate">
+          <input type="datetime-local" id="endDate" [(ngModel)]="endDate" (change)="fetchStatistics()">
         </div>
         
         <div class="select-group">

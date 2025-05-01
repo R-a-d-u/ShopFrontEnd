@@ -167,10 +167,10 @@
 .navbar::after {
   content: '';
   position: absolute;
-  bottom: -18px; /* Adjust based on how far the fade extends */
+  bottom: -14px; /* Adjust based on how far the fade extends */
   left: 0;
   width: 100%;
-  height: 18px; /* Fade height */
+  height: 14px; /* Fade height */
   background: linear-gradient(to bottom,  #c5a47e, transparent);
   pointer-events: none;
   z-index: 999;
