@@ -28,7 +28,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     padding: 12px;
     z-index: 1000;
-    
+    padding-bottom: 16px; /* Extra padding at bottom */
     
   }
   
@@ -123,9 +123,8 @@
 
 /* Adjust search dropdown to visually pop over the dark navbar */
 .search-dropdown {
-  background-color: #fff;
-  color: #000;
-  
+  background-color: #000;
+  border: 1px solid #c5a47e; /* Add gold border to entire dropdown */
 }
 
 /* Ensure input text is visible */
@@ -204,6 +203,7 @@
   padding: 12px;
   z-index: 1000;
   overflow-x: hidden;
+  padding-bottom: 16px; /* Extra padding at bottom */
 }
 
 .search-input-container input {
@@ -240,29 +240,39 @@ scrollbar-color: #888 #000; /* Thumb color, Track color */
 }
 
 .search-result-item img {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  margin-right: 12px;
+  margin-right: 1px;
 }
 
 .search-result-item {
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  border-radius: 8px; /* Rounded corners */
-  background-color: #fff; /* White background */
-  color: #000; /* Black text */
-  margin-bottom: 10px; /* Space between items */
+  border-radius: 8px;
+  background-color: #000; /* Change to black background */
+  color: #c5a47e; /* Gold text color */
+  margin-bottom: 10px;
+  border: 2px solid #c5a47e; /* Gold outline */
+  padding: 12px;
 }
 
 .search-result-item:hover {
-  background-color: #f0f0f0;
-  transform: scale(0.99); /* Subtle pop effect on hover */
+  background-color: #000000; /* Slightly lighter black on hover */
+  transform: scale(0.97);
+  border-color: #b18d5f; /* Darker gold on hover */
 }
+
 
 .product-info h4,
 .product-info p {
-  color: #000; /* Black text inside the item */
+  color: #ffffff; /* Gold text for product name and price */
+}
+
+/* Price could be a brighter gold to stand out */
+.product-info p {
+  color: #d6b68e; /* Lighter gold for price */
+  font-weight: 600;
 }
 .btn-login:hover,
 .btn-profile:hover {
