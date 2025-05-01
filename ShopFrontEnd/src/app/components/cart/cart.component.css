@@ -33,6 +33,9 @@
     width: 90%; /* Increase the width */
     margin: 0 auto; /* Keep it centered */
     margin-top: 207px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Added shadow */
+    border-radius: 8px;  /* Optional: rounds the corners */
+    padding: 20px;  /* Optional: adds some internal spacing */
   }
   .section {
     padding: 80px 20px;
