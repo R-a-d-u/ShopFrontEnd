@@ -10,8 +10,14 @@
   .cart-item-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: column;
+    width: 120px; /* Add fixed width to prevent shifting */
+  }
+  .cart-item-price {
+    margin-bottom: 10px;
+    text-align: right;
+    word-break: break-word;
   }
   .btn-remove {
     background-color: #811010;
