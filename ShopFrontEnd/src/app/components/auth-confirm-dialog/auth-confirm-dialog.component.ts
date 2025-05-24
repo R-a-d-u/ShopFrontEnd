@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-confirm-dialog',
@@ -24,7 +25,8 @@ export class AuthConfirmDialogComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService
   ) {
     this.authForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -53,13 +55,14 @@ export class AuthConfirmDialogComponent {
       this.userService.authenticateAdmin(email, password).subscribe({
         next: (response) => {
           this.loading = false;
-          if (response.isSuccess) {
+          if (response.isSuccess && response.result) {
             this.resetForm();
             this.visible = false;
             this.visibleChange.emit(false);
             this.authSuccess.emit(this.userId);
           } else {
             this.errorMessage = response.errorMessage || 'Authentication failed. Please check your credentials.';
+            this.authService.logout();
           }
         },
         error: (error) => {

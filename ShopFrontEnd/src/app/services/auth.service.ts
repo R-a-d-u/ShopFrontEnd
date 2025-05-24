@@ -7,6 +7,12 @@ import { Router } from '@angular/router';
 import { UserDto } from '../models/user.model';
 import { environment } from '../../enviroments/environment';
 
+interface AuthResponse {
+  user: UserDto;
+  token: string;
+  expiresAt: string;
+}
+
 interface ApiResponse<T> {
   isSuccess: boolean;
   result: T;
@@ -17,7 +23,7 @@ interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/User`; // Update with your actual API URL
+  private apiUrl = `${environment.apiUrl}/User`;
   private currentUserSubject: BehaviorSubject<UserDto | null>;
   public currentUser$: Observable<UserDto | null>;
   private tokenExpirationTimer: any;
@@ -27,17 +33,21 @@ export class AuthService {
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
-  // Get the current user value without subscribing
   public get currentUserValue(): UserDto | null {
     return this.currentUserSubject.value;
   }
+
+  public get token(): string | null {
+    return localStorage.getItem('token');
+  }
+
   register(name: string, email: string, password: string, phoneNumber: string, userAccessType: number): Observable<UserDto> {
     const userPayload = {
       name,
       email,
       password,
       phoneNumber,
-      userAccessType, // Assuming '1' represents a customer
+      userAccessType,
       lastModifyDate: new Date().toISOString(),
       isDeleted: false
     };
@@ -53,14 +63,13 @@ export class AuthService {
     );
   }
 
-  // Customer login
   login(email: string, password: string): Observable<UserDto> {
-    return this.http.post<ApiResponse<UserDto>>(`${this.apiUrl}/Connect`, { email, password })
+    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/Connect`, { email, password })
       .pipe(
         map(response => {
           if (response && response.isSuccess && response.result) {
             this.handleAuthentication(response.result);
-            return response.result;
+            return response.result.user;
           }
           throw new Error(response.errorMessage || 'Login failed');
         }),
@@ -68,13 +77,13 @@ export class AuthService {
       );
   }
 
-  // Admin login
-  loginAdmin(email: string, password: string): Observable<UserDto> {
-    return this.http.post<ApiResponse<UserDto>>(`${this.apiUrl}/AuthenticateAdmin`, { email, password })
+  loginAdmin(email: string, password: string): Observable<boolean> {
+    return this.http.post<ApiResponse<boolean>>(`${this.apiUrl}/AuthenticateAdmin`, { email, password })
       .pipe(
         map(response => {
-          if (response && response.isSuccess && response.result) {
-            this.handleAuthentication(response.result);
+            console.log('Auth response:', response);
+          if (response && response.isSuccess) {
+            console.log(response.result)
             return response.result;
           }
           throw new Error(response.errorMessage || 'Admin login failed');
@@ -83,14 +92,13 @@ export class AuthService {
       );
   }
 
-  // Employee login
   loginEmployee(email: string, password: string): Observable<UserDto> {
-    return this.http.post<ApiResponse<UserDto>>(`${this.apiUrl}/AuthenticateEmployee`, { email, password })
+    return this.http.post<ApiResponse<AuthResponse>>(`${this.apiUrl}/AuthenticateEmployee`, { email, password })
       .pipe(
         map(response => {
           if (response && response.isSuccess && response.result) {
             this.handleAuthentication(response.result);
-            return response.result;
+            return response.result.user;
           }
           throw new Error(response.errorMessage || 'Employee login failed');
         }),
@@ -99,9 +107,10 @@ export class AuthService {
   }
 
   logout(): void {
-    // Clear all auth data
     localStorage.removeItem('userData');
+    localStorage.removeItem('token');
     localStorage.removeItem('tokenExpiration');
+    
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -110,66 +119,71 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  // Auto login on app initialization
   autoLogin(): void {
     const userData = this.getUserFromLocalStorage();
-    if (!userData) {
+    const token = this.token;
+    
+    if (!userData || !token) {
       return;
     }
-    this.currentUserSubject.next(userData);
 
     const expirationDate = localStorage.getItem('tokenExpiration');
-  if (expirationDate) {
-    const expirationTime = new Date(expirationDate).getTime() - new Date().getTime();
-    if (expirationTime > 0) {
-      this.autoLogout(expirationTime);
+    if (expirationDate) {
+      const expirationTime = new Date(expirationDate).getTime() - new Date().getTime();
+      if (expirationTime > 0) {
+        this.currentUserSubject.next(userData);
+        this.autoLogout(expirationTime);
+      } else {
+        this.logout();
+      }
     } else {
-      // If token is expired, clear data
       this.logout();
     }
-  } else {
-    // If no expiration was set, set default expiration (1 hour)
-    const newExpirationDate = new Date(new Date().getTime() + 3600 * 1000);
-    localStorage.setItem('tokenExpiration', newExpirationDate.toISOString());
-    this.autoLogout(3600 * 1000);
   }
-}
 
-  // Auto logout when session expires
   autoLogout(expirationDuration: number): void {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
   }
 
-  // Check if user is authenticated
   isAuthenticated(): boolean {
-    return !!this.currentUserValue;
-  }
-
-  // Check if user is admin
-  isAdmin(): boolean {
-    return this.currentUserValue?.userAccessType === 3; // Update with your actual Admin enum value
-  }
-
-  // Check if user is employee
-  isEmployee(): boolean {
-    return this.currentUserValue?.userAccessType === 2; // Update with your actual Employee enum value
-  }
-
-  // Check if user is customer
-  isCustomer(): boolean {
-    return this.currentUserValue?.userAccessType === 1; // Update with your actual Customer enum value
-  }
-
-  private handleAuthentication(userData: UserDto): void {
-    // Set token expiration (e.g., 1 hour)
-    const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-    localStorage.setItem('userData', JSON.stringify(userData));
-    localStorage.setItem('tokenExpiration', expirationDate.toISOString());
+    const token = this.token;
+    const user = this.currentUserValue;
     
-    this.currentUserSubject.next(userData);
-    this.autoLogout(3600 * 1000); // 1 hour
+    if (!token || !user) {
+      return false;
+    }
+
+    const expirationDate = localStorage.getItem('tokenExpiration');
+    if (expirationDate) {
+      return new Date(expirationDate).getTime() > new Date().getTime();
+    }
+    
+    return false;
+  }
+
+  isAdmin(): boolean {
+    return this.currentUserValue?.userAccessType === 3;
+  }
+
+  isEmployee(): boolean {
+    return this.currentUserValue?.userAccessType === 2;
+  }
+
+  isCustomer(): boolean {
+    return this.currentUserValue?.userAccessType === 1;
+  }
+
+  private handleAuthentication(authData: AuthResponse): void {
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('userData', JSON.stringify(authData.user));
+    localStorage.setItem('tokenExpiration', authData.expiresAt);
+    
+    this.currentUserSubject.next(authData.user);
+    
+    const expirationTime = new Date(authData.expiresAt).getTime() - new Date().getTime();
+    this.autoLogout(expirationTime);
   }
 
   private getUserFromLocalStorage(): UserDto | null {
@@ -184,10 +198,8 @@ export class AuthService {
     let errorMessage = 'An unknown error occurred!';
     
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else if (error.error && error.error.errorMessage) {
-      // Server-side error with message
       errorMessage = error.error.errorMessage;
     } else if (error.status === 401) {
       errorMessage = 'Invalid credentials. Please check your email and password.';
