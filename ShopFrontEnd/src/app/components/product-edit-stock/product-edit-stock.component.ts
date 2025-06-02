@@ -84,7 +84,7 @@ export class ProductEditStockComponent implements OnInit {
             this.router.navigate(['/admin/inventory']);
         } else {
           this.messageService.add({
-            severity: 'error',
+            severity: 'danger',
             summary: 'Error',
             detail: response.errorMessage || 'Failed to update stock quantity'
           });
@@ -93,7 +93,7 @@ export class ProductEditStockComponent implements OnInit {
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
+          severity: 'danger',
           summary: 'Error',
           detail: 'An error occurred while updating stock quantity'
         });
