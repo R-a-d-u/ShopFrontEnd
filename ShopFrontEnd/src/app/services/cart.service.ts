@@ -177,7 +177,9 @@ export class CartService {
         })
       );
   }
-  
+  public resetCartCount(): void {
+  this.cartItemCountSource.next(0);
+}
 
   getCartTotal(cartId: number): Observable<number> {
     return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetTotal/${cartId}`)

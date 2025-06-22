@@ -121,9 +121,7 @@ export class ProductDetailsComponent implements OnInit {
       return;
     }
     
-    // Check if user is logged in
     if (!this.authService.isAuthenticated()) {
-      // Redirect to login page
       this.router.navigate(['/login'], { 
         queryParams: { returnUrl: this.router.url } 
       });

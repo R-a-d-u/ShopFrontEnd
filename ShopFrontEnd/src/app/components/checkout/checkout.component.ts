@@ -204,7 +204,8 @@ export class CheckoutComponent implements OnInit {
       next: (result) => {
         this.success = 'Order placed successfully!';
         this.loading = false;
-
+        this.cartService.resetCartCount();
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
           this.router.navigate(['/my-orders']);
