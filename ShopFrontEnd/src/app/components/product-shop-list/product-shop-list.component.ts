@@ -30,9 +30,9 @@ export class ProductShopListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.categoryId = +params['id']; // Convert string to number
+      this.categoryId = +params['id'];
       if (isNaN(this.categoryId)) {
-        // Handle invalid category ID (perhaps set a default or show an error)
+
         this.error = 'Invalid category ID';
         return;
       }

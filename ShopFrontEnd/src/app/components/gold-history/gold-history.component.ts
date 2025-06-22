@@ -36,7 +36,6 @@ export class GoldHistoryComponent implements OnInit {
   ) { }
   
   ngOnInit(): void {
-    // Set default date range (last 6 months)
     this.endDate = new Date();
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1); // Set to tomorrow
@@ -52,11 +51,11 @@ export class GoldHistoryComponent implements OnInit {
     this.loading = true;
     this.errorMessage = null;
     
-    // Format dates for API call
+   
     const formattedStartDate = this.formatDateForApi(this.startDate);
     const formattedEndDate = this.formatDateForApi(this.endDate);
     
-    // Use the service to get data
+
     this.goldHistoryService.getGoldHistoryBetweenDates(formattedStartDate, formattedEndDate).subscribe({
       next: (response) => {
         if (response.isSuccess && response.result) {

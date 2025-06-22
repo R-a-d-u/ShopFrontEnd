@@ -17,7 +17,6 @@ export class MyOrdersComponent implements OnInit{
   error = '';
   noOrders = false;
   
-  // Pagination
   currentPage = 1;
   pageSize = 10;
   totalItems = 0;

@@ -28,17 +28,17 @@ export class OrderGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    // First check if user is authenticated
+   
     if (!this.authService.isAuthenticated()) {
       return this.router.createUrlTree(['/login']);
     }
     
-    // Admin users can access any order
+   
     if (this.authService.isAdmin()) {
       return true;
     }
     
-    // For regular users, check if the order belongs to them
+   
     const orderId = route.params['id'];
     const currentUser = this.authService.currentUserValue;
     
@@ -48,7 +48,7 @@ export class OrderGuard implements CanActivate {
     
     return this.orderService.getOrderById(orderId).pipe(
       map(order => {
-        // Check if the order belongs to the current user
+      
         if (order && order.userId === currentUser.id) {
           return true;
         }

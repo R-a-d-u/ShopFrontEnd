@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PdfDownloadService {
-  private cooldownPeriod: number = 60000; // 1 minute in milliseconds
+  private cooldownPeriod: number = 60000; 
   private storageKey: string = 'pdf_last_download_time';
   
   canDownload(): boolean {

@@ -19,13 +19,12 @@ export class ProductStockListComponent {
   loading: boolean = true;
   errorMessage: string | null = null;
   
-  // Pagination
+
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
   totalPages: number = 0;
   
-  // Search and filter options
   searchOptions: SearchOption[] = [
     { label: 'By Category', value: 'category' },
     { label: 'By Name', value: 'name' }
@@ -34,7 +33,7 @@ export class ProductStockListComponent {
   searchName: string = '';
   selectedCategoryId: number = 1;
   
-  // List of categories (would typically be fetched from a service)
+
   categories: CategoryDto[] = [];
 
   constructor(
@@ -58,7 +57,6 @@ export class ProductStockListComponent {
         }
       },
       error: (error) => {
-        // Use API's error message if available
         const errorMsg = error.error?.errorMessage || error.message || 'Failed to load categories';
         this.messageService.add({
           severity: 'error',
@@ -92,13 +90,11 @@ export class ProductStockListComponent {
             this.currentPage = response.result.pageNumber;
             this.pageSize = response.result.pageSize;
           } else {
-            // Use API's error message
             this.errorMessage = response.errorMessage || 'Unknown error occurred';
           }
           this.loading = false;
         },
         error: (error) => {
-          // Use API's error message if available
           this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
           this.loading = false;
         }
@@ -127,13 +123,11 @@ export class ProductStockListComponent {
           this.currentPage = response.result.pageNumber;
           this.pageSize = response.result.pageSize;
         } else {
-          // Use API's error message
           this.errorMessage = response.errorMessage || 'Unknown error occurred';
         }
         this.loading = false;
       },
       error: (error) => {
-        // Use API's error message if available
         this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
         this.loading = false;
       }
@@ -141,12 +135,12 @@ export class ProductStockListComponent {
 }
 
   onSearchOptionChange(): void {
-    this.currentPage = 1; // Reset to first page
+    this.currentPage = 1; 
     this.loadProducts();
   }
 
   onSearch(): void {
-    this.currentPage = 1; // Reset to first page
+    this.currentPage = 1;
     this.loadProducts();
   }
 
@@ -185,7 +179,7 @@ export class ProductStockListComponent {
                 summary: 'Success',
                 detail: 'Product set to In Stock'
               });
-              this.loadProducts(); // Reload products after status change
+              this.loadProducts(); 
             } else {
               this.messageService.add({
                 severity: 'error',
@@ -218,7 +212,7 @@ export class ProductStockListComponent {
                 summary: 'Success',
                 detail: 'Product set to Out of Stock'
               });
-              this.loadProducts(); // Reload products after status change
+              this.loadProducts(); 
             } else {
               this.messageService.add({
                 severity: 'error',

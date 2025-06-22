@@ -52,7 +52,6 @@ export class ConfirmEmailComponent implements OnInit {
           this.isLoading = false;
           this.isSuccess = false;
   
-          // ✅ Extract your server's custom message from the error body
           this.message = error?.error?.errorMessage || 'An unexpected error occurred. Please try again later.';
           console.error('Email confirmation error:', error);
         }

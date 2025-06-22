@@ -33,15 +33,12 @@ export class EditUserPasswordComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Extract token and email from query parameters
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || null;
       this.email = params['email'] || null;
       
-      // If token is provided, we're in reset password mode
       this.isResetMode = !!this.token;
       
-      // If not in reset mode, ensure user is logged in
       if (!this.isResetMode) {
         const currentUser = this.authService.currentUserValue;
         if (!currentUser) {
@@ -51,7 +48,6 @@ export class EditUserPasswordComponent implements OnInit {
       }
     });
     
-    // Initialize the form with password matching validators
     this.passwordForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(3)]],
       confirmPassword: ['', Validators.required]
@@ -60,7 +56,6 @@ export class EditUserPasswordComponent implements OnInit {
     });
   }
   
-  // Custom validator to check if passwords match
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
@@ -74,7 +69,6 @@ export class EditUserPasswordComponent implements OnInit {
     }
   }
   
-  // Convenience getter for easy access to form fields
   get f() { return this.passwordForm.controls; }
   
   onSubmit(): void {
@@ -82,7 +76,6 @@ export class EditUserPasswordComponent implements OnInit {
     this.error = '';
     this.success = '';
     
-    // Stop here if form is invalid
     if (this.passwordForm.invalid) {
       return;
     }
@@ -94,14 +87,12 @@ export class EditUserPasswordComponent implements OnInit {
       newPassword: this.f['password'].value
     };
     
-    // If not in reset mode, we need to get the user ID
     if (!this.isResetMode) {
       const currentUser = this.authService.currentUserValue;
       if (!currentUser) {
         this.router.navigate(['/login']);
         return;
       }
-      // Include user ID for normal password change
     }
     
     this.userService.resetPassword(resetData)
@@ -119,7 +110,6 @@ export class EditUserPasswordComponent implements OnInit {
             this.passwordForm.reset();
             this.submitted = false;
             
-            // Log the user out if we're in reset mode or update user data if we're not
             if (this.isResetMode) {
               if (this.authService.currentUserValue) {
                 timer(3000).subscribe(() => {
@@ -127,7 +117,6 @@ export class EditUserPasswordComponent implements OnInit {
               });
               }
             } else {
-              // Update the lastModifyDate in the stored user data
               const currentUser = this.authService.currentUserValue;
               if (currentUser) {
                 const updatedUser = {
@@ -151,7 +140,6 @@ export class EditUserPasswordComponent implements OnInit {
           }
         },
         error: (err) => {
-          // Check if the error response contains a parsed JSON body
           if (err.error && err.error.errorMessage) {
             this.error = err.error.errorMessage;
           } else {
@@ -166,7 +154,7 @@ export class EditUserPasswordComponent implements OnInit {
         }
   
   
-  // Add this new method to the component class
+
   
   
  })}}

@@ -41,15 +41,15 @@ export interface CartItem {
 })
 export class CartService {
   private apiUrl = `${environment.apiUrl}`;
-  private cartItemCountSource = new BehaviorSubject<number>(0); // BehaviorSubject for cart count
-  cartItemCount$ = this.cartItemCountSource.asObservable(); // Observable to subscribe to cart count
+  private cartItemCountSource = new BehaviorSubject<number>(0); 
+  cartItemCount$ = this.cartItemCountSource.asObservable(); 
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) {}
 
-  // Get cart ID for the current user
+
   getCartByUserId(): Observable<number> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
@@ -67,7 +67,7 @@ export class CartService {
       );
   }
 
-  // Get all items in a cart
+
   getCartItems(cartId: number): Observable<CartItem[]> {
     return this.http.get<ApiResponse<CartItem[]>>(`${this.apiUrl}/Cart/GetAllItems/${cartId}`)
       .pipe(
@@ -78,9 +78,9 @@ export class CartService {
           throw new Error(response.errorMessage || 'Failed to get cart items');
         }),
         catchError((error: HttpErrorResponse) => {
-          // Check if this is the specific empty cart error
+        
           if (error.status === 404 && error.error && error.error.errorMessage === "Cart is empty.") {
-            // Return an empty array instead of throwing an error for empty carts
+
             return of([]);
           }
           return throwError(() => new Error(error.error?.errorMessage || 'Failed to get cart items'));
@@ -88,7 +88,7 @@ export class CartService {
       );
   }
 
-  // Add item to cart
+  
   addToCart(productId: number,cartId: number, quantity: number = 1): Observable<any> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
@@ -110,14 +110,14 @@ export class CartService {
     );
   }
 
-  // Update cart item quantity
+
   updateCartItemQuantity(cartItemId: number, quantity: number): Observable<any> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
       throw new Error('User not authenticated');
     }
     console.log(cartItemId,quantity,1)
-    // Fetch the cartId associated with the user
+
     return this.getCartByUserId().pipe(
       switchMap(cartId => {
         console.log('Payload:', { cartItemId, quantity });
@@ -129,7 +129,7 @@ export class CartService {
             if (response && response.isSuccess) {
               console.log(response)
               console.log(cartItemId,quantity,1)
-              this.updateCartCount(cartId); // Update the cart count after quantity update
+              this.updateCartCount(cartId); 
               return response.result;
             }
             throw new Error(response.errorMessage || 'Failed to update cart item');
@@ -140,20 +140,20 @@ export class CartService {
   }
   
 
-  // Remove item from cart
+
   removeFromCart(cartItemId: number): Observable<any> {
     const userId = this.authService.currentUserValue?.id;
     if (!userId) {
       throw new Error('User not authenticated');
     }
   
-    // Fetch the cartId associated with the user
+  
     return this.getCartByUserId().pipe(
       switchMap(cartId => {
         return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/Cart/RemoveItem/${cartItemId}`).pipe(
           map(response => {
             if (response && response.isSuccess) {
-              this.updateCartCount(cartId); // Update the cart count after removal
+              this.updateCartCount(cartId); 
               return response.result;
             }
             throw new Error(response.errorMessage || 'Failed to remove item from cart');
@@ -178,7 +178,7 @@ export class CartService {
       );
   }
   
-  // Get total price including shipping for a cart
+
   getCartTotal(cartId: number): Observable<number> {
     return this.http.get<ApiResponse<number>>(`${this.apiUrl}/Cart/GetTotal/${cartId}`)
       .pipe(
@@ -196,12 +196,12 @@ export class CartService {
   private updateCartCount(cartId: number): void {
     this.getCartItems(cartId).subscribe(
       (items) => {
-        const itemCount = items.reduce((total, item) => total + item.quantity, 0); // Sum up item quantities
-        this.cartItemCountSource.next(itemCount); // Emit updated count
+        const itemCount = items.reduce((total, item) => total + item.quantity, 0); 
+        this.cartItemCountSource.next(itemCount); 
       },
       (error) => {
         console.error('Failed to fetch cart items for count update', error);
-        this.cartItemCountSource.next(0); // Fallback to 0 if error occurs
+        this.cartItemCountSource.next(0); 
       }
     );
   }
@@ -224,7 +224,7 @@ export class CartService {
       .pipe(
         map(response => {
           if (response && response.isSuccess) {
-            this.cartItemCountSource.next(0); // Reset cart count
+            this.cartItemCountSource.next(0); 
             return response.result;
           }
           throw new Error(response.errorMessage || 'Failed to clear cart');

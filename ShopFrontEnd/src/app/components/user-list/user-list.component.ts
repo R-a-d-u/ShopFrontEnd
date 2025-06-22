@@ -105,14 +105,14 @@ export class UserListComponent implements OnInit {
           this.currentPage = response.result.pageNumber;
           this.errorMessage = null;
         } else {
-          // Use the error message directly from the API response
+         
           this.errorMessage = response.errorMessage;
           this.users = [];
         }
         this.loading = false;
       },
       error: (error) => {
-        // Handle HTTP errors (like 500, 404, etc.)
+ 
         this.errorMessage = error.error?.errorMessage || 'An error occurred while loading users';
         this.loading = false;
         this.users = [];
@@ -160,7 +160,7 @@ export class UserListComponent implements OnInit {
   }
 
   viewUserDetails(userId: number): void {
-    // Placeholder for view user details functionality
+   
     this.messageService.add({
       severity: 'info',
       summary: 'View User',
@@ -186,7 +186,7 @@ export class UserListComponent implements OnInit {
   }
 
   handleAuthSuccess(userId: number): void {
-    // Authentication was successful, proceed with the appropriate action
+  
     if (this.dialogHeader === "Confirm new role as admin!") {
       this.userService.setUserAsAdmin(userId).subscribe({
         next: (response) => {

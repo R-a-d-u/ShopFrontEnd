@@ -59,7 +59,7 @@ export class GoldGraphComponent implements OnInit {
       indexlabelLineThickness:2,
       type: "spline",
       name: "",
-      lineColor: "#c5a47e",  // Default color, will change based on 'id'
+      lineColor: "#c5a47e",  
       color: "white",
       yValueFormatString: "$#,###.00",
       xValueType: "dateTime",
@@ -69,11 +69,10 @@ export class GoldGraphComponent implements OnInit {
 
   getChartInstance(chart: object) {
     this.chart = chart;
-    this.loadGoldPrices();  // Ensure the chart is ready before modifying subtitles
+    this.loadGoldPrices();  
   }
 
   ngOnInit(): void {
-    // Update chart title based on the `id`
     if (this.id === 1) {
       this.chartOptions.title.text = "Gold Price per Gram";
       this.chartOptions.data[0].name = "Gold Price per Gram";
@@ -84,7 +83,7 @@ export class GoldGraphComponent implements OnInit {
       this.chartOptions.axisY.title="Price per Ounce (in USD)";
     }
 
-    // Manually trigger change detection to ensure the updated options are reflected
+ 
     this.cdr.detectChanges();
   }
 
@@ -94,21 +93,21 @@ export class GoldGraphComponent implements OnInit {
         if (response.isSuccess && response.result.length > 0) {
           this.dataPoints.length = 0;
 
-          // Push data depending on the `id`
+
           response.result.forEach((data: any) => {
             if (this.id === 1) {
-              // For Grams
+          
               this.dataPoints.push({ x: new Date(data.date), y: Number(data.priceGram) });
             } else if (this.id === 2) {
-              // For Ounces
+   
               this.dataPoints.push({ x: new Date(data.date), y: Number(data.priceOunce) });
             }
           });
 
-          // Remove the "Loading Data..." subtitle after data is loaded
+    
           if (this.chart) {
             this.chart.subtitles[0].remove();
-            this.chart.render();  // Re-render the chart after the data is updated
+            this.chart.render();  
           }
         } else {
           if (this.chart) {

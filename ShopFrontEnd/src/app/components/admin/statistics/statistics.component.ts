@@ -130,7 +130,6 @@ export class StatisticsComponent implements OnInit {
       data: [{
         type: "pie",
         click: (e: { dataPoint: any; }) => {
-          // Create a detailed view when a pie slice is clicked
           const selectedItem = e.dataPoint;
           this.selectedProductDetails = {
             productName: selectedItem.label,
@@ -157,7 +156,6 @@ export class StatisticsComponent implements OnInit {
     };
   }
 
-  // Add this property to the component class
   selectedProductDetails: {
     productName?: string,
     sellingPercentage?: number,
@@ -195,13 +193,10 @@ export class StatisticsComponent implements OnInit {
   }
 
 
-  // ... rest of the methods remain the same as in the previous implementation
 
   getChartInstance(chart: any) {
-    // Optional chart instance handling
   }
   onAnalysisTypeChange(): void {
-    // Only fetch if we have start and end dates
     if (this.startDate && this.endDate) {
       this.fetchStatistics();
     }

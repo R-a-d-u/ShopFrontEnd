@@ -44,7 +44,7 @@ export class CustomerOrderListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.userId = +params['id']; // Match the same parameter name 'id' as in user-view-analytics
+      this.userId = +params['id']; 
       if (this.userId) {
         this.loadOrders();
       } else {
@@ -163,7 +163,6 @@ export class CustomerOrderListComponent implements OnInit {
     });
   }
 
-  // Helper methods for status updates
   private confirmUpdateStatus(orderId: string, statusName: string, callback: () => void): void {
     this.confirmationService.confirm({
       message: `Are you sure you want to update this order's status to ${statusName}?`,

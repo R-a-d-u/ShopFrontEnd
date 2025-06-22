@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
-    // Redirect if already logged in
     if (this.authService.isAuthenticated()) {
       this.redirectBasedOnRole();
     }
@@ -32,13 +31,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Convenience getter for form fields
   get f() { return this.loginForm.controls; }
 
   onSubmit(): void {
     this.submitted = true;
 
-    // Stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }

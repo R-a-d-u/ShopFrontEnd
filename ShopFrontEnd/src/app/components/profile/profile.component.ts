@@ -42,7 +42,7 @@ requestPasswordReset(): void {
 
   this.userService.requestPasswordReset(this.currentUser.email)
     .pipe(finalize(() => {
-      // you can toggle loading state here if needed
+     
     }))
     .subscribe({
       next: (response) => {

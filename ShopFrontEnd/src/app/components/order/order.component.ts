@@ -15,7 +15,7 @@ export class OrderComponent implements OnInit {
   order: OrderDto | null = null;
   loading = true;
   error: string | null = null;
-  user: User | null = null;  // Add user property
+  user: User | null = null; 
   currentUrl: string = '';
   imageLoadFailedMap: { [productId: number]: boolean } = {};
 
@@ -41,14 +41,12 @@ export class OrderComponent implements OnInit {
     this.loading = true;
     this.orderService.getOrderById(orderId).subscribe({
       next: (data) => {
-        // Check if current user is allowed to view this order
         const currentUser = this.authService.currentUserValue;
         if (currentUser && (this.authService.isAdmin()|| this.authService.isEmployee() || data.userId === currentUser.id)) {
           this.order = data;
           this.fetchUserInfo(data.userId);
           this.loading = false;
         } else {
-          // Not authorized to view this order
           this.router.navigate(['/unauthorized']);
         }
       },
@@ -62,15 +60,15 @@ export class OrderComponent implements OnInit {
     this.imageLoadFailedMap[productId] = true;
   }
   fetchUserInfo(userId: number): void {
-    this.loading = true;  // Set loading to true while fetching user info
+    this.loading = true; 
     this.userService.getUserById(userId).subscribe({
       next: (response) => {
         if (response.isSuccess) {
-          this.user = response.result;  // Assign the user info to the user property
+          this.user = response.result;  
         } else {
           this.error = 'Failed to fetch user info';
         }
-        this.loading = false;  // Set loading to false once the request is done
+        this.loading = false;  
       },
       error: (err) => {
         console.error('Failed to fetch user info:', err);

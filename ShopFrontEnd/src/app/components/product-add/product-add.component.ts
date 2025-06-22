@@ -83,11 +83,9 @@ export class ProductAddComponent implements OnInit {
 
     if (sellingPrice <= 0) {
       sellingPriceControl?.setErrors({ min: true });
-      // Also mark the form as invalid
       this.productForm.setErrors({ invalidSellingPrice: true });
     } else {
       sellingPriceControl?.setErrors(null);
-      // Clear any selling price errors from the form
       if (this.productForm.errors?.['invalidSellingPrice']) {
         const errors = { ...this.productForm.errors };
         delete errors['invalidSellingPrice'];
@@ -145,9 +143,8 @@ export class ProductAddComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.validateSellingPrice(); // Add validation check before submit
+    this.validateSellingPrice(); 
 
-    // Manually check selling price since the field is disabled
     const sellingPrice = this.productForm.get('sellingPrice')?.value;
     if (sellingPrice <= 0) {
 
@@ -161,7 +158,7 @@ export class ProductAddComponent implements OnInit {
     this.loading = true;
     const productData = { 
       ...this.productForm.getRawValue(), 
-      productType: Number(this.productForm.get('productType')?.value), // force number
+      productType: Number(this.productForm.get('productType')?.value), 
       productState: 1 
     };
 

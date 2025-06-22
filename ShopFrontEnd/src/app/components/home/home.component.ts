@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     this.goldHistoryService.getLastGoldPriceHistory().pipe(
       switchMap(response => {
         if (response && response.isSuccess) {
-          this.goldPriceHistory = response.result; // This is now a typed object
+          this.goldPriceHistory = response.result; 
           return of(response);
         } else {
           this.error = response?.errorMessage || 'Failed to fetch gold price history';

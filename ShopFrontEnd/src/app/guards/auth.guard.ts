@@ -28,17 +28,17 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    // Check if user is authenticated
+   
     if (!this.authService.isAuthenticated()) {
       return this.router.createUrlTree(['/login']);
     }
     
-    // Check for role-based access if specified in route data
+
     if (route.data['roles']) {
       const requiredRoles = route.data['roles'] as string[];
       let hasRequiredRole = false;
       
-      // Check if user has any of the required roles
+     
       if (requiredRoles.includes('admin') && this.authService.isAdmin()) {
         hasRequiredRole = true;
       }
@@ -51,23 +51,23 @@ export class AuthGuard implements CanActivate {
         hasRequiredRole = true;
       }
       
-      // If user doesn't have any required role, redirect
+     
       if (!hasRequiredRole) {
         return this.router.createUrlTree(['/unauthorized']);
       }
     }
     
-    // Check for order access if this is an order detail route
+   
     if (state.url.includes('/orders/') && route.params['id']) {
       const orderId = route.params['id'];
       const currentUser = this.authService.currentUserValue;
       
-      // Admin users can access any order
+    
       if (this.authService.isAdmin()) {
         return true;
       }
       
-      // For regular users, check if the order belongs to them
+   
       return this.orderService.getOrderById(orderId).pipe(
         map(order => {
           if(currentUser)

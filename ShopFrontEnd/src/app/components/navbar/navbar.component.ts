@@ -66,9 +66,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.updateCartCount();
     this.loadCategories();
-    // Modified event listener for document clicks
     document.addEventListener('mousedown', (event) => {
-      // Only close if the click is outside the search container element
       const searchContainerEl = document.querySelector('.search-container');
       if (searchContainerEl && !searchContainerEl.contains(event.target as Node)) {
         this.isSearchOpen = false;
@@ -137,7 +135,6 @@ export class NavbarComponent implements OnInit,OnDestroy {
     }
     this.isSearchOpen = !this.isSearchOpen;
     
-    // Focus the input field when opening the search
     if (this.isSearchOpen) {
       setTimeout(() => {
         this.searchInput.nativeElement.focus();

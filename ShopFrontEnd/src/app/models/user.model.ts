@@ -1,5 +1,5 @@
 export enum UserAccessType {
-    Customer = 1,  // Update these values to match your backend enum
+    Customer = 1,  
     Employee = 2,
     Admin = 3
   }
@@ -10,7 +10,7 @@ export enum UserAccessType {
     email: string;
     phoneNumber: string;
     userAccessType: UserAccessType;
-    lastModifyDate: string;  // Using string for date from API
+    lastModifyDate: string;  
     isDeleted: boolean;
   }
   

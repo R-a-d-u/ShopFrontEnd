@@ -55,15 +55,12 @@ export class CategoryListComponent implements OnInit {
     this.showAuthDialog = true;
   }
   handleAuthSuccess(categoryId: number): void {
-    // Authentication was successful, proceed with category deletion
     this.categoryService.deleteCategory(categoryId).subscribe({
       next: (success) => {
         if (success) {
-          // Remove the deleted category from the lists
           this.categories = this.categories.filter(category => category.id !== categoryId);
           this.filteredCategories = this.filteredCategories.filter(category => category.id !== categoryId);
 
-          // Show success toast
           this.messageService.add({
             severity: 'warn',
             summary: 'Category Deleted',

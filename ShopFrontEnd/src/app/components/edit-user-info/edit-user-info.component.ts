@@ -28,13 +28,11 @@ export class EditUserInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Initialize the form
     this.editForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
     });
     
-    // Get current user ID
     const currentUser = this.authService.currentUserValue;
     if (!currentUser) {
       this.router.navigate(['/login']);
@@ -43,7 +41,6 @@ export class EditUserInfoComponent implements OnInit {
     
     this.userId = currentUser.id;
     
-    // Load user data
     this.loading = true;
     this.userService.getUserById(this.userId).pipe(
       finalize(() => this.loading = false)
@@ -65,13 +62,11 @@ export class EditUserInfoComponent implements OnInit {
     });
   }
   
-  // Convenience getter for easy access to form fields
   get f() { return this.editForm.controls; }
   
   onSubmit(): void {
     this.submitted = true;
     
-    // Stop here if form is invalid
     if (this.editForm.invalid) {
       return;
     }
@@ -95,7 +90,6 @@ export class EditUserInfoComponent implements OnInit {
               detail: 'User info updated successfully.',
               life: 1500 // 2 seconds
             });
-            // Update the local storage user data
             const currentUser = this.authService.currentUserValue;
             if (currentUser) {
               const updatedUser = {
@@ -108,7 +102,6 @@ export class EditUserInfoComponent implements OnInit {
               this.authService['currentUserSubject'].next(updatedUser);
             }
             
-            // Navigate to profile or dashboard
             setTimeout(() => {
               this.router.navigate(['/profile']);
             }, 2000);

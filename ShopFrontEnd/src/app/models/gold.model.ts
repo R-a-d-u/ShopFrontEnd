@@ -7,7 +7,7 @@ export interface GoldPriceHistory {
     priceGram: number;
     percentageChange: number;
     exchange: string;
-    timestamp: string; // or number depending on your API response format
+    timestamp: string;
     date: string;
   }
   

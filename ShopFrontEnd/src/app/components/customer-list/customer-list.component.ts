@@ -148,7 +148,6 @@ export class CustomerListComponent implements OnInit {
   }
 
   handleAuthSuccess(userId: number): void {
-    // This method is kept for compatibility with auth dialog, but it's not used in this component
     console.log('Auth success for user:', userId);
   }
 }

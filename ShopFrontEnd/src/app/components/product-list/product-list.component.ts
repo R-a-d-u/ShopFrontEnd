@@ -21,13 +21,11 @@ export class ProductListComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string | null = null;
   
-  // Pagination
   currentPage: number = 1;
   pageSize: number = 5;
   totalItems: number = 0;
   totalPages: number = 0;
   
-  // Search and filter options
   searchOptions: SearchOption[] = [
     { label: 'All Discontinued', value: 'discontinued' },
     { label: 'By Category', value: 'category' },
@@ -37,7 +35,6 @@ export class ProductListComponent implements OnInit {
   searchName: string = '';
   selectedCategoryId: number = 1;
   
-  // List of categories (would typically be fetched from a service)
   categories: CategoryDto[] = [];
 
   constructor(
@@ -61,7 +58,7 @@ export class ProductListComponent implements OnInit {
         }
       },
       error: (error) => {
-        // Use API's error message if available
+      
         const errorMsg = error.error?.errorMessage || error.message || 'Failed to load categories';
         this.messageService.add({
           severity: 'error',
@@ -101,13 +98,13 @@ export class ProductListComponent implements OnInit {
             this.currentPage = response.result.pageNumber;
             this.pageSize = response.result.pageSize;
           } else {
-            // Use API's error message
+       
             this.errorMessage = response.errorMessage || 'Unknown error occurred';
           }
           this.loading = false;
         },
         error: (error) => {
-          // Use API's error message if available
+          
           this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
           this.loading = false;
         }
@@ -124,13 +121,13 @@ export class ProductListComponent implements OnInit {
             this.currentPage = response.result.pageNumber;
             this.pageSize = response.result.pageSize;
           } else {
-            // Use API's error message
+          
             this.errorMessage = response.errorMessage || 'Unknown error occurred';
           }
           this.loading = false;
         },
         error: (error) => {
-          // Use API's error message if available
+       
           this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
           this.loading = false;
         }
@@ -159,13 +156,13 @@ export class ProductListComponent implements OnInit {
           this.currentPage = response.result.pageNumber;
           this.pageSize = response.result.pageSize;
         } else {
-          // Use API's error message
+         
           this.errorMessage = response.errorMessage || 'Unknown error occurred';
         }
         this.loading = false;
       },
       error: (error) => {
-        // Use API's error message if available
+        
         this.errorMessage = error.error?.errorMessage || error.message || 'Error loading products';
         this.loading = false;
       }
@@ -173,12 +170,12 @@ export class ProductListComponent implements OnInit {
 }
 
   onSearchOptionChange(): void {
-    this.currentPage = 1; // Reset to first page
+    this.currentPage = 1; 
     this.loadProducts();
   }
 
   onSearch(): void {
-    this.currentPage = 1; // Reset to first page
+    this.currentPage = 1; 
     this.loadProducts();
   }
 
@@ -196,7 +193,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  // Action methods
+
   viewProductDetails(productId: number): void {
     this.router.navigate(['/admin/product/product-details', productId]);
   }
@@ -221,7 +218,7 @@ export class ProductListComponent implements OnInit {
                 summary: 'Success',
                 detail: 'Product marked as Discontinued'
               });
-              this.loadProducts(); // Reload products after status change
+              this.loadProducts(); 
             } else {
               this.messageService.add({
                 severity: 'error',
@@ -246,7 +243,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['/admin/product/add']);
   }
 
-  // Helper methods
+
   getProductTypeName(typeId: number): string {
     switch (typeId) {
       case 1: return 'Jewelry';

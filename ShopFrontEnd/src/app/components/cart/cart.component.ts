@@ -20,10 +20,8 @@ export class CartComponent implements OnInit {
   totalPrice = 0;
   imageLoadFailedMap: { [productId: number]: boolean } = {};
   
-  // To store cart ID for API calls
   cartId: number | null = null;
   
-  // States to handle specific error cases
   cartNotFound = false;
   cartEmpty = true;
 
@@ -35,7 +33,6 @@ export class CartComponent implements OnInit {
   {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Set to true only when navigating to the cart page
         this.isNavigatingToPage = event.url.includes('/cart');
       }
     });
@@ -68,7 +65,7 @@ export class CartComponent implements OnInit {
             this.cartEmpty = items.length === 0;
             
             if (!this.cartEmpty) {
-              this.loadCartPricing(cartId); // Load shipping and total from API
+              this.loadCartPricing(cartId); 
             } else {
               this.loading = false;
             }
@@ -102,13 +99,13 @@ export class CartComponent implements OnInit {
     this.loading = true;
   
     if (quantity === 0) {
-      this.removeItem(item.id); // Remove item if quantity is 0
+      this.removeItem(item.id); 
       return;
     }
   
     this.cartService.updateCartItemQuantity(item.id, quantity).subscribe({
       next: () => {
-        item.quantity = quantity; // Update UI quantity
+        item.quantity = quantity; 
   
         if (this.cartId) {
           this.loadCartPricing(this.cartId);
@@ -135,7 +132,7 @@ export class CartComponent implements OnInit {
       error: (error) => {
         this.error = error.message || 'Failed to update quantity';
         this.loading = false;
-        this.loadCartItems(); // Reload the cart if update fails
+        this.loadCartItems(); 
       }
     });
   }
@@ -167,7 +164,6 @@ export class CartComponent implements OnInit {
   }
 
   loadCartPricing(cartId: number): void {
-    // Use forkJoin to make both API calls in parallel
     forkJoin({
       shipping: this.cartService.getShippingPrice(cartId).pipe(
         catchError(error => {

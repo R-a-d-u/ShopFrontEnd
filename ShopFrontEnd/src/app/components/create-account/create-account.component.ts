@@ -20,7 +20,6 @@ export class CreateAccountComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) {
-    // Redirect if already logged in
     if (this.authService.isAuthenticated()) {
       this.redirectBasedOnRole();
     }
@@ -36,20 +35,17 @@ export class CreateAccountComponent implements OnInit {
     }, { validator: this.passwordMatchValidator });
   }
 
-  // Custom validator to check if passwords match
   private passwordMatchValidator(formGroup: FormGroup): null | object {
     return formGroup.get('password')!.value === formGroup.get('confirmPassword')!.value 
       ? null 
       : { mismatch: true };
   }
 
-  // Convenience getter for form fields
   get f() { return this.createAccountForm.controls; }
 
   onSubmit(): void {
     this.submitted = true;
 
-    // Stop if form is invalid
     if (this.createAccountForm.invalid) {
       return;
     }

@@ -11,7 +11,7 @@ export class AosService {
       // Global settings
       duration: 1000,
       easing: 'ease-in-out',
-      once: false // Set to false to repeat animations
+      once: false 
     });
   }
 

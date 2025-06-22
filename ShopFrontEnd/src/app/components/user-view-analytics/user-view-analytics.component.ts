@@ -62,8 +62,7 @@ export class UserViewAnalyticsComponent implements OnInit {
         if (response.isSuccess) {
           this.userStats = response.result;
         } else {
-          // Just store the API error message, don't treat this as a critical error
-          // since the user data was loaded successfully
+         
           this.userStats = null;
         }
       },

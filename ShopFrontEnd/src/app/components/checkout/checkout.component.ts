@@ -29,18 +29,15 @@ export class CheckoutComponent implements OnInit {
   error = '';
   success = '';
 
-  // Cart details
   cartId: number | null = null;
   subtotalPrice = 0;
   shippingPrice = 0;
   totalPrice = 0;
   imageLoadFailedMap: { [productId: number]: boolean } = {};
 
-  // Enums for template access
   paymentMethodEnum = PaymentMethod;
   shippingTypeEnum = ShippingType;
 
-  // For determining shipping method selection
   shippingMethods = [
     { type: ShippingType.Standard, name: 'Standard Shipping', price: 100.00, duration: '5-7 business days using our reliable regular shipping service.' },
     { type: ShippingType.Express, name: 'Express Shipping', price: 50.00, duration: '2-3 business days with our expedited regular shipping service.' },
@@ -121,12 +118,10 @@ export class CheckoutComponent implements OnInit {
     this.loading = true;
     this.error = '';
 
-    // Get cart ID
     this.cartService.getCartByUserId().subscribe({
       next: (cartId) => {
         this.cartId = cartId;
 
-        // Get cart items
         this.cartService.getCartItems(cartId).subscribe({
           next: (items) => {
             this.cartItems = items;
@@ -137,15 +132,12 @@ export class CheckoutComponent implements OnInit {
               return;
             }
 
-            // Get shipping price
             this.cartService.getShippingPrice(cartId).subscribe({
               next: (shippingPrice) => {
                 this.shippingPrice = shippingPrice;
 
-                // Determine the selected shipping method based on price
                 this.determineShippingMethod(shippingPrice);
 
-                // Get total price
                 this.cartService.getCartTotal(cartId).subscribe({
                   next: (totalPrice) => {
                     this.subtotalPrice = totalPrice ;
@@ -178,19 +170,16 @@ export class CheckoutComponent implements OnInit {
   }
 
   determineShippingMethod(price: number): void {
-    // Find the shipping method that matches the price
     const method = this.shippingMethods.find(m => Math.abs(m.price - price) < 0.01);
     if (method) {
       this.selectedShippingMethod = method.type;
     } else {
-      // Default to standard if no match found
       this.selectedShippingMethod = ShippingType.Standard;
     }
   }
 
   onSubmit(): void {
     if (this.checkoutForm.invalid) {
-      // Mark all fields as touched to trigger validation messages
       Object.keys(this.checkoutForm.controls).forEach(key => {
         this.checkoutForm.get(key)?.markAsTouched();
       });
@@ -206,21 +195,17 @@ export class CheckoutComponent implements OnInit {
     this.error = '';
     this.success = '';
 
-    // Concatenate address details
     const formValues = this.checkoutForm.value;
     const fullAddress = `${formValues.address}, ${formValues.city}, ${formValues.county}, ${formValues.zipCode}, ${formValues.country}`;
 
-    // Convert payment method to enum value
     const paymentMethod = formValues.paymentMethod === 'credit' ? PaymentMethod.CreditCard : PaymentMethod.CashOnDelivery;
 
-    // Create order
     this.orderService.createOrderFromCart(this.cartId, fullAddress, paymentMethod).subscribe({
       next: (result) => {
         this.success = 'Order placed successfully!';
         this.loading = false;
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Navigate to order confirmation page
         setTimeout(() => {
           this.router.navigate(['/my-orders']);
         }, 2500);

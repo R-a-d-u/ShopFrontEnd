@@ -152,7 +152,6 @@ export class OrderListComponent implements OnInit {
     this.router.navigate(['/admin/order/details', orderId]);
   }
 
-  // New methods for status updates
   updateToProcessing(orderId: string): void {
     this.confirmUpdateStatus(orderId, 'Processing', () => {
       this.orderService.updateStatusToProcessing(orderId).subscribe({
@@ -198,7 +197,7 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  // Helper methods for status updates
+  
   private confirmUpdateStatus(orderId: string, statusName: string, callback: () => void): void {
     this.confirmationService.confirm({
       message: `Are you sure you want to update this order's status to ${statusName}?`,
