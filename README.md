@@ -17,12 +17,37 @@ A sophisticated e-commerce platform specialized in gold products, featuring dyna
 
 ## 🏗️ Architecture
 
+### Backend (ShopBackEnd)
+- **Framework**: ASP.NET Core 8.0
+- **Database**: Entity Framework Core with SQL Server/Azure SQL
+- **Authentication**: JWT Bearer tokens
+- **API Documentation**: Swagger/OpenAPI
+- **Validation**: FluentValidation
+- **Security**: BCrypt password hashing
+
 ### Frontend (ShopFrontEnd)
 - **Framework**: Angular with TypeScript
 - **UI Components**: PrimeNG
 - **Charts**: CanvasJS for gold price visualization
 - **Animations**: AOS (Animate On Scroll)
 - **Styling**: Custom CSS with responsive design
+
+### Cloud Services
+- **Database**: Azure SQL Database
+- **Automation**: Azure Timer Functions for daily gold price updates
+- **Email**: SendGrid integration for notifications
+
+## 🛠️ Technology Stack
+
+### Backend Technologies
+- ASP.NET Core 8.0 (C#)
+- Entity Framework Core
+- FluentValidation
+- BCrypt.Net-Next
+- JWT Bearer Authentication
+- FluentMigrator
+- SendGrid
+- System.Text.Json
 
 ### Frontend Technologies
 - Angular
@@ -32,9 +57,8 @@ A sophisticated e-commerce platform specialized in gold products, featuring dyna
 - CanvasJS
 - AOS Animation Library
 
-
-- .NET 8.0 SDK
-- Node.js (v16 or higher)
-- Angular CLI
-- SQL Server LocalDB or SQL Server
-- Azure account (for cloud deployment)
+### Database & Cloud
+- SQL Server (Local Development)
+- Azure SQL Database (Production)
+- Azure Timer Functions
+- Azure App Service
