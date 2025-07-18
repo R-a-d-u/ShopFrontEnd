@@ -3,10 +3,10 @@
 A sophisticated e-commerce platform specialized in gold products, featuring dynamic pricing based on real-time gold market rates and comprehensive administrative capabilities.
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold3.gif" alt="2" width="700">
-  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold5.gif" alt="4" width="700">
-  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold2.gif" alt="1" width="700">
-  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold4.gif" alt="3" width="700">
+ <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold2.gif" alt="1" width="850">
+  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold3.gif" alt="2" width="850">
+  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold5.gif" alt="4" width="850">
+  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold4.gif" alt="3" width="850">
 </div>
 
 
