@@ -7,8 +7,8 @@ A sophisticated e-commerce platform specialized in gold products, featuring dyna
 **Luxury & Gold** is a full-stack web application that enables users to browse, purchase, and manage gold products including jewelry, coins, and bars. The platform integrates real-time gold pricing from international markets and provides a complete e-commerce experience with advanced features for both customers and administrators.
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
- <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold3.gif" alt="1" width="850">
-  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold9.gif" alt="2" width="850">
+ <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold9.gif" alt="1" width="850">
+  <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold3.gif" alt="2" width="850">
   <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold10.gif" alt="4" width="850">
   <img src="https://raw.githubusercontent.com/R-a-d-u/ShopFrontEnd/master/ShopFrontEnd/src/assets/ScreenGold7.gif" alt="3" width="850">
 </div>
